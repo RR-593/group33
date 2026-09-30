@@ -1,0 +1,42 @@
+<article class="shelf" id="shelf-{{ include.shelf.number }}">
+  <div class="shelf__header">
+    <h3 class="shelf__title">{{ include.shelf.title }}</h3>
+    <p class="shelf__position" aria-hidden="true">{{ include.shelf.number }}/{{ site.data.shelves.size }}</p>
+  </div>
+
+  <figure class="shelf__media">
+    <img
+      class="shelf__image{% if include.shelf.portrait %} shelf__image--portrait{% endif %}"
+      src="{{ include.shelf.image | relative_url }}"
+      alt="{{ include.shelf.alt_text }}"
+      width="1280"
+      height="853"
+      loading="lazy">
+    {% if include.shelf.caption and include.shelf.caption != "" %}
+      <figcaption class="shelf__caption">{{ include.shelf.caption }}</figcaption>
+    {% endif %}
+  </figure>
+
+  {% if include.shelf.standfirst and include.shelf.standfirst != "" %}
+    <p class="shelf__standfirst">{{ include.shelf.standfirst }}</p>
+  {% endif %}
+
+  <div class="shelf__actions">
+    <a class="btn btn--pill" href="{{ include.shelf.explore_url | relative_url }}">
+      Explore
+      {% include icons/external-link.html %}
+      <span class="visually-hidden">{{ include.shelf.title }}</span>
+    </a>
+    <!-- Placeholder control: wire up to real audio/video playback when media is available. -->
+    <button type="button" class="icon-btn icon-btn--circle" aria-label="Play media for {{ include.shelf.title }}">
+      {% include icons/play.html %}
+    </button>
+  </div>
+
+  {% if include.shelf.has_next %}
+    <a class="btn btn--pill btn--quiet btn--full shelf__next" href="#shelf-{{ include.shelf.next_number }}">
+      Scroll for next shelf
+      {% include icons/chevron-down.html %}
+    </a>
+  {% endif %}
+</article>
