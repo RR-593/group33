@@ -11,9 +11,14 @@ and visible keyboard focus.
 
 # Exhibition image provenance
 
-The exhibition at `/exhibition/` reuses six photographs under open licences.
-Each is credited in its on-page caption, generated from `_data/shelves.yml`.
+The exhibition at `/exhibition/` displays three photographs under open licences,
+each credited in its on-page caption, generated from `_data/shelves.yml`.
 Licence terms differ, so keep the caption accurate if an image is swapped.
+
+Three further files remain in the repository but are no longer displayed: they
+belonged to the "Also on this shelf" sections, which have been removed. Their
+records are kept below so the rights position stays documented for as long as
+the files are present.
 
 Five files below were matched to their source by MD5 checksum: the file in this
 repository is byte-for-byte identical to the file at the URL given. All were
@@ -43,12 +48,16 @@ shared alike.
 
 ### `assets/images/votive-wall-shelves.jpg`
 
+*Not currently displayed on the site.*
+
 Same site and photographer, file 10 of the series. Photograph by
 **P.poschadel**, 20 March 2013. **CC BY-SA 3.0.**
 
 - File: <https://commons.wikimedia.org/wiki/File:Senlis_(60),_mus%C3%A9e_d%27art_et_d%27arch%C3%A9ologie,_ex-voto_du_temple_gallo-romain_de_la_for%C3%AAt_d%27Halatte_10.jpg>
 
 ### `assets/images/votive-faces.jpg`
+
+*Not currently displayed on the site.*
 
 *Three Roman votive offerings representing faces.* Wellcome Collection,
 reference L0036388. **CC BY 4.0** - the source must be credited.
@@ -66,6 +75,8 @@ Note: the caption adds "Peabody Museum collection". The Commons record names
 only the Fitchburg Art Museum. Confirm before publication.
 
 ### `assets/images/takhos-sarcophagus.jpg` - source not yet verified
+
+*Not currently displayed on the site.*
 
 A historic photographic print. The caption written into the negative reads
 "Sarkophage of the dwarf Takhos (Ptolem. periode)" and "Cairo Museum", numbered

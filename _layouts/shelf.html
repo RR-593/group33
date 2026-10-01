@@ -46,24 +46,6 @@
         {% endfor %}
       </div>
 
-      {% if shelf.objects and shelf.objects.size > 0 %}
-        <section class="detail__objects" aria-labelledby="also-on-this-shelf">
-          <h2 class="detail__section-title" id="also-on-this-shelf">Also on this shelf</h2>
-          {% for object in shelf.objects %}
-            <figure class="detail__media">
-              <img
-                class="detail__image"
-                src="{{ object.image | relative_url }}"
-                alt="{{ object.alt_text }}"
-                width="1280"
-                height="853"
-                loading="lazy">
-              <figcaption class="detail__caption">{{ object.caption }}</figcaption>
-            </figure>
-          {% endfor %}
-        </section>
-      {% endif %}
-
       {% if shelf.context and shelf.context.size > 0 %}
         <aside class="detail__context" aria-labelledby="shelf-context">
           <h2 class="detail__section-title" id="shelf-context">{{ shelf.context_title }}</h2>

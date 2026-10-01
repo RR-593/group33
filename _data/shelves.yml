@@ -5,7 +5,7 @@
 #
 # Each entry drives TWO things:
 #   1. the shelf card on the landing page (title, image, caption, standfirst)
-#   2. the shelf's own page at /exhibition/shelves/<slug>/ (body, objects, context)
+#   2. the shelf's own page at /exhibition/shelves/<slug>/ (body and context)
 #
 # To add a fourth shelf: copy a block, give it a new number and slug, fix the
 # has_next / next_number fields on the block above it, and create a matching
@@ -41,7 +41,6 @@
     - "Statuettes of this kind were produced across the Hellenistic and Roman world over several centuries, so a close date is rarely possible."
     - "The break below the waist is ancient damage, not deliberate. The original figure probably stood on a small base."
     - "No inscription survives, so the man depicted is anonymous — as are almost all disabled people from antiquity whose images we still have."
-  objects: []
 
 - number: 2
   slug: "the-healing-sanctuary"
@@ -63,13 +62,6 @@
     - "Healing sanctuaries were spread across the Greek and Roman world, the most famous being the sanctuaries of Asklepios at Epidauros and Athens."
     - "Petitioners sometimes slept overnight in the temple precinct, a practice called incubation, hoping the god would appear in a dream with a cure."
     - "Offerings ranged from crude, locally carved stone to fine imported terracotta — the shelves hold rich and poor side by side."
-  objects:
-    - image: "/assets/images/votive-wall-shelves.jpg"
-      alt_text: "Five carved stone votive figures and heads displayed on two narrow black shelves mounted on a rough stone wall."
-      caption: "More of the Halatte offerings, mounted so the carving on each face is visible. Photograph by P.poschadel (CC BY-SA 3.0)"
-    - image: "/assets/images/votive-faces.jpg"
-      alt_text: "Three small terracotta heads in profile, standing in a row on a white surface, each showing a face in shallow relief."
-      caption: "Three Roman terracotta votive offerings representing faces. Wellcome Collection (CC BY 4.0)"
 
 - number: 3
   slug: "amulets-and-protection"
@@ -90,7 +82,3 @@
     - "Faience was made from ground quartz, lime and an alkali, glazed and fired — a manufactured material rather than a carved stone."
     - "Amulet shapes carried fixed meanings: the scarab for renewal, the wedjat or Eye of Horus for wholeness and healing, the djed pillar for stability."
     - "Because amulets were placed inside mummy wrappings, many survive in excellent condition and can be tied to a specific burial."
-  objects:
-    - image: "/assets/images/takhos-sarcophagus.jpg"
-      alt_text: "An archival black and white photograph of two dark stone sarcophagi in a museum gallery. The nearer one is carved with a standing figure of a man of short stature, surrounded by columns of hieroglyphs."
-      caption: "The sarcophagus of Takhos, a dwarf, photographed in the Cairo Museum. Ptolemaic period. Museo Egizio photographic archive, Turin (CC0)"
