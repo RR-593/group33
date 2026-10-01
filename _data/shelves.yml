@@ -1,0 +1,84 @@
+# Content for each "shelf" in the exhibition.
+#
+# A non-technical editor can change every word a visitor reads from this
+# one file — titles, captions, body copy — without touching any HTML.
+#
+# Each entry drives TWO things:
+#   1. the shelf card on the landing page (title, image, caption, standfirst)
+#   2. the shelf's own page at /exhibition/shelves/<slug>/ (body and context)
+#
+# To add a fourth shelf: copy a block, give it a new number and slug, fix the
+# has_next / next_number fields on the block above it, and create a matching
+# page file at shelves/<slug>.html containing only front matter.
+#
+# IMAGE RIGHTS — every image below is free to reuse, but the terms differ.
+# Keep the credit line accurate if you swap an image:
+#   CC0        = public domain, credit is courtesy not obligation
+#   CC BY 4.0  = must credit the source
+#   CC BY-SA 3.0 = must credit the photographer by name
+#
+# portrait: true renders the card image in a taller frame. Use it for
+# upright objects that would be beheaded by the default landscape crop.
+
+- number: 1
+  slug: "the-dancing-dwarf"
+  title: "The Dancing Dwarf"
+  image: "/assets/images/dwarf-figure.jpg"
+  portrait: true
+  alt_text: "A small marble statuette of a dwarf, broken off below the waist, shown against a plain grey background. The figure's head is turned sharply to one side."
+  caption: "Marble statuette of a dancing dwarf, Hellenistic or Roman. The Metropolitan Museum of Art (CC0)"
+  standfirst: "A single figure, carved with care — and the question of how the ancient world really saw the bodies it put on display."
+  explore_url: "/exhibition/shelves/the-dancing-dwarf/"
+  has_next: true
+  next_number: 2
+  body:
+    - "This statuette is barely the length of a hand. It shows a man with the proportions of achondroplasia — a short stature caused by a difference in bone growth — caught mid-movement, head turned, weight shifting. Whoever carved it was working from life, not from a formula."
+    - "That is what makes objects like this difficult. The sculptor's attention is real: the muscles of the torso are modelled as carefully as those on any heroic statue. But we do not know whether the figure was made to honour a particular man, to entertain a household as a curiosity, or to ward off bad luck. In the Greek and Roman world, all three were possible at once."
+    - "People with dwarfism appear throughout ancient art — dancing, pouring wine, working as jewellers and attendants, performing at banquets. They are visible in a way that many other disabled people of the period are not. Visibility, though, is not the same as respect, and a figure carved with skill can still have been owned as an amusement."
+    - "We have put this object first, and alone, because it resists an easy story. Nearly everything else in this exhibition survives in groups. This one is a single person, and the exhibition begins with the limits of what a single object can tell us."
+  context_title: "What we know, and what we don't"
+  context:
+    - "Statuettes of this kind were produced across the Hellenistic and Roman world over several centuries, so a close date is rarely possible."
+    - "The break below the waist is ancient damage, not deliberate. The original figure probably stood on a small base."
+    - "No inscription survives, so the man depicted is anonymous — as are almost all disabled people from antiquity whose images we still have."
+
+- number: 2
+  slug: "the-healing-sanctuary"
+  title: "The Healing Sanctuary"
+  image: "/assets/images/votive-shelves.jpg"
+  alt_text: "Rows of carved stone heads and figures crowded together on dark museum shelves, lit from above against a rough stone wall."
+  caption: "Votive offerings from the Gallo-Roman temple in the forest of Halatte, Musée d'art et d'archéologie, Senlis. Photograph by P.poschadel (CC BY-SA 3.0)"
+  standfirst: "Hundreds of carved figures, left at one temple by people asking to be made well. This is what ancient healthcare looked like."
+  explore_url: "/exhibition/shelves/the-healing-sanctuary/"
+  has_next: true
+  next_number: 3
+  body:
+    - "These stone figures were all found at a single site: a temple in the forest of Halatte, in northern Gaul. People walked there, carrying an object they had commissioned or bought, and left it behind. Hundreds survive. There were almost certainly thousands."
+    - "The practice is called votive offering. A petitioner brought an image — sometimes of themselves, sometimes of the specific part of the body that was failing them — and dedicated it to a god in exchange for healing, or in thanks for healing already received. The object stayed at the sanctuary permanently. It was a record of the request."
+    - "Look along the shelves and the same forms repeat: heads, torsos, swaddled infants, eyes. The repetition is the point. Each one stands for a separate person with a separate problem, and together they are the closest thing we have to a patient list from the ancient world."
+    - "What they do not record is whether anyone got better. The offerings mark the moment of asking. Everything after that is lost."
+  context_title: "How the sanctuaries worked"
+  context:
+    - "Healing sanctuaries were spread across the Greek and Roman world, the most famous being the sanctuaries of Asklepios at Epidauros and Athens."
+    - "Petitioners sometimes slept overnight in the temple precinct, a practice called incubation, hoping the god would appear in a dream with a cure."
+    - "Offerings ranged from crude, locally carved stone to fine imported terracotta — the shelves hold rich and poor side by side."
+
+- number: 3
+  slug: "amulets-and-protection"
+  title: "Amulets and Protection"
+  image: "/assets/images/egyptian-amulets.jpg"
+  alt_text: "Seven small blue-green Egyptian faience amulets — a scarab, two wing pieces and four standing figures — mounted on a black display board with a printed museum label beneath."
+  caption: "Egyptian faience amulets, Peabody Museum collection, displayed at the Fitchburg Art Museum. Photograph by Daderot (CC0)"
+  standfirst: "Worn on the body, buried with the dead: the small objects Egyptians used to guard against harm before it arrived."
+  explore_url: "/exhibition/shelves/amulets-and-protection/"
+  has_next: false
+  body:
+    - "An amulet is preventative. Unlike a votive offering, which responds to something that has already gone wrong, an amulet was worn in advance — threaded on a cord, sewn into clothing, wrapped into the linen of a mummified body."
+    - "Egyptian amulets were made in enormous numbers, most often from faience: a glazed quartz paste that fires to the blue-green colour seen here. They were cheap enough to be genuinely common. This was protective equipment for ordinary people."
+    - "Many of the gods invoked were themselves physically unusual. Bes, a household protector associated with childbirth and with guarding sleepers, is shown as a dwarf with a lion's features. Ptah-Pataikos, another protective figure, takes a similar form. In Egyptian thought, a body that differed from the norm could be a source of power rather than a deficit — these were the figures you wanted on your side."
+    - "That idea sits awkwardly beside the rest of the evidence. The same culture that made a dwarf god a guardian also recorded dwarfism as a wonder worth reporting to a king. Protection and curiosity ran together, as they do in the first shelf of this exhibition."
+  context_title: "Reading the amulets"
+  context:
+    - "Faience was made from ground quartz, lime and an alkali, glazed and fired — a manufactured material rather than a carved stone."
+    - "Amulet shapes carried fixed meanings: the scarab for renewal, the wedjat or Eye of Horus for wholeness and healing, the djed pillar for stability."
+    - "Because amulets were placed inside mummy wrappings, many survive in excellent condition and can be tied to a specific burial."
