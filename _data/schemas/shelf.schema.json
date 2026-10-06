@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "shelf.schema.json",
+  "title": "Shelf",
+  "type": "object",
+  "required": ["title", "description", "image", "artifacts"],
+  "additionalProperties": false,
+  "properties": {
+    "title": { "$ref": "#/$defs/text" },
+    "description": { "$ref": "#/$defs/text" },
+    "image": { "$ref": "#/$defs/image" },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/artifact" }
+    }
+  },
+  "$defs": {
+    "text": { "type": "string", "minLength": 1 },
+    "artifact": {
+      "type": "object",
+      "required": ["description", "metaDescription", "image", "audioDescription"],
+      "additionalProperties": false,
+      "properties": {
+        "description": { "$ref": "#/$defs/text" },
+        "metaDescription": { "$ref": "#/$defs/metaDescription" },
+        "image": { "$ref": "#/$defs/image" },
+        "obj3D": { "$ref": "#/$defs/object3D" },
+        "audioDescription": { "$ref": "#/$defs/audioDescription" }
+      }
+    },
+    "metaDescription": {
+      "type": "object",
+      "required": ["name", "irn", "currentLoc", "findspotDescription", "accNo", "acquisitionDescription"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "$ref": "#/$defs/text" },
+        "irn": { "$ref": "#/$defs/text" },
+        "currentLoc": { "$ref": "#/$defs/text" },
+        "findspotDescription": { "$ref": "#/$defs/text" },
+        "accNo": { "$ref": "#/$defs/text" },
+        "acquisitionDescription": { "$ref": "#/$defs/text" }
+      }
+    },
+    "image": {
+      "type": "object",
+      "required": ["url", "altText", "caption"],
+      "additionalProperties": false,
+      "properties": {
+        "url": { "$ref": "#/$defs/text" },
+        "altText": { "$ref": "#/$defs/text" },
+        "caption": { "$ref": "#/$defs/text" }
+      }
+    },
+    "object3D": {
+      "type": "object",
+      "required": ["url", "altText"],
+      "additionalProperties": false,
+      "properties": {
+        "url": { "$ref": "#/$defs/text" },
+        "altText": { "$ref": "#/$defs/text" }
+      }
+    },
+    "audioDescription": {
+      "type": "object",
+      "required": ["url", "transcript"],
+      "additionalProperties": false,
+      "properties": {
+        "url": { "$ref": "#/$defs/text" },
+        "transcript": { "$ref": "#/$defs/text" }
+      }
+    }
+  }
+}
