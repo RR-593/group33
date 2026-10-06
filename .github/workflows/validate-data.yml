@@ -1,0 +1,33 @@
+name: Validate data
+
+on:
+  push:
+    branches: [main]
+    paths: ["_data/**", ".github/workflows/validate-data.yml"]
+  pull_request:
+    paths: ["_data/**", ".github/workflows/validate-data.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Check schemas are valid JSON Schema
+        run: pipx run --spec check-jsonschema==0.38.2 check-jsonschema --check-metaschema _data/schemas/*.json
+      - name: Validate shelves against shelf schema
+        run: |
+          shopt -s nullglob
+          files=(_data/shelves/*.json)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No shelf files to validate."
+            exit 0
+          fi
+          pipx run --spec check-jsonschema==0.38.2 check-jsonschema --schemafile _data/schemas/shelf.schema.json "${files[@]}"
+      - name: Check every _data JSON file parses
+        run: find _data -name '*.json' -print0 | xargs -0 -n1 python3 -m json.tool --no-ensure-ascii >/dev/null
