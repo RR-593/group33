@@ -8,40 +8,60 @@
   "properties": {
     "title": { "$ref": "#/$defs/text" },
     "description": { "$ref": "#/$defs/text" },
-    "image": { "$ref": "#/$defs/image" },
+    "image":  { "$ref": "#/$defs/image" },
     "artifacts": {
       "type": "array",
       "minItems": 1,
       "items": { "$ref": "#/$defs/artifact" }
     }
   },
+
+
   "$defs": {
+
+
     "text": { "type": "string", "minLength": 1 },
+
+
     "artifact": {
       "type": "object",
-      "required": ["description", "metaDescription", "image", "audioDescription"],
+      "required": ["description", "metaDescription", "images", "audioDescription"],
       "additionalProperties": false,
       "properties": {
         "description": { "$ref": "#/$defs/text" },
         "metaDescription": { "$ref": "#/$defs/metaDescription" },
-        "image": { "$ref": "#/$defs/image" },
+        "images": {
+          "type": "array", 
+          "minItems":1, 
+          "items": { "$ref": "#/$defs/image" }
+        },
         "obj3D": { "$ref": "#/$defs/object3D" },
         "audioDescription": { "$ref": "#/$defs/audioDescription" }
       }
     },
+
+    "dimension": {
+      "type" : "array", 
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {"type": "number"}
+    },
+
+
     "metaDescription": {
       "type": "object",
-      "required": ["name", "irn", "currentLoc", "findspotDescription", "accNo", "acquisitionDescription"],
+      "required": ["name", "accNo", "material", "dimension", "details"],
       "additionalProperties": false,
       "properties": {
         "name": { "$ref": "#/$defs/text" },
-        "irn": { "$ref": "#/$defs/text" },
-        "currentLoc": { "$ref": "#/$defs/text" },
-        "findspotDescription": { "$ref": "#/$defs/text" },
         "accNo": { "$ref": "#/$defs/text" },
-        "acquisitionDescription": { "$ref": "#/$defs/text" }
+        "material": { "$ref": "#/$defs/text" },
+        "dimension": { "$ref": "#/$defs/dimension" },
+        "details": { "$ref": "#/$defs/text" }
       }
     },
+
+
     "image": {
       "type": "object",
       "required": ["url", "altText", "caption"],
@@ -52,6 +72,8 @@
         "caption": { "$ref": "#/$defs/text" }
       }
     },
+
+
     "object3D": {
       "type": "object",
       "required": ["url", "altText"],
@@ -61,6 +83,8 @@
         "altText": { "$ref": "#/$defs/text" }
       }
     },
+
+
     "audioDescription": {
       "type": "object",
       "required": ["url", "transcript"],
