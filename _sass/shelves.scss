@@ -1,5 +1,5 @@
-$red: #A6192E;
-$red-hover: #8a1527;
+$black: #131212;
+$black-hover: #111111;
 $charcoal: #373A36;
 $sand: #EDEBE5;
 
@@ -49,7 +49,7 @@ body:has(.exhibit) {
     top: 0;
     bottom: 0;
     width: var(--lens);
-    background: $red;
+    background: $black;
   }
   &::before {
     left: 0;
@@ -99,7 +99,7 @@ body:has(.exhibit) {
 
   a,
   a:visited { color: $charcoal; text-decoration: underline; }
-  a:hover { color: $red; }
+  a:hover { color: $black; }
 }
 
 .exhibit__heading {
@@ -131,7 +131,7 @@ a.pill:active {
 .pill {
   display: inline-block;
   padding: 0.7rem 1.25rem;
-  background: $red;
+  background: $black;
   border: 0;
   border-radius: 999px;
   font: inherit;
@@ -139,7 +139,7 @@ a.pill:active {
   text-align: center;
   cursor: pointer;
 
-  &:hover { background: $red-hover; }
+  &:hover { background: $black-hover; }
   &:focus-visible { outline: 3px solid $charcoal; outline-offset: 2px; }
 }
 
@@ -197,7 +197,7 @@ a.pill:active {
     cursor: pointer;
   }
 
-  summary:focus-visible { outline: 3px solid $red; outline-offset: 2px; }
+  summary:focus-visible { outline: 3px solid $black; outline-offset: 2px; }
 }
 
 .shelf__inside-list {
@@ -216,3 +216,37 @@ a.pill:active {
 @media (min-width: 1000px) {
   .shelf__next { display: none; }
 }
+
+/* Shelf detail page */
+.artefact {
+  display: grid;
+  gap: 1.5rem;
+  margin: 1.5rem 0 1rem;
+  padding: 1.25rem;
+  background: #fff;
+  border-radius: 16px;
+
+  @media (min-width: 800px) {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    padding: 2rem;
+  }
+}
+
+.artefact__figure { margin: 0; }
+.artefact__title { margin: 0 0 0.75rem; font-size: clamp(1.4rem, 3vw, 2rem); }
+.artefact__text h2 { margin: 1.5rem 0 0.5rem; font-size: 1.1rem; }
+.artefact__text p { font-size: 0.95rem; line-height: 1.6; }
+
+.artefact__facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.4rem 1rem;
+  margin: 0;
+  font-size: 0.9rem;
+
+  dt { font-weight: 600; }
+  dd { margin: 0; }
+}
+
+.artefact__nav { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
