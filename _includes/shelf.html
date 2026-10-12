@@ -41,7 +41,7 @@
   {% endif %}
 
   <div class="shelf__actions">
-    <a class="pill shelf__explore" href="{{ s.link }}">Explore {{ s.title }} <span aria-hidden="true">&#8599;</span></a>
+    <a class="pill shelf__explore" href="{{ '/shelf-' | append: s.number | append: '/' | relative_url }}">Explore {{ s.title }} <span aria-hidden="true">&#8599;</span></a>
     <button class="pill pill--icon" type="button" aria-label="Play audio for {{ s.title }}">&#9654;</button>
   </div>
 
