@@ -19,6 +19,10 @@ $base-font-family: "Atkinson Hyperlegible", -apple-system, BlinkMacSystemFont, "
 }
 
 @import "minima";
+@import "shelves";
+
+$brand-color: #A6192E;
+$text-color: #373A36;
 
 // rules like `.artifact dl { display: grid }` would otherwise beat the hidden attribute
 [hidden] { display: none !important; }
