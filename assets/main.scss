@@ -7,7 +7,7 @@
 .artifact {
   // images side by side; they wrap onto new lines on narrow screens
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   gap: 1rem;
 
   h3, dl, p, details { flex-basis: 100%; }  // text keeps full width
