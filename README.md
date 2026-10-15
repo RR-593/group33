@@ -25,12 +25,12 @@ The separate `Lighthouse` workflow audits pull requests and pushes against the
 and SEO. A regression turns that workflow red and preserves its HTML report as
 an artifact, but it does not interrupt the independent Pages deployment.
 
-Edit Markdown pages at the repository root. Site-wide values are in
+Edit Markdown pages in `pages/`. Site-wide values are in
 `_config.yml`; shared HTML is in `_includes` and `_layouts`; styling is under
 `_sass` and `assets`.
 
 Read `AGENTS.md` before using an AI coding assistant. Add preferred contributor
-names to `team.md` and `CITATION.cff` rather than inferring them from accounts.
+names to `pages/team.md` and `CITATION.cff` rather than inferring them from accounts.
 
 ## Licence and attribution
 
