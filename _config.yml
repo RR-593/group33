@@ -9,9 +9,10 @@ repository: HannahVogelArchaeology/group33
 author: Group 33
 
 header_pages:
-  - index.md
-  - about.md
-  - team.md
+  - pages/index.md
+  - pages/about.md
+  - pages/shelves.html
+  - pages/team.md
 
 plugins:
   - jekyll-feed
