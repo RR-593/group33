@@ -4,3 +4,4 @@ _site/
 .sass-cache/
 vendor/
 __pycache__/
+.vscode/
