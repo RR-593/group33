@@ -1,0 +1,153 @@
+/* Curation & Acknowledgements page styles.
+   Scoped to the .curation wrapper so this file is isolated: it changes no other
+   page and conflicts with no other styling. Colours match the Minima theme and
+   meet WCAG 2.2 AA contrast (text on the light background is at least 4.5:1). */
+
+.curation {
+  --curation-rule: #cfcfcf;          /* section divider (decorative) */
+  --curation-muted: #595959;         /* secondary text, >= 4.5:1 on white */
+  --curation-placeholder: #e2e2e2;   /* placeholder image fill (decorative) */
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+/* Sections divided by a thin rule, like the mockup */
+.curation__section {
+  margin: 2.5rem 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--curation-rule);
+}
+.curation__section:first-child {
+  margin-top: 1rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.curation__heading {
+  text-align: center;
+  margin: 0 0 1.5rem;
+}
+.curation__heading--start {
+  text-align: left;
+}
+
+/* --- Curator bio: text beside portrait, stacking on small screens --- */
+.curation__bio {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1.5rem 2rem;
+}
+.curation__bio-text {
+  flex: 1 1 18rem;
+}
+.curation__bio-text p {
+  margin: 0;
+}
+.curation__bio-figure {
+  flex: 0 0 auto;
+  margin: 0;
+}
+.curation__portrait {
+  display: block;
+  width: 240px;
+  height: 240px;
+  max-width: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+  background: var(--curation-placeholder);
+}
+
+/* --- Funding bodies: centred logos --- */
+.curation__funders {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.curation__funder {
+  margin: 0;
+}
+.curation__funder img {
+  display: block;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: contain;
+  background: var(--curation-placeholder);
+}
+
+/* --- Team: role / name pairs --- */
+.curation__team {
+  max-width: 34rem;
+  margin: 0 auto;
+}
+.curation__team-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1.5rem;
+  padding: 0.45rem 0;
+}
+.curation__team dt {
+  text-align: right;
+  font-weight: 600;
+  margin: 0;
+}
+.curation__team dd {
+  text-align: left;
+  margin: 0;
+}
+
+/* --- Licences table --- */
+.curation__table-wrap {
+  overflow-x: auto;
+}
+.curation__licenses {
+  width: 100%;
+  border-collapse: collapse;
+}
+.curation__caption {
+  text-align: left;
+  color: var(--curation-muted);
+  margin-bottom: 0.75rem;
+}
+.curation__licenses th,
+.curation__licenses td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--curation-rule);
+}
+.curation__licenses th {
+  font-weight: 600;
+}
+.curation__todo {
+  color: var(--curation-muted);
+}
+
+/* --- Small screens --- */
+@media screen and (max-width: 600px) {
+  .curation__bio {
+    flex-direction: column-reverse;
+  }
+  .curation__bio-figure {
+    align-self: center;
+  }
+  .curation__portrait {
+    width: 200px;
+    height: 200px;
+  }
+  .curation__team-item {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0.6rem 0;
+    text-align: center;
+  }
+  .curation__team dt,
+  .curation__team dd {
+    text-align: center;
+  }
+}
