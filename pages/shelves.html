@@ -1,0 +1,54 @@
+---
+layout: page
+title: Shelves
+permalink: /shelves/
+---
+{%- comment -%} "TBC" marks content still to be written; it is hidden, not shown. {%- endcomment -%}
+{%- assign shelf_keys = "top,middle,bottom" | split: "," -%}
+{%- for key in shelf_keys -%}
+{%- assign shelf = site.data.shelves[key] -%}
+<section aria-labelledby="shelf-{{ key }}">
+  <h2 id="shelf-{{ key }}">{{ shelf.title | escape }}</h2>
+  {%- unless shelf.description == "TBC" %}
+  <p>{{ shelf.description | escape }}</p>
+  {%- endunless %}
+  <figure>
+    <img src="{{ shelf.image.url | relative_url }}" alt="{{ shelf.image.altText | escape }}" loading="lazy">
+    <figcaption>{{ shelf.image.caption | escape }}</figcaption>
+  </figure>
+
+  {%- for artifact in shelf.artifacts %}
+  {%- assign meta = artifact.metaDescription %}
+  <article>
+    <h3>{{ meta.name | escape }}</h3>
+    <dl>
+      <dt>Accession number</dt><dd>{{ meta.accNo | escape }}</dd>
+      <dt>Material</dt><dd>{{ meta.material | escape }}</dd>
+      <dt>Details</dt><dd>{{ meta.details | escape }}</dd>
+    </dl>
+    {%- unless artifact.description == "TBC" %}
+    <p>{{ artifact.description | escape }}</p>
+    {%- endunless %}
+
+    {%- for image in artifact.images %}
+    <figure>
+      <img src="{{ image.url | relative_url }}" alt="{{ image.altText | escape }}" loading="lazy">
+      <figcaption>{{ image.caption | escape }}</figcaption>
+    </figure>
+    {%- endfor %}
+
+    {%- if artifact.obj3D %}
+    <p><a href="{{ artifact.obj3D.url }}">{{ artifact.obj3D.altText | escape }}</a></p>
+    {%- endif %}
+
+    <details>
+      <summary>Audio description of {{ meta.name | escape }}</summary>
+      {%- unless artifact.audioDescription.url == "TBC" %}
+      <audio controls preload="none" src="{{ artifact.audioDescription.url | relative_url }}"></audio>
+      {%- endunless %}
+      <p>{{ artifact.audioDescription.transcript | escape }}</p>
+    </details>
+  </article>
+  {%- endfor %}
+</section>
+{%- endfor %}
