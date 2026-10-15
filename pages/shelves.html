@@ -19,35 +19,43 @@ permalink: /shelves/
 
   {%- for artifact in shelf.artifacts %}
   {%- assign meta = artifact.metaDescription %}
-  <article>
-    <h3>{{ meta.name | escape }}</h3>
-    <dl>
-      <dt>Accession number</dt><dd>{{ meta.accNo | escape }}</dd>
-      <dt>Material</dt><dd>{{ meta.material | escape }}</dd>
-      <dt>Details</dt><dd>{{ meta.details | escape }}</dd>
-    </dl>
-    {%- unless artifact.description == "TBC" %}
-    <p>{{ artifact.description | escape }}</p>
-    {%- endunless %}
+  <article class="artifact" id="art-{{ meta.name | slugify }}">
+    
+    <div class="artifact-images">
+      {%- for image in artifact.images %}
+      <figure>
+        <img src="{{ image.url | relative_url }}" alt="{{ image.altText | escape }}" loading="lazy">
+        <figcaption>{{ image.caption | escape }}</figcaption>
+      </figure>
+      {%- endfor %}
+    </div>
 
-    {%- for image in artifact.images %}
-    <figure>
-      <img src="{{ image.url | relative_url }}" alt="{{ image.altText | escape }}" loading="lazy">
-      <figcaption>{{ image.caption | escape }}</figcaption>
-    </figure>
-    {%- endfor %}
-
-    {%- if artifact.obj3D %}
-    <p><a href="{{ artifact.obj3D.url }}">{{ artifact.obj3D.altText | escape }}</a></p>
-    {%- endif %}
-
-    <details>
-      <summary>Audio description of {{ meta.name | escape }}</summary>
-      {%- unless artifact.audioDescription.url == "TBC" %}
-      <audio controls preload="none" src="{{ artifact.audioDescription.url | relative_url }}"></audio>
+    <div class="description">
+      <h3>{{ meta.name | escape }}</h3>
+      {%- unless artifact.description == "TBC" %}
+      <p>{{ artifact.description | escape }}</p>
       {%- endunless %}
-      <p>{{ artifact.audioDescription.transcript | escape }}</p>
-    </details>
+
+      {%- if artifact.obj3D %}
+      <p><a href="{{ artifact.obj3D.url }}">{{ artifact.obj3D.altText | escape }}</a></p>
+      {%- endif %}
+
+      <dl>
+        <dt>Accession number</dt><dd>{{ meta.accNo | escape }}</dd>
+        <dt>Material</dt><dd>{{ meta.material | escape }}</dd>
+        <dt>Details</dt><dd>{{ meta.details | escape }}</dd>
+      </dl>
+
+
+      <details>
+        <summary>Audio description of {{ meta.name | escape }}</summary>
+        {%- unless artifact.audioDescription.url == "TBC" %}
+        <audio controls preload="none" src="{{ artifact.audioDescription.url | relative_url }}"></audio>
+        {%- endunless %}
+        <p>{{ artifact.audioDescription.transcript | escape }}</p>
+      </details>
+
+    </div>
   </article>
   {%- endfor %}
 </section>

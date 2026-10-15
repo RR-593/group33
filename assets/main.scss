@@ -3,3 +3,22 @@
 ---
 
 @import "minima";
+
+.artifact {
+  // images side by side; they wrap onto new lines on narrow screens
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  h3, dl, p, details { flex-basis: 100%; }  // text keeps full width
+  figure { flex: 1 1 200px; margin: 0; }
+  img { width: 100%; height: auto; }
+
+  // accession, material and details as a two-column table
+  dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.25rem 1rem;
+  }
+  dd { margin: 0; }
+}
