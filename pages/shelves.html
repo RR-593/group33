@@ -1,0 +1,13 @@
+---
+layout: page
+title: Shelves
+permalink: /shelves/
+---
+{%- assign shelf_pages = site.pages | where: "layout", "shelf" -%}
+{%- assign shelf_keys = "top,middle,bottom" | split: "," %}
+<ul>
+  {%- for key in shelf_keys %}
+  {%- assign shelf_page = shelf_pages | where: "shelf", key | first %}
+  <li><a href="{{ shelf_page.url | relative_url }}">{{ shelf_page.title | escape }}</a></li>
+  {%- endfor %}
+</ul>

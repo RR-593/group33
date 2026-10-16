@@ -1,0 +1,208 @@
+---
+layout: default
+---
+{%- comment -%}
+  One template for every shelf page. A page picks its shelf with `shelf: <key>`
+  in its front matter, matching a file in _data/shelves/.
+  "TBC" marks content still to be written; it is hidden, not shown.
+{%- endcomment -%}
+{%- assign shelf = site.data.shelves[page.shelf] -%}
+  <header class="shelf-hero">
+    <img src="{{ shelf.image.url | relative_url }}" alt="{{ shelf.image.altText | escape }}">
+    <h1>{{ page.title | escape }}</h1>
+  </header>
+  <p class="shelf-credit">{{ shelf.image.caption | escape }}</p>
+  {%- unless shelf.description == "TBC" %}
+  <p>{{ shelf.description | escape }}</p>
+  {%- endunless %}
+
+  <div class="artifacts-box">
+    {%- for artifact in shelf.artifacts %}
+    {%- assign meta = artifact.metaDescription %}
+    {%- assign slug = meta.name | slugify %}
+    {%- assign has_audio = false %}
+    {%- if artifact.audioDescription.url != "TBC" %}{% assign has_audio = true %}{% endif %}
+    {%- comment -%}
+      The card is the only Tab stop. Controls inside are skipped by Tab (tabindex="-1")
+      but stay usable by mouse, screen reader and the card's shortcut keys.
+    {%- endcomment %}
+    
+    <article class="artifact" id="art-{{ slug }}" tabindex="0"
+             aria-labelledby="name-{{ slug }}" aria-describedby="keys-{{ slug }}">
+      <div class="artifact-images swiper" role="group" aria-roledescription="carousel"
+           aria-label="Images of {{ meta.name | escape }}">
+        <div class="swiper-wrapper">
+          {%- for image in artifact.images %}
+          <figure class="swiper-slide">
+            {%- comment -%}
+              Resized copies come from _scripts/image-sizes.sh: assets/resized/<photo>-<width>.jpg for
+              each width in site.image_sizes, and a tiny placeholder from _data/lqip.json written
+              straight into the page, so it shows before any download. Spaces are encoded because
+              srcset splits on them. The first slide is visible on load, so only later slides wait.
+            {%- endcomment %}
+            {%- assign ext = image.url | split: "." | last %}
+            {%- assign base_len = image.url.size | minus: ext.size | minus: 1 %}
+            {%- assign base = image.url | slice: 0, base_len | replace_first: "assets/", "assets/resized/" | relative_url | replace: " ", "%20" %}
+            {%- capture srcset %}{% for w in site.image_sizes %}{{ base }}-{{ w }}.jpg {{ w }}w{% unless forloop.last %}, {% endunless %}{% endfor %}{% endcapture %}
+            <img src="{{ base }}-{{ site.image_sizes | last }}.jpg"
+                 srcset="{{ srcset }}"
+                 sizes="(max-width: 800px) 100vw, 400px"
+                 style="background-image: url('{{ site.data.lqip[image.url] }}')"
+                 alt="{{ image.altText | escape }}"{% unless forloop.first %} loading="lazy"{% endunless %}>
+            <figcaption>{{ image.caption | escape }}</figcaption>
+          </figure>
+          {%- endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+  
+      <div class="description">
+        <h2 id="name-{{ slug }}">{{ meta.name | escape }}</h2>
+        {%- unless artifact.description == "TBC" %}
+        <p>{{ artifact.description | escape }}</p>
+        {%- endunless %}
+  
+        {%- comment -%}
+          Buttons skip Tab like everything inside the card (T and D are the keyboard route).
+          The transcript button starts hidden and the transcript visible, so without
+          JavaScript nobody loses the transcript; the script swaps them on start.
+        {%- endcomment %}
+        <div class="artifact-actions">
+          <button type="button" class="artifact-transcript-toggle" aria-pressed="false"
+                  aria-controls="meta-{{ slug }} transcript-{{ slug }}" tabindex="-1" hidden>Transcript</button>
+          {%- if artifact.obj3D %}
+          <button type="button" class="artifact-3d" tabindex="-1"
+                  data-src="{{ artifact.obj3D.url }}" data-title="{{ artifact.obj3D.altText | escape }}">
+            {%- comment -%} Lucide "rotate-3d" icon, ISC licence (see NOTICE.md) {%- endcomment %}
+            <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.466 7.5C15.643 4.237 13.952 2 12 2 9.239 2 7 6.477 7 12s2.239 10 5 10c.342 0 .677-.069 1-.2"/><path d="m15.194 13.707 3.814 1.86-1.86 3.814"/><path d="M19 15.57c-1.804.885-4.274 1.43-7 1.43-5.523 0-10-2.239-10-5s4.477-5 10-5c4.838 0 8.873 1.718 9.8 4"/></svg>
+            View in 3D
+          </button>
+          {%- endif %}
+        </div>
+  
+        <dl id="meta-{{ slug }}">
+          <dt>Accession number</dt><dd>{{ meta.accNo | escape }}</dd>
+          <dt>Material</dt><dd>{{ meta.material | escape }}</dd>
+          <dt>Details</dt><dd>{{ meta.details | escape }}</dd>
+        </dl>
+  
+        <div class="artifact-transcript" id="transcript-{{ slug }}">
+          <h3>Audio description</h3>
+          {%- if has_audio %}
+          <audio controls preload="none" tabindex="-1" src="{{ artifact.audioDescription.url | relative_url }}"></audio>
+          {%- endif %}
+          <p>{{ artifact.audioDescription.transcript | escape }}</p>
+        </div>
+  
+        {%- comment -%}
+          Shortcut keys, shown at the bottom while the card has keyboard focus.
+          Screen readers hear it through the card's aria-describedby.
+        {%- endcomment %}
+        <ul class="artifact-keys" id="keys-{{ slug }}">
+          <li><kbd>←</kbd><kbd>→</kbd> Images</li>
+          {%- if has_audio %}
+          <li><kbd>Enter</kbd> Play audio</li>
+          {%- endif %}
+          <li><kbd>T</kbd> Transcript</li>
+          {%- if artifact.obj3D %}
+          <li><kbd>D</kbd> 3D model</li>
+          {%- endif %}
+        </ul>
+      </div>
+    </article>
+    {%- endfor %}
+  </div>
+
+{%- comment -%}
+  One shared pop-up for the 3D models, opened by each card's "View in 3D" button.
+{%- endcomment %}
+<dialog class="model-dialog" aria-labelledby="model-dialog-title">
+  <div class="model-dialog-bar">
+    <h2 id="model-dialog-title"></h2>
+    {%- comment -%} Lucide "x" icon, ISC licence (see NOTICE.md). Accessible name: "Close Esc" {%- endcomment %}
+    <button type="button" class="model-dialog-close">
+      <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      <span class="visually-hidden">Close</span>
+      <kbd>Esc</kbd>
+    </button>
+  </div>
+  <div class="model-dialog-stage">
+    {%- comment -%} filled with "Loading…" while a model loads; the spinner and hidden frame follow from that {%- endcomment %}
+    <p class="model-dialog-loading" role="status"></p>
+    <iframe allow="fullscreen; xr-spatial-tracking" allowfullscreen></iframe>
+  </div>
+</dialog>
+
+{%- comment -%} Swiper's CSS and JS are linked in _includes/head.html. {%- endcomment %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // native <dialog>: traps focus, closes on Esc and hands focus back to the card
+    const dialog = document.querySelector('.model-dialog');
+    const frame = dialog.querySelector('iframe');
+    const loading = dialog.querySelector('.model-dialog-loading');
+    // Nira is another site, so `load` means its page is up, not that the model has
+    // finished streaming; Nira shows its own progress from there
+    frame.addEventListener('load', () => loading.textContent = '');
+    document.querySelectorAll('.artifact-3d').forEach(button => button.addEventListener('click', () => {
+      dialog.querySelector('h2').textContent = button.dataset.title;
+      frame.title = button.dataset.title;
+      // the last model stays loaded after closing (browsers throttle hidden frames),
+      // so reopening it is instant; a different model hides the old one behind the spinner
+      if (frame.src !== button.dataset.src) {
+        loading.textContent = 'Loading 3D model…';
+        frame.src = button.dataset.src;
+      }
+      dialog.showModal();
+    }));
+    dialog.querySelector('.model-dialog-close').addEventListener('click', () => dialog.close());
+
+
+    document.querySelectorAll('.artifact').forEach(card => {
+      const el = card.querySelector('.artifact-images.swiper');
+      const swiper = new Swiper(el, {
+        // each carousel gets its own dots and arrows, so they don't control each other;
+        // dots aren't clickable so Swiper doesn't make them Tab stops
+        pagination: { el: el.querySelector('.swiper-pagination') },
+        navigation: { nextEl: el.querySelector('.swiper-button-next'), prevEl: el.querySelector('.swiper-button-prev') },
+        // a11y module is on by default in the bundle: labels the arrows and announces slides
+      });
+      // Swiper's a11y module makes its arrow buttons Tab stops on start and again whenever
+      // the carousel reaches or leaves an end; the card is the only Tab stop, so undo it each time
+      const skipArrows = () => el.querySelectorAll('.swiper-button-prev, .swiper-button-next')
+        .forEach(b => b.tabIndex = -1);
+      skipArrows();
+      swiper.on('fromEdge toEdge lock unlock', skipArrows);
+
+      const audio = card.querySelector('audio');
+      const button3d = card.querySelector('.artifact-3d');
+
+      // Transcript button swaps the metadata list for the audio description
+      const toggle = card.querySelector('.artifact-transcript-toggle');
+      const meta = card.querySelector('dl');
+      const transcript = card.querySelector('.artifact-transcript');
+      const showTranscript = on => {
+        toggle.setAttribute('aria-pressed', on);
+        meta.hidden = on;
+        transcript.hidden = !on;
+      };
+      toggle.hidden = false;
+      showTranscript(false);
+      toggle.addEventListener('click', () => showTranscript(transcript.hidden));
+
+      // shortcuts work only while the card itself has focus (WCAG 2.1.4)
+      card.addEventListener('keydown', e => {
+        if (e.target !== card || e.ctrlKey || e.metaKey || e.altKey) return;  // keep browser shortcuts
+        const key = e.key.toLowerCase();
+        if (key === 'arrowleft') swiper.slidePrev();
+        else if (key === 'arrowright') swiper.slideNext();
+        else if (key === 'enter' && audio) audio.paused ? audio.play() : audio.pause();
+        else if (key === 't') toggle.click();
+        else if (key === 'd' && button3d) button3d.click();
+        else return;
+        e.preventDefault();
+      });
+    });
+  });
+</script>

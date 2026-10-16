@@ -1,4 +1,4 @@
-title: Group 33 exhibition sandbox
+title: 'Disability Heritage: Archaeology with Difference'
 description: >-
   A public student sandbox for an accessible archaeology exhibition website.
 lang: en-AU
@@ -9,9 +9,17 @@ repository: HannahVogelArchaeology/group33
 author: Group 33
 
 header_pages:
-  - index.md
-  - about.md
-  - team.md
+  - pages/index.md
+  - pages/about.md
+  - pages/shelves/top.md
+  - pages/shelves/middle.md
+  - pages/shelves/bottom.md
+  - pages/team.md
+
+# Widths (px) of the resized photo copies used by shelf pages. Read by
+# _scripts/image-sizes.sh and _layouts/shelf.html; the largest is the fallback src.
+# After changing, re-run the script and restart `jekyll serve`.
+image_sizes: [400, 800, 1600]
 
 plugins:
   - jekyll-feed

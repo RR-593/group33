@@ -2,4 +2,245 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
+// Atkinson Hyperlegible, self-hosted (SIL OFL 1.1, see NOTICE.md). Set before the
+// import so Minima uses it everywhere; system fonts show until it loads (swap).
+$base-font-family: "Atkinson Hyperlegible", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+@each $weight in 400, 700 {
+  @each $style in normal, italic {
+    @font-face {
+      font-family: "Atkinson Hyperlegible";
+      font-style: $style;
+      font-weight: $weight;
+      font-display: swap;
+      src: url("fonts/atkinson-hyperlegible/atkinson-hyperlegible-latin-#{$weight}-#{$style}.woff2") format("woff2");
+    }
+  }
+}
+
 @import "minima";
+
+// rules like `.artifact dl { display: grid }` would otherwise beat the hidden attribute
+[hidden] { display: none !important; }
+
+// grey for hints; #666 keeps 5.7:1 contrast on white (Minima's $grey-color is too light for small text)
+$muted-text: #666;
+
+// key caps for shortcut hints
+kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0 0.35em;
+  font: inherit;
+  font-size: 0.85em;
+  line-height: 1.5;
+  text-align: center;
+  color: $muted-text;
+  background: #f6f6f6;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+}
+
+// read by screen readers, not shown
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways scroll
+
+// shelf image runs edge to edge under the site header, title sits on top
+.shelf-hero {
+  position: relative;
+  width: 100vw;
+  margin: (-$spacing-unit) 0 0 calc(50% - 50vw);  // break out of .wrapper and .page-content padding
+
+  img {
+    display: block;
+    width: 100%;
+    height: 30vh;
+    min-height: 240px;
+    object-fit: cover;
+    background: #333;  // dark frame while the photo downloads; matches the title's gradient
+  }
+
+  h1 {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    // left edge lines up with the page text below
+    padding: $spacing-unit max(#{$spacing-unit}, calc((100% - #{$content-width}) / 2 + #{$spacing-unit}));
+    color: #fff;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));  // keeps white text readable on any photo
+  }
+}
+
+// 3D model pop-up (shelf pages)
+.model-dialog {
+  width: 90vw;
+  height: 85vh;
+  padding: 0;
+  border: 0;
+
+  &[open] { display: flex; flex-direction: column; }
+  &::backdrop { background: rgba(0, 0, 0, 0.7); }
+
+  .model-dialog-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+  }
+  h2 { margin: 0; font-size: $base-font-size * 1.125; }
+
+  // minimal close: × icon with a grey Esc key cap beside it
+  .model-dialog-close {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.4rem;
+    color: inherit;
+    background: none;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover { background: #f0f0f0; }
+  }
+  .model-dialog-stage { position: relative; flex: 1; display: flex; }
+  iframe { flex: 1; width: 100%; border: 0; }
+
+  // spinner shows while the status has text; the frame stays hidden so the
+  // previous model never shows under a new title
+  .model-dialog-loading {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    &:empty { display: none; }
+    &:not(:empty) + iframe { visibility: hidden; }
+
+    &::before {
+      content: "";
+      width: 3rem;
+      height: 3rem;
+      border: 4px solid #ccc;
+      border-top-color: #005fcc;  // same blue as the focus outline
+      border-radius: 50%;
+      animation: model-spin 1s linear infinite;
+    }
+  }
+}
+
+@keyframes model-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .model-dialog-loading::before { animation: none; }  // still shows the text and a static ring
+}
+
+.shelf-credit { font-size: $small-font-size; margin-top: $spacing-unit * 0.25; }
+
+// artifact cards stacked top to bottom, 1rem apart
+.artifacts-box {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.artifact {
+  // shortcut hint shows only when the card has keyboard focus; screen readers get it via aria-describedby
+  // shortcut keys sit under the description, shown only while the card has keyboard focus;
+  // screen readers get them via aria-describedby
+  .artifact-keys {
+    display: none;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin: 1rem 0 0;
+    padding: 0.75rem 0 0;
+    border-top: 1px solid #e8e8e8;
+    list-style: none;
+    font-size: $small-font-size;
+    color: $muted-text;
+  }
+  &:focus-visible .artifact-keys { display: flex; }
+  .artifact-keys li { margin: 0; }
+  .artifact-keys kbd + kbd { margin-left: 0.2rem; }
+
+  // carousel beside the description; stacks on narrow screens
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  .artifact-images, .description { flex: 1 1 300px; }
+
+  // narrow screens: stack, with the name above the carousel.
+  // display: contents lets the description's children join the card's flex row,
+  // so the h2 can be moved first with order. The HTML order is unchanged.
+  // 700px is where the two 300px columns no longer fit side by side.
+  @media screen and (max-width: 700px) {
+    .artifact-images { flex-basis: 100%; }
+    .description { display: contents; }
+    .description > * { flex-basis: 100%; margin-top: 0; margin-bottom: 0; }  // card's gap spaces them
+    h2 { order: -1; }
+  }
+  .artifact-images {
+    min-width: 0;            // lets Swiper size slides instead of stretching the row
+    padding-bottom: 2rem;    // room for the dots below the caption
+  }
+  .swiper-pagination { bottom: 0; }
+  figure { margin: 0; }
+  img { width: 100%; height: auto; }
+  // same frame for every slide; portrait shots fit inside without cropping
+  // the tiny placeholder (set inline) is stretched blurry behind the photo until it downloads;
+  // grey shows if even that hasn't arrived
+  .swiper-slide img {
+    aspect-ratio: 3 / 2;
+    object-fit: contain;
+    background-color: #eee;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  // Transcript and View in 3D buttons. #005fcc (the focus blue) passes contrast on white
+  .artifact-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+  .artifact-actions button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    font: inherit;
+    color: #005fcc;
+    background: #fff;
+    border: 2px solid #005fcc;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover { background: #e8f0fb; }
+    &[aria-pressed="true"] { color: #fff; background: #005fcc; }
+    &[aria-pressed="true"]::after { content: "✓" / ""; }  // tick so "on" isn't shown by colour alone; empty alt keeps it silent for screen readers
+  }
+  .artifact-transcript h3 { font-size: $base-font-size * 1.125; }
+
+  // accession, material and details as a two-column table
+  dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.25rem 1rem;
+  }
+  dd { margin: 0; }
+}
