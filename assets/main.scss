@@ -63,7 +63,7 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
   img {
     display: block;
     width: 100%;
-    height: 60vh;
+    height: 30vh;
     min-height: 240px;
     object-fit: cover;
     background: #333;  // dark frame while the photo downloads; matches the title's gradient
