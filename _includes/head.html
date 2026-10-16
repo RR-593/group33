@@ -8,6 +8,8 @@
   {%- comment -%} Swiper on shelf pages only; CSS in <head> so carousels don't flash unstyled. {%- endcomment %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.js"></script>
+  {%- comment -%} opens the connection to the 3D viewer early, so the first model pop-up starts faster {%- endcomment %}
+  <link rel="preconnect" href="https://macquarie.nira.app">
   {%- endif %}
   <link rel="icon" href="{{ "/assets/favicon.svg" | relative_url }}" type="image/svg+xml">
   {%- feed_meta -%}

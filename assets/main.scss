@@ -34,6 +34,27 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
   }
 }
 
+// 3D model pop-up (shelf pages)
+.model-dialog {
+  width: 90vw;
+  height: 85vh;
+  padding: 0;
+  border: 0;
+
+  &[open] { display: flex; flex-direction: column; }
+  &::backdrop { background: rgba(0, 0, 0, 0.7); }
+
+  .model-dialog-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+  }
+  h2 { margin: 0; font-size: $base-font-size * 1.125; }
+  iframe { flex: 1; width: 100%; border: 0; }
+}
+
 .shelf-credit { font-size: $small-font-size; margin-top: $spacing-unit * 0.25; }
 
 .artifact {
