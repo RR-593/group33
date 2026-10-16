@@ -92,9 +92,48 @@ layout: default
   </article>
   {%- endfor %}
 
+{%- comment -%}
+  One shared pop-up for the 3D models. The links keep their real href, so without
+  JavaScript, or with Cmd/Ctrl-click, the model still opens as a normal page.
+{%- endcomment %}
+<dialog class="model-dialog" aria-labelledby="model-dialog-title">
+  <div class="model-dialog-bar">
+    <h2 id="model-dialog-title"></h2>
+    <button type="button" class="model-dialog-close">Close</button>
+  </div>
+  <div class="model-dialog-stage">
+    {%- comment -%} filled with "Loading…" while a model loads; the spinner and hidden frame follow from that {%- endcomment %}
+    <p class="model-dialog-loading" role="status"></p>
+    <iframe allow="fullscreen; xr-spatial-tracking" allowfullscreen></iframe>
+  </div>
+</dialog>
+
 {%- comment -%} Swiper's CSS and JS are linked in _includes/head.html. {%- endcomment %}
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    // native <dialog>: traps focus, closes on Esc and hands focus back to the card
+    const dialog = document.querySelector('.model-dialog');
+    const frame = dialog.querySelector('iframe');
+    const loading = dialog.querySelector('.model-dialog-loading');
+    // Nira is another site, so `load` means its page is up, not that the model has
+    // finished streaming; Nira shows its own progress from there
+    frame.addEventListener('load', () => loading.textContent = '');
+    document.querySelectorAll('.artifact-3d').forEach(link => link.addEventListener('click', e => {
+      if (e.ctrlKey || e.metaKey || e.shiftKey) return;  // let new-tab clicks through
+      e.preventDefault();
+      dialog.querySelector('h2').textContent = link.textContent;
+      frame.title = link.textContent;
+      // the last model stays loaded after closing (browsers throttle hidden frames),
+      // so reopening it is instant; a different model hides the old one behind the spinner
+      if (frame.src !== link.href) {
+        loading.textContent = 'Loading 3D model…';
+        frame.src = link.href;
+      }
+      dialog.showModal();
+    }));
+    dialog.querySelector('.model-dialog-close').addEventListener('click', () => dialog.close());
+
+
     document.querySelectorAll('.artifact').forEach(card => {
       const el = card.querySelector('.artifact-images.swiper');
       const swiper = new Swiper(el, {
