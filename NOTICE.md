@@ -9,7 +9,7 @@ The vendored templates were modified in August 2026 to provide an explicitly
 named primary navigation landmark, a keyboard-native mobile menu, a skip link,
 and visible keyboard focus.
 
-The "View in 3D" button on shelf pages uses the `rotate-3d` icon from
+The "View in 3D" button on shelf pages uses the `rotate-3d` icon, and the 3D pop-up's close button the `x` icon, from
 [Lucide](https://lucide.dev) v0.469.0, inlined in `_layouts/shelf.html`.
 Lucide is distributed under the ISC License:
 
