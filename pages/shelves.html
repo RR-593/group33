@@ -21,13 +21,18 @@ permalink: /shelves/
   {%- assign meta = artifact.metaDescription %}
   <article class="artifact" id="art-{{ meta.name | slugify }}">
     
-    <div class="artifact-images">
-      {%- for image in artifact.images %}
-      <figure>
-        <img src="{{ image.url | relative_url }}" alt="{{ image.altText | escape }}" loading="lazy">
-        <figcaption>{{ image.caption | escape }}</figcaption>
-      </figure>
-      {%- endfor %}
+    <div class="artifact-images swiper" aria-label="Images of {{ meta.name | escape }}">
+      <div class="swiper-wrapper">
+        {%- for image in artifact.images %}
+        <figure class="swiper-slide">
+          <img src="{{ image.url | relative_url }}" alt="{{ image.altText | escape }}" loading="lazy">
+          <figcaption>{{ image.caption | escape }}</figcaption>
+        </figure>
+        {%- endfor %}
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
     </div>
 
     <div class="description">
@@ -59,3 +64,17 @@ permalink: /shelves/
   {%- endfor %}
 </section>
 {%- endfor %}
+
+{%- comment -%} Swiper loads on this page only; defer keeps it from blocking the page. {%- endcomment %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.artifact-images.swiper').forEach(el => new Swiper(el, {
+      // each carousel gets its own dots and arrows, so they don't control each other
+      pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
+      navigation: { nextEl: el.querySelector('.swiper-button-next'), prevEl: el.querySelector('.swiper-button-prev') },
+      // a11y module is on by default in the bundle: labels the arrows and announces slides
+    }));
+  });
+</script>
