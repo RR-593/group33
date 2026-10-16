@@ -11,7 +11,9 @@ author: Group 33
 header_pages:
   - pages/index.md
   - pages/about.md
-  - pages/shelves.html
+  - pages/shelves/top.md
+  - pages/shelves/middle.md
+  - pages/shelves/bottom.md
   - pages/team.md
 
 plugins:
