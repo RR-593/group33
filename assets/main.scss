@@ -18,6 +18,7 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
     height: 60vh;
     min-height: 240px;
     object-fit: cover;
+    background: #333;  // dark frame while the photo downloads; matches the title's gradient
   }
 
   h1 {
@@ -55,7 +56,16 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
   figure { margin: 0; }
   img { width: 100%; height: auto; }
   // same frame for every slide; portrait shots fit inside without cropping
-  .swiper-slide img { aspect-ratio: 3 / 2; object-fit: contain; }
+  // the tiny placeholder (set inline) is stretched blurry behind the photo until it downloads;
+  // grey shows if even that hasn't arrived
+  .swiper-slide img {
+    aspect-ratio: 3 / 2;
+    object-fit: contain;
+    background-color: #eee;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 
   // accession, material and details as a two-column table
   dl {

@@ -5,3 +5,7 @@ _site/
 vendor/
 __pycache__/
 .vscode/
+
+# made by _scripts/image-sizes.sh (locally and on deploy)
+assets/resized/
+_data/lqip.json
