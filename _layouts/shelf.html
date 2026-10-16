@@ -70,31 +70,44 @@ layout: default
       <p>{{ artifact.description | escape }}</p>
       {%- endunless %}
 
-      {%- if artifact.obj3D %}
-      <p><a class="artifact-3d" href="{{ artifact.obj3D.url }}" tabindex="-1">{{ artifact.obj3D.altText | escape }}</a></p>
-      {%- endif %}
+      {%- comment -%}
+        Buttons skip Tab like everything inside the card (T and D are the keyboard route).
+        The transcript button starts hidden and the transcript visible, so without
+        JavaScript nobody loses the transcript; the script swaps them on start.
+      {%- endcomment %}
+      <div class="artifact-actions">
+        <button type="button" class="artifact-transcript-toggle" aria-pressed="false"
+                aria-controls="meta-{{ slug }} transcript-{{ slug }}" tabindex="-1" hidden>Transcript</button>
+        {%- if artifact.obj3D %}
+        <button type="button" class="artifact-3d" tabindex="-1"
+                data-src="{{ artifact.obj3D.url }}" data-title="{{ artifact.obj3D.altText | escape }}">
+          {%- comment -%} Lucide "rotate-3d" icon, ISC licence (see NOTICE.md) {%- endcomment %}
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.466 7.5C15.643 4.237 13.952 2 12 2 9.239 2 7 6.477 7 12s2.239 10 5 10c.342 0 .677-.069 1-.2"/><path d="m15.194 13.707 3.814 1.86-1.86 3.814"/><path d="M19 15.57c-1.804.885-4.274 1.43-7 1.43-5.523 0-10-2.239-10-5s4.477-5 10-5c4.838 0 8.873 1.718 9.8 4"/></svg>
+          View in 3D
+        </button>
+        {%- endif %}
+      </div>
 
-      <dl>
+      <dl id="meta-{{ slug }}">
         <dt>Accession number</dt><dd>{{ meta.accNo | escape }}</dd>
         <dt>Material</dt><dd>{{ meta.material | escape }}</dd>
         <dt>Details</dt><dd>{{ meta.details | escape }}</dd>
       </dl>
 
-      <details>
-        <summary tabindex="-1">Audio description of {{ meta.name | escape }}</summary>
+      <div class="artifact-transcript" id="transcript-{{ slug }}">
+        <h3>Audio description</h3>
         {%- if has_audio %}
         <audio controls preload="none" tabindex="-1" src="{{ artifact.audioDescription.url | relative_url }}"></audio>
         {%- endif %}
         <p>{{ artifact.audioDescription.transcript | escape }}</p>
-      </details>
+      </div>
 
     </div>
   </article>
   {%- endfor %}
 
 {%- comment -%}
-  One shared pop-up for the 3D models. The links keep their real href, so without
-  JavaScript, or with Cmd/Ctrl-click, the model still opens as a normal page.
+  One shared pop-up for the 3D models, opened by each card's "View in 3D" button.
 {%- endcomment %}
 <dialog class="model-dialog" aria-labelledby="model-dialog-title">
   <div class="model-dialog-bar">
@@ -118,16 +131,14 @@ layout: default
     // Nira is another site, so `load` means its page is up, not that the model has
     // finished streaming; Nira shows its own progress from there
     frame.addEventListener('load', () => loading.textContent = '');
-    document.querySelectorAll('.artifact-3d').forEach(link => link.addEventListener('click', e => {
-      if (e.ctrlKey || e.metaKey || e.shiftKey) return;  // let new-tab clicks through
-      e.preventDefault();
-      dialog.querySelector('h2').textContent = link.textContent;
-      frame.title = link.textContent;
+    document.querySelectorAll('.artifact-3d').forEach(button => button.addEventListener('click', () => {
+      dialog.querySelector('h2').textContent = button.dataset.title;
+      frame.title = button.dataset.title;
       // the last model stays loaded after closing (browsers throttle hidden frames),
       // so reopening it is instant; a different model hides the old one behind the spinner
-      if (frame.src !== link.href) {
+      if (frame.src !== button.dataset.src) {
         loading.textContent = 'Loading 3D model…';
-        frame.src = link.href;
+        frame.src = button.dataset.src;
       }
       dialog.showModal();
     }));
@@ -151,8 +162,20 @@ layout: default
       swiper.on('fromEdge toEdge lock unlock', skipArrows);
 
       const audio = card.querySelector('audio');
-      const details = card.querySelector('details');
-      const link3d = card.querySelector('.artifact-3d');
+      const button3d = card.querySelector('.artifact-3d');
+
+      // Transcript button swaps the metadata list for the audio description
+      const toggle = card.querySelector('.artifact-transcript-toggle');
+      const meta = card.querySelector('dl');
+      const transcript = card.querySelector('.artifact-transcript');
+      const showTranscript = on => {
+        toggle.setAttribute('aria-pressed', on);
+        meta.hidden = on;
+        transcript.hidden = !on;
+      };
+      toggle.hidden = false;
+      showTranscript(false);
+      toggle.addEventListener('click', () => showTranscript(transcript.hidden));
 
       // shortcuts work only while the card itself has focus (WCAG 2.1.4)
       card.addEventListener('keydown', e => {
@@ -161,8 +184,8 @@ layout: default
         if (key === 'arrowleft') swiper.slidePrev();
         else if (key === 'arrowright') swiper.slideNext();
         else if (key === 'enter' && audio) audio.paused ? audio.play() : audio.pause();
-        else if (key === 't') details.open = !details.open;
-        else if (key === 'd' && link3d) link3d.click();
+        else if (key === 't') toggle.click();
+        else if (key === 'd' && button3d) button3d.click();
         else return;
         e.preventDefault();
       });

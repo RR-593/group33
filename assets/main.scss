@@ -2,7 +2,26 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
+// Atkinson Hyperlegible, self-hosted (SIL OFL 1.1, see NOTICE.md). Set before the
+// import so Minima uses it everywhere; system fonts show until it loads (swap).
+$base-font-family: "Atkinson Hyperlegible", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+@each $weight in 400, 700 {
+  @each $style in normal, italic {
+    @font-face {
+      font-family: "Atkinson Hyperlegible";
+      font-style: $style;
+      font-weight: $weight;
+      font-display: swap;
+      src: url("fonts/atkinson-hyperlegible/atkinson-hyperlegible-latin-#{$weight}-#{$style}.woff2") format("woff2");
+    }
+  }
+}
+
 @import "minima";
+
+// rules like `.artifact dl { display: grid }` would otherwise beat the hidden attribute
+[hidden] { display: none !important; }
 
 body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways scroll
 
@@ -131,6 +150,26 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
     background-position: center;
     background-repeat: no-repeat;
   }
+
+  // Transcript and View in 3D buttons. #005fcc (the focus blue) passes contrast on white
+  .artifact-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+  .artifact-actions button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    font: inherit;
+    color: #005fcc;
+    background: #fff;
+    border: 2px solid #005fcc;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover { background: #e8f0fb; }
+    &[aria-pressed="true"] { color: #fff; background: #005fcc; }
+    &[aria-pressed="true"]::after { content: "✓" / ""; }  // tick so "on" isn't shown by colour alone; empty alt keeps it silent for screen readers
+  }
+  .artifact-transcript h3 { font-size: $base-font-size * 1.125; }
 
   // accession, material and details as a two-column table
   dl {
