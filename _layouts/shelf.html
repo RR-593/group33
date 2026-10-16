@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 ---
 {%- comment -%}
   One template for every shelf page. A page picks its shelf with `shelf: <key>`
@@ -7,13 +7,14 @@ layout: page
   "TBC" marks content still to be written; it is hidden, not shown.
 {%- endcomment -%}
 {%- assign shelf = site.data.shelves[page.shelf] -%}
+  <header class="shelf-hero">
+    <img src="{{ shelf.image.url | relative_url }}" alt="{{ shelf.image.altText | escape }}">
+    <h1>{{ page.title | escape }}</h1>
+  </header>
+  <p class="shelf-credit">{{ shelf.image.caption | escape }}</p>
   {%- unless shelf.description == "TBC" %}
   <p>{{ shelf.description | escape }}</p>
   {%- endunless %}
-  <figure>
-    <img src="{{ shelf.image.url | relative_url }}" alt="{{ shelf.image.altText | escape }}">
-    <figcaption>{{ shelf.image.caption | escape }}</figcaption>
-  </figure>
 
   {%- for artifact in shelf.artifacts %}
   {%- assign meta = artifact.metaDescription %}
