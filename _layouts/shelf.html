@@ -1,0 +1,76 @@
+---
+layout: page
+---
+{%- comment -%}
+  One template for every shelf page. A page picks its shelf with `shelf: <key>`
+  in its front matter, matching a file in _data/shelves/.
+  "TBC" marks content still to be written; it is hidden, not shown.
+{%- endcomment -%}
+{%- assign shelf = site.data.shelves[page.shelf] -%}
+  {%- unless shelf.description == "TBC" %}
+  <p>{{ shelf.description | escape }}</p>
+  {%- endunless %}
+  <figure>
+    <img src="{{ shelf.image.url | relative_url }}" alt="{{ shelf.image.altText | escape }}">
+    <figcaption>{{ shelf.image.caption | escape }}</figcaption>
+  </figure>
+
+  {%- for artifact in shelf.artifacts %}
+  {%- assign meta = artifact.metaDescription %}
+  <article class="artifact" id="art-{{ meta.name | slugify }}">
+    
+    <div class="artifact-images swiper" aria-label="Images of {{ meta.name | escape }}">
+      <div class="swiper-wrapper">
+        {%- for image in artifact.images %}
+        <figure class="swiper-slide">
+          <img src="{{ image.url | relative_url }}" alt="{{ image.altText | escape }}" loading="lazy">
+          <figcaption>{{ image.caption | escape }}</figcaption>
+        </figure>
+        {%- endfor %}
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+
+    <div class="description">
+      <h2>{{ meta.name | escape }}</h2>
+      {%- unless artifact.description == "TBC" %}
+      <p>{{ artifact.description | escape }}</p>
+      {%- endunless %}
+
+      {%- if artifact.obj3D %}
+      <p><a href="{{ artifact.obj3D.url }}">{{ artifact.obj3D.altText | escape }}</a></p>
+      {%- endif %}
+
+      <dl>
+        <dt>Accession number</dt><dd>{{ meta.accNo | escape }}</dd>
+        <dt>Material</dt><dd>{{ meta.material | escape }}</dd>
+        <dt>Details</dt><dd>{{ meta.details | escape }}</dd>
+      </dl>
+
+      <details>
+        <summary>Audio description of {{ meta.name | escape }}</summary>
+        {%- unless artifact.audioDescription.url == "TBC" %}
+        <audio controls preload="none" src="{{ artifact.audioDescription.url | relative_url }}"></audio>
+        {%- endunless %}
+        <p>{{ artifact.audioDescription.transcript | escape }}</p>
+      </details>
+
+    </div>
+  </article>
+  {%- endfor %}
+
+{%- comment -%} Swiper loads on shelf pages only; defer keeps it from blocking the page. {%- endcomment %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.artifact-images.swiper').forEach(el => new Swiper(el, {
+      // each carousel gets its own dots and arrows, so they don't control each other
+      pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
+      navigation: { nextEl: el.querySelector('.swiper-button-next'), prevEl: el.querySelector('.swiper-button-prev') },
+      // a11y module is on by default in the bundle: labels the arrows and announces slides
+    }));
+  });
+</script>
