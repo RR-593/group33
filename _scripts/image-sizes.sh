@@ -24,8 +24,10 @@ while IFS= read -r src; do
   for w in $SIZES; do
     out="$base-$w.jpg"
     [ "$out" -nt "$src" ] && continue
-    # auto-orient before strip: strip drops the rotation tag; `>` never enlarges small photos
-    "$IM" "$src" -auto-orient -resize "${w}x>" -strip -quality 75 "$out"
+    # auto-orient before strip: strip drops the rotation tag; `>` never enlarges small photos.
+    # -interlace JPEG saves a progressive JPEG: the browser draws a blurry whole image from
+    # the first bytes and sharpens it as the rest arrives, so slow connections see something early.
+    "$IM" "$src" -auto-orient -resize "${w}x>" -strip -interlace JPEG -quality 75 "$out"
   done
 done < "$tmp/originals"
 

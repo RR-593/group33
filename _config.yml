@@ -19,7 +19,7 @@ header_pages:
 # Widths (px) of the resized photo copies used by shelf pages. Read by
 # _scripts/image-sizes.sh and _layouts/shelf.html; the largest is the fallback src.
 # After changing, re-run the script and restart `jekyll serve`.
-image_sizes: [200, 400, 1600]
+image_sizes: [400, 800, 1600]
 
 plugins:
   - jekyll-feed
