@@ -102,6 +102,17 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
   gap: 1rem;
 
   .artifact-images, .description { flex: 1 1 300px; }
+
+  // narrow screens: stack, with the name above the carousel.
+  // display: contents lets the description's children join the card's flex row,
+  // so the h2 can be moved first with order. The HTML order is unchanged.
+  // 700px is where the two 300px columns no longer fit side by side.
+  @media screen and (max-width: 700px) {
+    .artifact-images { flex-basis: 100%; }
+    .description { display: contents; }
+    .description > * { flex-basis: 100%; margin-top: 0; margin-bottom: 0; }  // card's gap spaces them
+    h2 { order: -1; }
+  }
   .artifact-images {
     min-width: 0;            // lets Swiper size slides instead of stretching the row
     padding-bottom: 2rem;    // room for the dots below the caption
