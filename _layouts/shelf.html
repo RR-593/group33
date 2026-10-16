@@ -18,9 +18,25 @@ layout: default
 
   {%- for artifact in shelf.artifacts %}
   {%- assign meta = artifact.metaDescription %}
-  <article class="artifact" id="art-{{ meta.name | slugify }}">
-    
-    <div class="artifact-images swiper" aria-label="Images of {{ meta.name | escape }}">
+  {%- assign slug = meta.name | slugify %}
+  {%- assign has_audio = false %}
+  {%- if artifact.audioDescription.url != "TBC" %}{% assign has_audio = true %}{% endif %}
+  {%- comment -%}
+    The card is the only Tab stop. Controls inside are skipped by Tab (tabindex="-1")
+    but stay usable by mouse, screen reader and the card's shortcut keys.
+  {%- endcomment %}
+  <article class="artifact" id="art-{{ slug }}" tabindex="0"
+           aria-labelledby="name-{{ slug }}" aria-describedby="keys-{{ slug }}">
+    <p class="artifact-keys" id="keys-{{ slug }}">
+      Keys: Left and Right arrows browse images
+      {%- if has_audio %}, Enter plays or pauses audio{% endif -%}
+      , T shows or hides the transcript
+      {%- if artifact.obj3D %}, D opens the 3D model{% endif -%}
+      .
+    </p>
+
+    <div class="artifact-images swiper" role="group" aria-roledescription="carousel"
+         aria-label="Images of {{ meta.name | escape }}">
       <div class="swiper-wrapper">
         {%- for image in artifact.images %}
         <figure class="swiper-slide">
@@ -35,13 +51,13 @@ layout: default
     </div>
 
     <div class="description">
-      <h2>{{ meta.name | escape }}</h2>
+      <h2 id="name-{{ slug }}">{{ meta.name | escape }}</h2>
       {%- unless artifact.description == "TBC" %}
       <p>{{ artifact.description | escape }}</p>
       {%- endunless %}
 
       {%- if artifact.obj3D %}
-      <p><a href="{{ artifact.obj3D.url }}">{{ artifact.obj3D.altText | escape }}</a></p>
+      <p><a class="artifact-3d" href="{{ artifact.obj3D.url }}" tabindex="-1">{{ artifact.obj3D.altText | escape }}</a></p>
       {%- endif %}
 
       <dl>
@@ -51,10 +67,10 @@ layout: default
       </dl>
 
       <details>
-        <summary>Audio description of {{ meta.name | escape }}</summary>
-        {%- unless artifact.audioDescription.url == "TBC" %}
-        <audio controls preload="none" src="{{ artifact.audioDescription.url | relative_url }}"></audio>
-        {%- endunless %}
+        <summary tabindex="-1">Audio description of {{ meta.name | escape }}</summary>
+        {%- if has_audio %}
+        <audio controls preload="none" tabindex="-1" src="{{ artifact.audioDescription.url | relative_url }}"></audio>
+        {%- endif %}
         <p>{{ artifact.audioDescription.transcript | escape }}</p>
       </details>
 
@@ -67,11 +83,38 @@ layout: default
 <script defer src="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.artifact-images.swiper').forEach(el => new Swiper(el, {
-      // each carousel gets its own dots and arrows, so they don't control each other
-      pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
-      navigation: { nextEl: el.querySelector('.swiper-button-next'), prevEl: el.querySelector('.swiper-button-prev') },
-      // a11y module is on by default in the bundle: labels the arrows and announces slides
-    }));
+    document.querySelectorAll('.artifact').forEach(card => {
+      const el = card.querySelector('.artifact-images.swiper');
+      const swiper = new Swiper(el, {
+        // each carousel gets its own dots and arrows, so they don't control each other;
+        // dots aren't clickable so Swiper doesn't make them Tab stops
+        pagination: { el: el.querySelector('.swiper-pagination') },
+        navigation: { nextEl: el.querySelector('.swiper-button-next'), prevEl: el.querySelector('.swiper-button-prev') },
+        // a11y module is on by default in the bundle: labels the arrows and announces slides
+      });
+      // Swiper's a11y module makes its arrow buttons Tab stops on start and again whenever
+      // the carousel reaches or leaves an end; the card is the only Tab stop, so undo it each time
+      const skipArrows = () => el.querySelectorAll('.swiper-button-prev, .swiper-button-next')
+        .forEach(b => b.tabIndex = -1);
+      skipArrows();
+      swiper.on('fromEdge toEdge lock unlock', skipArrows);
+
+      const audio = card.querySelector('audio');
+      const details = card.querySelector('details');
+      const link3d = card.querySelector('.artifact-3d');
+
+      // shortcuts work only while the card itself has focus (WCAG 2.1.4)
+      card.addEventListener('keydown', e => {
+        if (e.target !== card || e.ctrlKey || e.metaKey || e.altKey) return;  // keep browser shortcuts
+        const key = e.key.toLowerCase();
+        if (key === 'arrowleft') swiper.slidePrev();
+        else if (key === 'arrowright') swiper.slideNext();
+        else if (key === 'enter' && audio) audio.paused ? audio.play() : audio.pause();
+        else if (key === 't') details.open = !details.open;
+        else if (key === 'd' && link3d) link3d.click();
+        else return;
+        e.preventDefault();
+      });
+    });
   });
 </script>

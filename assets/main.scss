@@ -36,6 +36,10 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
 .shelf-credit { font-size: $small-font-size; margin-top: $spacing-unit * 0.25; }
 
 .artifact {
+  // shortcut hint shows only when the card has keyboard focus; screen readers get it via aria-describedby
+  .artifact-keys { display: none; flex-basis: 100%; margin: 0; font-size: $small-font-size; }
+  &:focus-visible .artifact-keys { display: block; }
+
   // carousel beside the description; stacks on narrow screens
   display: flex;
   flex-direction: row;
