@@ -4,6 +4,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {%- seo -%}
   <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
+  {%- comment -%} body text font starts downloading with the CSS instead of after it {%- endcomment %}
+  <link rel="preload" href="{{ "/assets/fonts/atkinson-hyperlegible/atkinson-hyperlegible-latin-400-normal.woff2" | relative_url }}" as="font" type="font/woff2" crossorigin>
   {%- if page.layout == "shelf" %}
   {%- comment -%} Swiper on shelf pages only; CSS in <head> so carousels don't flash unstyled. {%- endcomment %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.css">
