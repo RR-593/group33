@@ -1,0 +1,41 @@
+{%- capture exnav_links -%}
+<ul class="exnav__list">
+{%- for item in site.data.exhibit_nav %}
+  <li><a class="exnav__link" href="{{ item.url | relative_url }}"{% if item.url == page.url %} aria-current="page"{% endif %}>{{ item.title | escape }}</a></li>
+{%- endfor %}
+</ul>
+{%- endcapture -%}
+{%- assign exnav_title = include.title | default: "Disability Throughout Time" -%}
+<div class="exnav">
+  <div class="exnav__side">
+    <a class="exnav__brand" href="{{ '/' | relative_url }}">{{ exnav_title | escape }}</a>
+    <nav aria-label="Exhibition pages">{{ exnav_links }}</nav>
+  </div>
+
+  <div class="exnav__bar">
+    <a class="exnav__brand" href="{{ '/' | relative_url }}">{{ exnav_title | escape }}</a>
+    <details class="exnav__menu">
+      <summary><span class="exnav__sr">Menu</span></summary>
+      <nav class="exnav__panel" aria-label="Exhibition pages">{{ exnav_links }}</nav>
+    </details>
+  </div>
+
+  <script>
+    (function () {
+      var menu = document.querySelector(".exnav__menu");
+      if (!menu) return;
+      menu.addEventListener("click", function (e) {
+        if (e.target.closest("a")) menu.open = false;
+      });
+      document.addEventListener("click", function (e) {
+        if (menu.open && !e.target.closest(".exnav")) menu.open = false;
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && menu.open) {
+          menu.open = false;
+          menu.querySelector("summary").focus();
+        }
+      });
+    })();
+  </script>
+</div>
