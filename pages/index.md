@@ -26,9 +26,12 @@ permalink: /
       <h2 class="exhibit__heading">Disability Throughout Time</h2>
 
       <div class="shelves">
-        {% assign total = site.data.shelves | size %}
-        {% for shelf in site.data.shelves %}
-          {% include shelf.html shelf=shelf total=total %}
+        {% assign keys = "top,middle,bottom" | split: "," %}
+        {% assign total = keys | size %}
+        {% for key in keys %}
+          {% assign shelf = site.data.shelves[key] %}
+          {% assign shelf_url = '/shelves/' | append: key | append: '/' %}
+          {% include shelf.html shelf=shelf number=forloop.index total=total url=shelf_url %}
         {% endfor %}
       </div>
     </div>
