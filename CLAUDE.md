@@ -20,6 +20,21 @@ serves the repository as a project site under `/group33`.
 - `_sass/` and `assets/` — vendored theme and accessibility changes
 - `CITATION.cff` — contributors' preferred public attribution
 
+### The exhibition at `/exhibition/`
+
+A self-contained sub-site that does not use the Minima chrome. It renders
+through its own `_layouts/exhibition.html` and `_layouts/shelf.html`, styled by
+`assets/css/exhibition.scss` and `_sass/exhibition/`, so it cannot affect the
+Minima pages and they cannot affect it.
+
+- `exhibition.html` — landing page, `permalink: /exhibition/`; its `title` is
+  only the navigation label, while the displayed name comes from
+  `site.exhibition.title` in `_config.yml`
+- `_data/shelves.yml` — every word a visitor reads on the exhibition, plus
+  image paths, alt text and credit lines. Edit content here, not in HTML
+- `shelves/<slug>.html` — one file per shelf, front matter only
+- `assets/images/` — exhibition photography; rights recorded in `NOTICE.md`
+
 ## Conventions and boundaries
 
 Read `AGENTS.md` before changing content. Keep archaeological claims tied to

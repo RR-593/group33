@@ -1,0 +1,528 @@
+// ---------------------------------------------------------------------------
+// Intro (hero + overview) — full-bleed black section with a decorative
+// white "vase" shape behind the title and overview copy.
+// ---------------------------------------------------------------------------
+
+.intro {
+  position: relative;
+  height: 100vh;
+  min-height: 480px;
+  background: var(--color-black);
+  overflow: hidden;
+}
+
+.intro__shape {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+
+  svg {
+    width: 100%;
+    max-width: var(--content-max-width);
+    height: 100%;
+  }
+
+  path {
+    fill: var(--color-white);
+  }
+}
+
+// Text sits in a column no wider than the shape's narrowest point (the
+// "waist"), so it can never spill onto the black background behind it.
+.intro__title-area {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  padding: var(--space-4);
+  text-align: center;
+}
+
+.intro__title {
+  font-size: clamp(1.6rem, 8vw, 2.5rem);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  max-width: 80%;
+}
+
+.intro__title-area .btn {
+  max-width: 72%;
+}
+
+// ---------------------------------------------------------------------------
+// Overview — plain white section the intro shape widens into; holds the
+// wave divider that transitions into the grey exhibition bar below.
+// ---------------------------------------------------------------------------
+
+.overview {
+  position: relative;
+  background: var(--color-white);
+  color: var(--color-text-dark);
+  padding-bottom: 60px;
+}
+
+.overview__inner {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-5) var(--space-7);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+}
+
+.overview__inner p + p {
+  margin-top: var(--space-4);
+}
+
+.overview__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.overview__divider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  line-height: 0;
+
+  svg {
+    width: 100%;
+    height: 60px;
+    display: block;
+  }
+
+  path {
+    fill: var(--color-charcoal);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Buttons
+// ---------------------------------------------------------------------------
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.btn--pill {
+  background: var(--color-ink);
+  color: var(--color-text-light);
+  border-radius: var(--radius-pill);
+  padding: 0.75rem var(--space-4);
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  transition: background 0.15s ease;
+}
+
+.btn--pill:hover {
+  background: #34343a;
+}
+
+// Secondary pill: outlined, for the lower-emphasis "next shelf" control.
+.btn--quiet {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn--quiet:hover {
+  background: var(--color-surface-alt);
+}
+
+.btn--full {
+  width: 100%;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ink);
+  color: var(--color-text-light);
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  padding: var(--space-2);
+}
+
+.icon-btn--circle {
+  width: 44px;
+  height: 44px;
+}
+
+// ---------------------------------------------------------------------------
+// Exhibition bar — breadcrumb + menu toggle + repeated title, on the grey
+// band that the intro section curves into.
+// ---------------------------------------------------------------------------
+
+.exhibition-bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--color-charcoal);
+  color: var(--color-text-light);
+  padding: var(--space-4);
+}
+
+.exhibition-bar__breadcrumb {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-radius: var(--radius-pill);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+}
+
+.exhibition-bar__crumbs {
+  display: flex;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+}
+
+.exhibition-bar__title {
+  max-width: var(--content-max-width);
+  margin: var(--space-3) auto 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.exhibition-menu {
+  background: var(--color-charcoal);
+  color: var(--color-text-light);
+}
+
+.exhibition-menu__list {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-4) var(--space-4);
+  list-style: none;
+}
+
+.exhibition-menu__list a {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.exhibition-menu__list li:last-child a {
+  border-bottom: none;
+}
+
+.exhibition-menu__number {
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.exhibition-menu[hidden] {
+  display: none;
+}
+
+// ---------------------------------------------------------------------------
+// Shelves
+// ---------------------------------------------------------------------------
+
+.shelves {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.shelf {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.shelf__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.shelf__title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.shelf__position {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.shelf__media {
+  margin: 0;
+}
+
+.shelf__image {
+  width: 100%;
+  height: auto;
+  // Matches the native 3:2 of the artefact photography, so nothing is
+  // cropped out of frame.
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-alt);
+}
+
+// Upright objects get a taller frame and are fitted rather than cropped,
+// so a standing figure keeps its head and its base. The grey matches the
+// studio background of the photography it is used for.
+.shelf__image--portrait {
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+  background: #cfcfd2;
+}
+
+.shelf__caption {
+  margin-top: var(--space-2);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.shelf__standfirst {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
+.shelf__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.shelf__next {
+  align-self: stretch;
+}
+
+// ---------------------------------------------------------------------------
+// Responsive adjustments
+// ---------------------------------------------------------------------------
+
+@media (min-width: 600px) {
+  .exhibition-bar__title {
+    font-size: 0.85rem;
+  }
+
+  .shelf__title {
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .shelves {
+    padding-top: var(--space-7);
+    padding-bottom: var(--space-7);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Credits — image rights notice. The artefact photography is Wellcome
+// Collection under CC BY 4.0, which requires visible attribution.
+// ---------------------------------------------------------------------------
+
+.credits {
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface-alt);
+}
+
+.credits__inner {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.credits__inner a {
+  color: inherit;
+}
+
+.credits__inner p + p {
+  margin-top: var(--space-3);
+}
+
+// ---------------------------------------------------------------------------
+// Shelf detail page — one long readable column: header, hero image, body
+// copy, any further objects on the same shelf, a context box, and
+// prev/next navigation.
+// ---------------------------------------------------------------------------
+
+.detail {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4) var(--space-7);
+}
+
+.detail__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+}
+
+.detail__title {
+  margin-top: var(--space-2);
+  font-size: clamp(1.75rem, 7vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.detail__standfirst {
+  margin-top: var(--space-3);
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.detail__media {
+  margin: var(--space-5) 0 0;
+}
+
+.detail__image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-alt);
+}
+
+.detail__image--portrait {
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+  background: #cfcfd2;
+}
+
+.detail__caption {
+  margin-top: var(--space-2);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.detail__body {
+  margin-top: var(--space-5);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.detail__body p + p {
+  margin-top: var(--space-4);
+}
+
+.detail__section-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.detail__objects {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.detail__context {
+  margin-top: var(--space-6);
+  padding: var(--space-4);
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-md);
+}
+
+.detail__context ul {
+  margin: var(--space-3) 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.detail__context li + li {
+  margin-top: var(--space-2);
+}
+
+.detail__nav {
+  margin-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.detail__nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: inherit;
+}
+
+.detail__nav-link:hover {
+  background: var(--color-surface-alt);
+}
+
+.detail__nav-link--next {
+  text-align: right;
+}
+
+.detail__nav-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+}
+
+.detail__nav-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.detail__back {
+  margin-top: var(--space-5);
+}

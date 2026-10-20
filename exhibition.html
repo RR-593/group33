@@ -1,0 +1,103 @@
+---
+layout: exhibition
+permalink: /exhibition/
+# page.title is the label Minima prints in the site navigation.
+title: "Exhibition"
+---
+
+<section class="intro" aria-labelledby="exhibition-title">
+  <div class="intro__shape" aria-hidden="true">
+    <svg viewBox="0 0 300 700" preserveAspectRatio="none" focusable="false">
+      <path d="M0,0 H300
+               C300,90 260,110 260,220
+               V480
+               C260,590 300,610 300,700
+               H0
+               C0,610 40,590 40,480
+               V220
+               C40,110 0,90 0,0
+               Z" />
+    </svg>
+  </div>
+
+  <div class="intro__title-area">
+    <h1 id="exhibition-title" class="intro__title">Disability in the Ancient World</h1>
+    <a class="btn btn--pill" href="#exhibition-overview">
+      Scroll to continue
+      {% include icons/chevron-down.html %}
+    </a>
+  </div>
+</section>
+
+<div class="overview" id="exhibition-overview">
+  <div class="overview__inner">
+    <h2 class="overview__title">Three shelves, and the people behind them</h2>
+    <p>
+      Disabled people have always existed. What changes is how societies
+      explain them — as omens, as burdens, as favourites of the gods, as
+      ordinary neighbours — and almost none of those explanations were
+      written down by disabled people themselves.
+    </p>
+    <p>
+      So we work from objects. A statuette carved from life. Hundreds of
+      stone figures left at a temple by people hoping to be made well.
+      Glazed amulets small enough to wear against the skin. Each one was
+      made because a body mattered enough to someone to spend money on it.
+    </p>
+    <p>
+      This exhibition holds three shelves, drawn from Egypt, the Roman
+      world and Roman Gaul. They do not add up to a single argument, and
+      we have tried not to force one. Read them as three different ways of
+      answering the same question: what do you do about a body that does
+      not behave as expected?
+    </p>
+  </div>
+
+  <div class="overview__divider" aria-hidden="true">
+    <svg viewBox="0 0 400 60" preserveAspectRatio="none" focusable="false">
+      <path d="M0,10 C100,60 300,0 400,35 L400,60 L0,60 Z" />
+    </svg>
+  </div>
+</div>
+
+<div class="exhibition-bar">
+  <div class="exhibition-bar__breadcrumb">
+    <p class="exhibition-bar__crumbs">
+      <span>Exhibition</span>
+      <span aria-hidden="true">&bull;</span>
+      <span aria-current="page">Display</span>
+    </p>
+    <button
+      type="button"
+      class="icon-btn"
+      id="exhibition-menu-toggle"
+      aria-expanded="false"
+      aria-controls="exhibition-menu">
+      {% include icons/menu.html %}
+      <span class="visually-hidden">Toggle exhibition menu</span>
+    </button>
+  </div>
+  <p class="exhibition-bar__title">Disability in the Ancient World</p>
+</div>
+
+<nav id="exhibition-menu" class="exhibition-menu" hidden aria-label="Jump to a shelf">
+  <ul class="exhibition-menu__list">
+    {% for shelf in site.data.shelves %}
+      <li>
+        <a href="#shelf-{{ shelf.number }}">
+          <span class="exhibition-menu__number">{{ shelf.number }}</span>
+          {{ shelf.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>
+
+<section class="shelves" aria-label="Exhibition shelves">
+  <h2 class="visually-hidden">Exhibition shelves</h2>
+  {% for shelf in site.data.shelves %}
+    {% include shelf.html shelf=shelf %}
+  {% endfor %}
+</section>
+
+{% include credits.html %}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% assign shelf = site.data.shelves | where: "slug", page.shelf_slug | first %}
+  <title>{{ shelf.title }} — {{ site.exhibition.title }}</title>
+  <meta name="description" content="{{ shelf.standfirst }}">
+  <link rel="stylesheet" href="{{ '/assets/css/exhibition.css' | relative_url }}">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="exhibition-bar">
+    <div class="exhibition-bar__breadcrumb">
+      <p class="exhibition-bar__crumbs">
+        <a href="{{ '/exhibition/' | relative_url }}">Exhibition</a>
+        <span aria-hidden="true">&bull;</span>
+        <span aria-current="page">{{ shelf.title }}</span>
+      </p>
+    </div>
+    <p class="exhibition-bar__title">{{ site.exhibition.title }}</p>
+  </div>
+
+  <main id="main-content">
+    <article class="detail">
+      <header class="detail__header">
+        <p class="detail__eyebrow">Shelf {{ shelf.number }} of {{ site.data.shelves.size }}</p>
+        <h1 class="detail__title">{{ shelf.title }}</h1>
+        <p class="detail__standfirst">{{ shelf.standfirst }}</p>
+      </header>
+
+      <figure class="detail__media">
+        <img
+          class="detail__image{% if shelf.portrait %} detail__image--portrait{% endif %}"
+          src="{{ shelf.image | relative_url }}"
+          alt="{{ shelf.alt_text }}"
+          width="1280"
+          height="853">
+        <figcaption class="detail__caption">{{ shelf.caption }}</figcaption>
+      </figure>
+
+      <div class="detail__body">
+        {% for paragraph in shelf.body %}
+          <p>{{ paragraph }}</p>
+        {% endfor %}
+      </div>
+
+      {% if shelf.context and shelf.context.size > 0 %}
+        <aside class="detail__context" aria-labelledby="shelf-context">
+          <h2 class="detail__section-title" id="shelf-context">{{ shelf.context_title }}</h2>
+          <ul>
+            {% for item in shelf.context %}
+              <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        </aside>
+      {% endif %}
+
+      <nav class="detail__nav" aria-label="Exhibition navigation">
+        {% assign prev_number = shelf.number | minus: 1 %}
+        {% assign prev = site.data.shelves | where: "number", prev_number | first %}
+        {% assign next = site.data.shelves | where: "number", shelf.next_number | first %}
+
+        {% if prev %}
+          <a class="detail__nav-link" href="{{ prev.explore_url | relative_url }}">
+            <span class="detail__nav-label">Previous shelf</span>
+            <span class="detail__nav-title">{{ prev.title }}</span>
+          </a>
+        {% endif %}
+
+        {% if next %}
+          <a class="detail__nav-link detail__nav-link--next" href="{{ next.explore_url | relative_url }}">
+            <span class="detail__nav-label">Next shelf</span>
+            <span class="detail__nav-title">{{ next.title }}</span>
+          </a>
+        {% endif %}
+      </nav>
+
+      <p class="detail__back">
+        <a class="btn btn--pill btn--quiet" href="{{ '/exhibition/#shelf-' | append: shelf.number | relative_url }}">
+          Back to the exhibition
+        </a>
+      </p>
+    </article>
+  </main>
+
+  {% include credits.html %}
+</body>
+</html>

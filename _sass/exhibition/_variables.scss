@@ -1,0 +1,42 @@
+:root {
+  // Colours — a restrained monochrome scheme: white page, near-black ink
+  // and controls, hairline borders. The charcoal matches the seamless
+  // background of the artefact photography so images sit flush with the
+  // dark sections rather than fighting them.
+  --color-ink: #111113;
+  --color-charcoal: #1c1c1f;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f4f4f5;
+  --color-border: #e4e4e7;
+  --color-text: #111113;
+  --color-text-muted: #6b6b76;
+  --color-text-light: #ffffff;
+  --color-focus: #2563eb;
+
+  // Legacy aliases still referenced by components
+  --color-black: var(--color-ink);
+  --color-white: var(--color-surface);
+  --color-gray-light: var(--color-surface-alt);
+  --color-gray-mid: var(--color-charcoal);
+  --color-text-dark: var(--color-text);
+
+  // Typography — one modern sans across the page.
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: var(--font-body);
+
+  // Spacing scale
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4rem;
+
+  // Shape
+  --radius-pill: 999px;
+  --radius-md: 12px;
+
+  // Layout
+  --content-max-width: 600px;
+}

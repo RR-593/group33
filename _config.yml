@@ -10,8 +10,17 @@ author: Group 33
 
 header_pages:
   - index.md
+  - exhibition.html
   - about.md
   - team.md
+
+# The exhibition sub-site at /exhibition/. It has its own title and its own
+# standalone layouts, so it does not use site.title or the Minima chrome.
+exhibition:
+  title: "Disability in the Ancient World"
+  description: >-
+    An exhibition about disabled people in Egypt, Greece, Rome and Roman Gaul,
+    told through the objects they left behind.
 
 plugins:
   - jekyll-feed
