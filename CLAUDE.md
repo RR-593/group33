@@ -27,4 +27,4 @@ evidence and keep rights records with media. Preserve `baseurl: "/group33"`,
 Ruby and dependency locks, action pins, licensing, native navigation controls,
 and keyboard-visible focus.
 Commits to `main` become public automatically; Lighthouse reports regressions
-but does not block the independent Pages deployment.
+but does not block the independent Pages deployment..
