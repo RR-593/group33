@@ -55,11 +55,6 @@ video:
 
   <div class="exhibit__dark">
     <div class="exhibit__inner">
-      <nav class="crumbs" aria-label="Breadcrumb">
-        <a href="{{ '/' | relative_url }}">Exhibition</a>
-        <span aria-hidden="true">&bull;</span>
-        <span aria-current="page">Display</span>
-      </nav>
 
       <h2 class="exhibit__heading" id="display">Disability Throughout Time</h2>
 
