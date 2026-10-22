@@ -1,0 +1,252 @@
+$black: #131212;
+$black-hover: #111111;
+$charcoal: #373A36;
+$sand: #EDEBE5;
+
+body { overflow-x: hidden; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* On the exhibition home page, hide the theme's site title and footer title */
+body:has(.exhibit) {
+  .site-header { display: none; }
+  .page-content { padding: 0; }
+  .footer-heading { display: none; }
+}
+
+.exhibit {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  font-family: "Jost", "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
+  color: $charcoal;
+  background: #fff;
+}
+
+.exhibit__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hero {
+  --lens: clamp(56px, 19vw, 280px);
+  position: relative;
+  min-height: clamp(420px, 70vh, 600px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  padding: 2rem calc(var(--lens) + 1rem);
+  background: #fff;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: var(--lens);
+    background: $black;
+  }
+  &::before {
+    left: 0;
+    border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+  }
+  &::after {
+    right: 0;
+    border-radius: 100% 0 0 100% / 50% 0 0 50%;
+  }
+}
+
+.hero__title {
+  margin: 0;
+  font-size: clamp(1.25rem, 4.2vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.overview {
+  position: relative;
+  z-index: 1;
+  min-height: 35vh;
+  padding: 2rem 1.5rem 7rem;
+  background: #fff;
+  text-align: center;
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  border-bottom-right-radius: 100% 90px;
+
+  p { max-width: 60ch; margin: 0 auto; }
+}
+
+.exhibit__dark {
+  margin-top: -1px;
+  padding: 1.25rem 1rem 3rem;
+  background: $charcoal;
+}
+
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  background: #fff;
+  border-radius: 10px;
+  font-size: 0.85rem;
+
+  a,
+  a:visited { color: $charcoal; text-decoration: underline; }
+  a:hover { color: $black; }
+}
+
+.exhibit__heading {
+  margin: 2rem 0.25rem;
+  color: #fff;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* One column on phones, two on tablets, three on desktop */
+.shelves {
+  display: grid;
+  gap: 1.25rem;
+  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+}
+
+/* Buttons: white text in every link state, so no blue or visited colours leak in */
+.pill,
+a.pill,
+a.pill:visited,
+a.pill:hover,
+a.pill:active {
+  color: #fff;
+  text-decoration: none;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.7rem 1.25rem;
+  background: $black;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.9rem;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover { background: $black-hover; }
+  &:focus-visible { outline: 3px solid $charcoal; outline-offset: 2px; }
+}
+
+.pill--icon { flex: 0 0 auto; width: 3rem; padding-left: 0; padding-right: 0; }
+
+.shelf {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  background: #fff;
+  border-radius: 16px;
+}
+
+.shelf__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.shelf__title { margin: 0; font-size: 1.1rem; font-weight: 600; }
+.shelf__count { margin: 0; font-size: 0.9rem; }
+
+.shelf__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.shelf__figure { margin: 1rem 0; }
+
+.shelf__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: $sand;
+  border-radius: 14px;
+}
+
+.shelf__caption { margin-top: 0.6rem; font-size: 0.8rem; line-height: 1.5; }
+.shelf__credit { display: block; margin-top: 0.4rem; font-size: 0.72rem; opacity: 0.85; }
+
+/* "Inside this shelf": a basic native toggle holding the extra pictures */
+.shelf__inside {
+  margin-bottom: 1rem;
+  border: 2px solid $charcoal;
+  border-radius: 12px;
+
+  summary {
+    padding: 0.6rem 1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  summary:focus-visible { outline: 3px solid $black; outline-offset: 2px; }
+}
+
+.shelf__inside-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 1rem 0.5rem;
+}
+
+.shelf__image--small { aspect-ratio: 3 / 2; }
+
+.shelf__actions { display: flex; gap: 0.6rem; margin-bottom: 0.75rem; }
+.shelf__explore { flex: 1; }
+.shelf__next { display: block; }
+
+/* On desktop all three shelves sit side by side, so the "next" link is redundant */
+@media (min-width: 1000px) {
+  .shelf__next { display: none; }
+}
+
+/* Shelf detail page */
+.artefact {
+  display: grid;
+  gap: 1.5rem;
+  margin: 1.5rem 0 1rem;
+  padding: 1.25rem;
+  background: #fff;
+  border-radius: 16px;
+
+  @media (min-width: 800px) {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    padding: 2rem;
+  }
+}
+
+.artefact__figure { margin: 0; }
+.artefact__title { margin: 0 0 0.75rem; font-size: clamp(1.4rem, 3vw, 2rem); }
+.artefact__text h2 { margin: 1.5rem 0 0.5rem; font-size: 1.1rem; }
+.artefact__text p { font-size: 0.95rem; line-height: 1.6; }
+
+.artefact__facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.4rem 1rem;
+  margin: 0;
+  font-size: 0.9rem;
+
+  dt { font-weight: 600; }
+  dd { margin: 0; }
+}
+
+.artefact__nav { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }

@@ -1,0 +1,52 @@
+{% assign s = include.shelf %}
+<section class="shelf" id="shelf-{{ s.number }}" aria-labelledby="shelf-{{ s.number }}-title">
+  <header class="shelf__header">
+    <h3 class="shelf__title" id="shelf-{{ s.number }}-title">{{ s.title }}</h3>
+    <p class="shelf__count"><span class="shelf__sr">Shelf </span>{{ s.number }}/{{ include.total }}</p>
+  </header>
+
+  <figure class="shelf__figure">
+    {% if s.image contains "://" %}
+      <img class="shelf__image" src="{{ s.image }}" alt="{{ s.alt }}" loading="lazy">
+    {% else %}
+      <img class="shelf__image" src="{{ s.image | relative_url }}" alt="{{ s.alt }}" loading="lazy">
+    {% endif %}
+    <figcaption class="shelf__caption">
+      {{ s.caption }}
+      <span class="shelf__credit">{{ s.credit }}</span>
+    </figcaption>
+  </figure>
+
+  {% if s.inside and s.inside.size > 0 %}
+    <details class="shelf__inside">
+      <summary>Inside this shelf ({{ s.inside.size }})</summary>
+      <ul class="shelf__inside-list">
+        {% for item in s.inside %}
+          <li>
+            <figure class="shelf__figure">
+              {% if item.image contains "://" %}
+                <img class="shelf__image shelf__image--small" src="{{ item.image }}" alt="{{ item.alt }}" loading="lazy">
+              {% else %}
+                <img class="shelf__image shelf__image--small" src="{{ item.image | relative_url }}" alt="{{ item.alt }}" loading="lazy">
+              {% endif %}
+              <figcaption class="shelf__caption">
+                {{ item.caption }}
+                <span class="shelf__credit">{{ item.credit }}</span>
+              </figcaption>
+            </figure>
+          </li>
+        {% endfor %}
+      </ul>
+    </details>
+  {% endif %}
+
+  <div class="shelf__actions">
+    <a class="pill shelf__explore" href="{{ '/shelf-' | append: s.number | append: '/' | relative_url }}">Explore {{ s.title }} <span aria-hidden="true">&#8599;</span></a>
+    <button class="pill pill--icon" type="button" aria-label="Play audio for {{ s.title }}">&#9654;</button>
+  </div>
+
+  {% if s.number < include.total %}
+    {% assign next = s.number | plus: 1 %}
+    <a class="pill shelf__next" href="#shelf-{{ next }}">Scroll for next shelf <span aria-hidden="true">&#8964;</span></a>
+  {% endif %}
+</section>
