@@ -1,9 +1,7 @@
 $black: #131212;
-$black-hover: #373A36;
-$charcoal: #373A36;
-$sand: #EDEBE5;
+$black-hover: #000;
 $white: #fff;
-$hero-bg: $charcoal;
+$hero-bg: $black;
 $lens: $black;
 
 body { overflow-x: hidden; }
@@ -23,7 +21,7 @@ body:has(.exhibit) {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   font-family: "Jost", "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
-  color: $charcoal;
+  color: $black;
   background: $white;
 }
 
@@ -103,7 +101,8 @@ body:has(.exhibit) {
   aspect-ratio: 16 / 9;
   border-radius: 14px;
   overflow: hidden;
-  background: $sand;
+  border: 2px solid $black;
+  background: $white;
 
   video {
     display: block;
@@ -155,21 +154,7 @@ body:has(.exhibit) {
   position: relative;
   margin-top: calc(var(--curve) * -1);
   padding: calc(var(--curve) + 1.25rem) 1rem 3rem;
-  background: $charcoal;
-}
-
-.crumbs {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.65rem 1rem;
-  background: $white;
-  border-radius: 10px;
-  font-size: 0.85rem;
-
-  a,
-  a:visited { color: $charcoal; text-decoration: underline; }
-  a:hover { color: $black; }
+  background: $black;
 }
 
 .exhibit__heading {
@@ -208,7 +193,7 @@ a.pill:active {
   cursor: pointer;
 
   &:hover { background: $black-hover; }
-  &:focus-visible { outline: 3px solid $charcoal; outline-offset: 2px; }
+  &:focus-visible { outline: 3px solid $black; outline-offset: 2px; }
 }
 
 .shelf {
@@ -235,7 +220,7 @@ a.pill:active {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: contain;
-  background: $sand;
+  background: $white;
   border-radius: 14px;
 }
 
@@ -243,8 +228,26 @@ a.pill:active {
 .shelf__intro { margin: 0 0 1rem; font-size: 0.9rem; line-height: 1.5; }
 
 .shelf__actions { display: flex; gap: 0.6rem; margin-bottom: 0.75rem; }
+.shelf__explore,
+.shelf__next {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  text-align: center;
+}
 .shelf__explore { flex: 1; }
-.shelf__next { display: block; }
+.shelf__chevron,
+.shelf__icon {
+  position: absolute;
+  top: 50%;
+  right: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  transform: translateY(-50%);
+}
 
 @media (min-width: 1000px) {
   .shelf__next { display: none; }
@@ -253,7 +256,7 @@ a.pill:active {
 $side-w: 15rem;
 $bar-h: 3.5rem;
 $nav-break: 900px;
-$nav-line: rgba($charcoal, 0.35);
+$nav-line: $black;
 
 html:has(.exhibit) { scroll-padding-top: calc(#{$bar-h} + 0.75rem); }
 
@@ -263,18 +266,18 @@ html:has(.exhibit) { scroll-padding-top: calc(#{$bar-h} + 0.75rem); }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: $sand;
+  background: $white;
   border-bottom: 1px solid $nav-line;
 
   a,
-  a:visited { color: $charcoal; }
+  a:visited { color: $black; }
 }
 
 .exnav__side { display: none; }
 
 .exnav__brand,
 a.exnav__brand:visited {
-  color: $charcoal;
+  color: $black;
   font-weight: 700;
   line-height: 1.15;
   text-decoration: none;
@@ -320,7 +323,7 @@ a.exnav__brand:visited {
     justify-content: center;
     width: 44px;
     height: 44px;
-    border: 2px solid $charcoal;
+    border: 2px solid $black;
     border-radius: 10px;
     list-style: none;
     cursor: pointer;
@@ -340,7 +343,7 @@ a.exnav__brand:visited {
   }
 
   &[open] summary {
-    background: $charcoal;
+    background: $black;
     color: $white;
 
     &::before {
@@ -369,7 +372,7 @@ a.exnav__brand:visited {
   max-height: calc(100vh - #{$bar-h});
   overflow-y: auto;
   padding: 0.25rem 1rem 1rem;
-  background: $sand;
+  background: $white;
   border-bottom: 1px solid $nav-line;
   box-shadow: 0 0.6rem 1rem rgba($black, 0.18);
 }
@@ -410,7 +413,7 @@ a.exnav__brand:visited {
   .hero .pill {
     background: $white;
 
-    &:hover { background: $sand; }
+    &:hover { text-decoration: underline; }
     &:focus-visible { outline-color: $white; }
   }
 }
@@ -481,5 +484,5 @@ a.exnav__brand:visited {
   .shelf__intro { grid-area: intro; }
   .shelf__actions { grid-area: actions; }
 
-  .shelf__next { grid-area: next; display: block; justify-self: start; }
+  .shelf__next { grid-area: next; display: flex; justify-self: stretch; }
 }
