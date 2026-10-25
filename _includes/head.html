@@ -14,6 +14,20 @@
   <link rel="preconnect" href="https://macquarie.nira.app">
   {%- endif %}
   <link rel="icon" href="{{ "/assets/favicon.svg" | relative_url }}" type="image/svg+xml">
+  {%- comment -%}
+    Loads every other nav page in the background, images included, so clicking a nav link
+    shows it at once instead of flashing while it loads. Chrome and Edge only; they skip
+    this under Data Saver or battery saver. Pages come from header_pages in _config.yml.
+  {%- endcomment %}
+  <script type="speculationrules">
+    {"prerender": [{"urls": [
+      {%- assign first = true %}
+      {%- for path in site.header_pages %}
+      {%- assign my_page = site.pages | where: "path", path | first %}
+      {%- unless my_page.url == page.url %}{% unless first %},{% endunless %}{{ my_page.url | relative_url | jsonify }}{% assign first = false %}{% endunless %}
+      {%- endfor %}
+    ]}]}
+  </script>
   {%- feed_meta -%}
   {%- if jekyll.environment == 'production' and site.google_analytics -%}
     {%- include google-analytics.html -%}

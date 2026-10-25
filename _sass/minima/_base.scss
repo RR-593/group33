@@ -28,22 +28,6 @@ body {
   flex-direction: column;
 }
 
-.skip-link {
-  position: absolute;
-  top: 0;
-  left: $spacing-unit * 0.5;
-  z-index: 100;
-  padding: 0.5rem 0.75rem;
-  color: #ffffff;
-  background: #111111;
-  transform: translateY(-120%);
-}
-
-.skip-link:focus {
-  color: #ffffff;
-  transform: translateY(0);
-}
-
 :focus-visible {
   outline: 3px solid #005fcc;
   outline-offset: 3px;
