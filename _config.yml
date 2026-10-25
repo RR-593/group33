@@ -34,3 +34,4 @@ exclude:
   - LICENSE
   - NOTICE.md
   - README.md
+  - docs
