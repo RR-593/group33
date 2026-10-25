@@ -6,13 +6,10 @@ permalink: /curation/
 
 {%- comment -%}
 Curation & Acknowledgements page (first draft).
-Self-contained: this page and /assets/curation.css only. It adds no navigation
-and edits no shared files, so it can be merged on its own.
+Styles live in _sass/curation.scss, scoped to .curation.
 Replace the placeholder bio text, portrait, funder logos and licence links where
 marked. Keep the heading order (page h1 -> section h2) and the image alt text.
 {%- endcomment -%}
-
-<link rel="stylesheet" href="{{ '/assets/curation.css' | relative_url }}">
 
 <div class="curation">
 
@@ -28,7 +25,7 @@ marked. Keep the heading order (page h1 -> section h2) and the image alt text.
              the person for its purpose here, e.g. alt="Dr Jane Doe, curator".
              Leave alt="" only while this remains a decorative placeholder. -->
         <img class="curation__portrait"
-             src="{{ '/assets/curation/placeholder-portrait.svg' | relative_url }}"
+             src="{{ '/assets/placeholders/placeholder-portrait.svg' | relative_url }}"
              alt="" width="240" height="240">
       </figure>
     </div>
@@ -39,15 +36,15 @@ marked. Keep the heading order (page h1 -> section h2) and the image alt text.
     <ul class="curation__funders" role="list">
       <li class="curation__funder">
         <!-- Replace src with the funder's logo and set alt to the funder's name. -->
-        <img src="{{ '/assets/curation/placeholder-logo.svg' | relative_url }}"
+        <img src="{{ '/assets/placeholders/placeholder-logo.svg' | relative_url }}"
              alt="Funding body logo (placeholder)" width="120" height="120">
       </li>
       <li class="curation__funder">
-        <img src="{{ '/assets/curation/placeholder-logo.svg' | relative_url }}"
+        <img src="{{ '/assets/placeholders/placeholder-logo.svg' | relative_url }}"
              alt="Funding body logo (placeholder)" width="120" height="120">
       </li>
       <li class="curation__funder">
-        <img src="{{ '/assets/curation/placeholder-logo.svg' | relative_url }}"
+        <img src="{{ '/assets/placeholders/placeholder-logo.svg' | relative_url }}"
              alt="Funding body logo (placeholder)" width="120" height="120">
       </li>
     </ul>
