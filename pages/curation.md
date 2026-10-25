@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Curation & Acknowledgements
+nav_title: Curation
 permalink: /curation/
 ---
 
