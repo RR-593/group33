@@ -14,6 +14,7 @@ header_pages:
   - pages/shelves/top.md
   - pages/shelves/middle.md
   - pages/shelves/bottom.md
+  - pages/curation.md
   - pages/team.md
 
 # Widths (px) of the resized photo copies used by shelf pages. Read by

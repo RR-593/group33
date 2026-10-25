@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Disability Throughout Time
+nav_title: Home
 permalink: /
 subtitle: ""
 video:
@@ -11,11 +12,6 @@ video:
 ---
 
 <div class="exhibit">
-
-  <div class="exhibit__layout">
-  {% include exhibit-nav.html %}
-
-  <div class="exhibit__main">
 
   <section class="hero" aria-labelledby="hero-title">
     <h1 class="hero__title" id="hero-title">Disability Throughout Time</h1>
@@ -68,9 +64,6 @@ video:
         {% endfor %}
       </div>
     </div>
-  </div>
-
-  </div>
   </div>
 
 </div>
