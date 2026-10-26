@@ -2,12 +2,7 @@
 
 **Disability Heritage: Archaeology with Difference**, curated by Hannah Vogel
 
-This file reorganises `HannasMasterDoc.txt`. Exhibition text is copied word for word. `TBC` means the source document has not supplied it yet.
-
-Machine-readable copies:
-
-- [exhibition_objects.csv](exhibition_objects.csv): one row per object
-- [exhibition_images.csv](exhibition_images.csv): one row per image, with file path, caption and alt text
+This file reorganises the curator's master document. Exhibition text is copied word for word. `TBC` means the source document has not supplied it yet.
 
 ## Contents
 
@@ -25,26 +20,21 @@ Machine-readable copies:
 | Page / object | Missing item |
 |---|---|
 | Home | Audio description of the display |
-| Home | Quote (Hannah to decide; Group 34 template) |
 | Home | Auslan video, transcript and caption |
-| Home | "Contact us" paragraph (Group 34 template) and YouTube, LinkedIn and Instagram links |
 | Home | Final display photo (currently a placeholder) |
-| About | Visitor information: website and on-campus |
-| About | Curator bio (to edit, add publications) and profile photo |
+| About | Visitor information: website accessibility features (students to draft) |
+| About | Curator profile photo |
 | About | Website team (students to fill in) |
+| Middle shelf | Hero image: file, caption and alt text |
 | Objects 2–11 | Object overview text |
-| Objects 1–11 | Dimensions |
-| Object 4 | Material |
 | Objects 1, 2, 3 | 3D model (none yet) |
 | Objects 4, 5 | 3D link (labelled "View in 3D" but no URL given) |
-| Object 7 | 3D link (waiting for it to be sent) |
-| Objects 9, 11 | 3D link |
 
 ## Things to check
 
 These are inconsistencies spotted in the source document. They have **not** been changed here.
 
-1. **Middle shelf hero alt text is wrong.** It is the Pelike's alt text, copied in by mistake. The musician's Image 2 alt text (Object 4, below) is probably the right one.
+1. **Middle shelf hero image is blank.** The source now gives no file name, the caption is "XX" and the alt text is ".". Object 4, Image 2 (musician hero shot) was the earlier choice.
 2. **Land acknowledgement wording differs.** The home page says "Wallumatta of the Dharug Nation". The About page says "Wallumattagal clan of the Dharug Nation… Their sovereignty was never ceded."
 3. **About page, last paragraph:** "acknowledge that preferences vary" is missing "I".
 4. **"Community of Practise"** should probably be "Practice".
@@ -54,6 +44,8 @@ These are inconsistencies spotted in the source document. They have **not** been
 8. **Object 8, Image 6 alt text** quotes the museum number as "MU523". The accession number is MU0523. This may be what is literally written on the object.
 9. **Object 9, Image 7 alt text** quotes the label as "AH85053". The accession number is AHM/1985/053.
 10. **Image file names** in the source document have no extension. The actual files are `.jpg`, except the placeholder, which is `.jpeg`.
+11. **Curator bio typos:** "Macquaire" should be "Macquarie", and "has been recognised an emerging research leader" is missing "as".
+12. **Objects 1, 9, 10 and 11 dimensions** give only height and width (no depth).
 
 ## Home page
 
@@ -79,10 +71,6 @@ If we place disability at the centre of our story, the object on the top shelf c
 
 This display is not only about disability, it is for the disability community. The accessibility 'features' are disability heritage just as much as the archaeological material behind the glass.
 
-### Quote
-
-TBC. Hannah to decide whether to include one (Group 34 template).
-
 ### Auslan video
 
 Transcript: TBC. Caption: TBC.
@@ -93,22 +81,36 @@ This research was undertaken on the lands of the Wallumatta of the Dharug Nation
 
 This project is supported by the Commonwealth through an Australian Government Research Training Program Scholarship [DOI: https://doi.org/10.82133/C42F-K220] and the National Disability Research Partnership Disability Leadership Program.
 
-### Contact us (Group 34 template)
-
-Paragraph: TBC. Links: YouTube, LinkedIn, Instagram (TBC).
-
 ## About page
 
 ### Visitor information and accessibility
 
-- Website: TBC
-- On campus: TBC
+**Website:** TBC (students to draft the accessibility features developed for the website).
+
+**On campus:** This exhibition is displayed at the Gale History Museum from 10th November 2026 until the 1st of March 2027. The Museum is open 10am to 4pm, Monday to Friday (closed on public holidays) and is located on Macquarie University's Wallumattagal Campus, North Ryde, on the ground floor of the Arts Precinct at 25C Wally's Walk. Please refer to P-12 on the Campus Map. Parking and public transport information can be accessed via Museum’s Visit page on the Macquarie University Website.
+
+Accessibility features for the on-campus display include:
+
+- Tactile 3D printed models of the objects
+- Tactile 3D printed fabrication of the scene depicted on Object 1, Pelike (MU4759)
+- Braille and Large-print guide
+- An interactive touchscreen and QR codes to access this website including an Auslan (Australian Sign Language) interpretation video and high-quality photographs with audio-visual descriptions.
 
 ### Curator
 
-**Hannah Vogel.** The bio below is a placeholder. It still needs editing and publications, plus a profile photo.
+**Hannah Vogel.** Profile photo still needed.
 
-> Hannah Vogel is an archaeologist researching ableism and disability. She is an advocate for accessibility, with experience in museums, outreach and inclusive pedagogies. Hannah is a teaching academic and PhD candidate in the School of Humanities (Macquarie University) and awarded emerging leader of disability by National Disability Research Partnership.
+> Hannah Vogel is an archaeologist, teaching academic, and PhD candidate researcher in the School of Humanities, Macquarie University (Sydney, Australia). As a leading researcher on ableism and disability, she combines archaeological scholarship with advocacy and experience in museums, public outreach, accessibility, and inclusive pedagogies. Her work has helped shape the emerging field of archaeological disability studies.
+>
+> Her recent books include Disability in Ancient Egypt and Egyptology (Routledge, 2024) and Disability Activism in and Out of the Academy (2026). She has been recognised an emerging research leader of the inaugural National Disability Leadership Program by the National Disability Research Partnership.
+>
+> Check out her Macquaire University Profile or Website (hvogel.org) for more information about her projects, research, outreach and advocacy.
+
+| Link | URL |
+|---|---|
+| MQ Profile | https://researchers.mq.edu.au/en/persons/hannah-vogel/ |
+| Personal Website | https://hvogel.org/ |
+| NDRP | https://www.ndrp.org.au/ |
 
 ### Funding
 
@@ -126,6 +128,7 @@ Thanks to the Gale History Museum, Macquarie University for providing access to 
 | Mike Baber | 3D models and prints |
 | Dave Frame | Signage and installation |
 | Vision Australia | Tactile fabrication, large-print and braille guides |
+| Marcus Arruzza | Video production and digital scans |
 
 I acknowledge [disability] community consultation, was provided by the National Disability Research Partnership staff (especially, Catherine Raffaele and Jess Rosenthal), and the Disability Research Leaders Community of Practise members (especially, Matthew Jackson and Samantha Lilly). Acknowledgments for feedback and consultation also from Dr Alexandra F. Morris, Amy Cripps, Cecily Bateman, Chaya Kasif, Damian Gilbert, Dr David Chapman, Dr Ewan Coopey, Gessika Crowe, Hannah Newman, Jackie Tang, Dr Julia Hamilton, Dr Katie Shead, Louise Pryke, Marianne Strauss, Narges Safari, Nicole Leong, Penelope Blake, Prof Ronika Power, Sarah Massingham, Taylah Evans and many other community members who have elected to remain anonymous.
 
@@ -141,17 +144,17 @@ TBC (students to fill in).
 
 | # | Shelf | Object | Acq. no. | Material | Date / origin | Images | 3D |
 |---|---|---|---|---|---|---|---|
-| 1 | Top | [Pelike](#1-pelike) | MU4759 | Ceramic | Painter of Bari 8010, Southern Italy, 350-340 B.C.E. Purchase, 2013 | 3 | TBC |
-| 2 | Middle | [Reclining Figure](#2-reclining-figure) | MU4249 | Ceramic | Possibly Rhodian, c.500-400 B.C.E. Bequest of Graham Joyner, 2008. | 3 | TBC |
-| 3 | Middle | [Bronze dancer (replica)](#3-bronze-dancer-replica) | MU0101 | Bronze | Boston, c.1997. Purchased in 1997. Copy of Etruscan bronze, c.525-500 BCE, 01.7482, from the Museum of Fine Arts, Boston | 6 | TBC |
-| 4 | Middle | [Figure of a musician](#4-figure-of-a-musician) | MU0086 | TBC | Greece, 7th-6th century B.C.E. Purchased in 1997. | 8 | TBC |
-| 5 | Middle | [Seated statuette](#5-seated-statuette) | MU3735 | Ceramic | Mesopotamia, Greek seated figurine, c.3000 B.C.E. Purchased in 2003. | 5 | TBC |
+| 1 | Top | [Pelike](#1-pelike) | MU4759 | Ceramic | Painter of Bari 8010, Southern Italy, 350-340 B.C.E. Purchase, 2013 | 3 | None yet |
+| 2 | Middle | [Reclining Figure](#2-reclining-figure) | MU4249 | Ceramic | Possibly Rhodian, c.500-400 B.C.E. Bequest of Graham Joyner, 2008. | 3 | None yet |
+| 3 | Middle | [Bronze dancer (replica)](#3-bronze-dancer-replica) | MU0101 | Bronze | Boston, c.1997. Purchased in 1997. Copy of Etruscan bronze, c.525-500 BCE, 01.7482, from the Museum of Fine Arts, Boston | 6 | None yet |
+| 4 | Middle | [Figure of a musician](#4-figure-of-a-musician) | MU0086 | Ceramic | Greece, 7th-6th century B.C.E. Purchased in 1997. | 8 | TBC ("View in 3D", no URL) |
+| 5 | Middle | [Seated statuette](#5-seated-statuette) | MU3735 | Ceramic | Mesopotamia, Greek seated figurine, c.3000 B.C.E. Purchased in 2003. | 5 | TBC ("View in 3D", no URL) |
 | 6 | Middle | [Bronze figure of Priapus](#6-bronze-figure-of-priapus) | MU4697 | Bronze | Roman, c.1st-4th century C.E. Purchased in 2012. | 9 | [View](https://macquarie.nira.app/a/hpbtWsRWSQaHaJPHElDtJQ/1) |
-| 7 | Middle | [Terracotta figurine](#7-terracotta-figurine) | MU2676 | Terracotta | Cyprus, c.7th century B.C.E. Purchased in 1986. | 8 | TBC |
+| 7 | Middle | [Terracotta figurine](#7-terracotta-figurine) | MU2676 | Terracotta | Cyprus, c.7th century B.C.E. Purchased in 1986. | 8 | n/a |
 | 8 | Middle | [Amulet of Pataikos](#8-amulet-of-pataikos) | MU0523 | Green Faience | Egypt, Third Intermediate Period or Ptolemaic period, c. 1069 - 664 / 332 - 30 B.C.E. Donation, Prof. Naguib Kanawati, 1980. | 6 | [View](https://macquarie.nira.app/a/S89lZLMKRfCoB5qdh4sjRQ/1) |
-| 9 | Bottom | [Feeding cup](#9-feeding-cup) | AHM/1985/053 | Porcelain | Unknown place of creation, 1930. Donation, Prof. Robin Walker, 1985. | 7 | TBC |
+| 9 | Bottom | [Feeding cup](#9-feeding-cup) | AHM/1985/053 | Porcelain | Unknown place of creation, 1930. Donation, Prof. Robin Walker, 1985. | 7 | [View](https://macquarie.nira.app/a/f0YPLBCJSFiHXUOjfuQ0_w/1) |
 | 10 | Bottom | [Spouted Vessel](#10-spouted-vessel) | MU0091 | Ceramic | Mycenaean, c.1400-1200 B.C.E. Purchased in 1997. | 7 | [View](https://macquarie.nira.app/a/zaSvnz2gQaKZvnd4oG-fYg/1) |
-| 11 | Bottom | [Feeding Vessel](#11-feeding-vessel) | MU3368 | Ceramic | Athens, c.400-350 B.C.E. Purchased in 1997. | 10 | TBC |
+| 11 | Bottom | [Feeding Vessel](#11-feeding-vessel) | MU3368 | Ceramic | Athens, c.400-350 B.C.E. Purchased in 1997. | 10 | n/a |
 
 ## Top shelf
 
@@ -163,9 +166,10 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 |---|---|
 | Accession no. | MU4759 |
 | Material | Ceramic |
-| Dimensions | TBC |
+| Dimensions | H: 344mm W: 200mm |
 | Details | Painter of Bari 8010, Southern Italy, 350-340 B.C.E. Purchase, 2013 |
-| 3D model | TBC |
+| 3D model | None yet |
+| Audio file | [1. Pelike MU4759.m4a](../assets/audio/1.%20Pelike%20MU4759.m4a) |
 
 **Overview text:** This pelike depicts the use of a mobility aid: a staff or cane. In ancient Greece, staff-like objects were also symbols of power, authority and justice. Archaeological narratives are selective about how these artefacts are interpreted, often rejecting the possibility of disability coinciding with symbols of power.
 
@@ -182,7 +186,7 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 
 **Overview text:** Figurines were made for various reasons and were often accessible to many people. These differently shaped bodies are votive offerings or amulets used for protection, ensuring health and/or fertility, invoking the divine, or for afterlife beliefs. These are an important reflection of the reality of diversity, rather than an 'ideal' body.
 
-**Hero image:** Object 4, Image 2 (Figure of a musician, hero shot). Caption: "4. Figure of a Musician, MU0086, front-right side view © Gale History Museum". The alt text in the source document is wrong; see [Things to check](#things-to-check).
+**Hero image:** TBC. The source document leaves the file, caption and alt text blank; see [Things to check](#things-to-check).
 
 ### 2. Reclining Figure
 
@@ -190,9 +194,10 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 |---|---|
 | Accession no. | MU4249 |
 | Material | Ceramic |
-| Dimensions | TBC |
+| Dimensions | H: 70mm W: 88mm D: 26mm |
 | Details | Possibly Rhodian, c.500-400 B.C.E. Bequest of Graham Joyner, 2008. |
-| 3D model | TBC |
+| 3D model | None yet |
+| Audio file | [2. Reclining Figure MU4249.m4a](../assets/audio/2.%20Reclining%20Figure%20MU4249.m4a) |
 
 **Overview text:** TBC
 
@@ -210,9 +215,10 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 |---|---|
 | Accession no. | MU0101 |
 | Material | Bronze |
-| Dimensions | TBC |
+| Dimensions | H: 154mm W: 82mm D: 45mm |
 | Details | Boston, c.1997. Purchased in 1997. Copy of Etruscan bronze, c.525-500 BCE, 01.7482, from the Museum of Fine Arts, Boston |
-| 3D model | TBC |
+| 3D model | None yet |
+| Audio file | [3. Bronze Dancer MU0101.m4a](../assets/audio/3.%20Bronze%20Dancer%20MU0101.m4a) |
 
 **Overview text:** TBC
 
@@ -232,10 +238,11 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 | Field | Value |
 |---|---|
 | Accession no. | MU0086 |
-| Material | TBC |
-| Dimensions | TBC |
+| Material | Ceramic |
+| Dimensions | H: 82mm W: 30mm D: 38mm |
 | Details | Greece, 7th-6th century B.C.E. Purchased in 1997. |
-| 3D model | TBC |
+| 3D model | TBC ("View in 3D", no URL) |
+| Audio file | [4. Figure of a musician MU0086.m4a](../assets/audio/4.%20Figure%20of%20a%20musician%20MU0086.m4a) |
 
 **Overview text:** TBC
 
@@ -258,9 +265,10 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 |---|---|
 | Accession no. | MU3735 |
 | Material | Ceramic |
-| Dimensions | TBC |
+| Dimensions | H: 200mm W: 95mm D: 47mm |
 | Details | Mesopotamia, Greek seated figurine, c.3000 B.C.E. Purchased in 2003. |
-| 3D model | TBC |
+| 3D model | TBC ("View in 3D", no URL) |
+| Audio file | [5. Seated Statuette MU3735.m4a](../assets/audio/5.%20Seated%20Statuette%20MU3735.m4a) |
 
 **Overview text:** TBC
 
@@ -280,9 +288,10 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 |---|---|
 | Accession no. | MU4697 |
 | Material | Bronze |
-| Dimensions | TBC |
+| Dimensions | H: 80mm W: 28mm D: 30mm |
 | Details | Roman, c.1st-4th century C.E. Purchased in 2012. |
 | 3D model | https://macquarie.nira.app/a/hpbtWsRWSQaHaJPHElDtJQ/1 |
+| Audio file | [6. Bronze figurine of Priapus MU4697.m4a](../assets/audio/6.%20Bronze%20figurine%20of%20Priapus%20MU4697.m4a) |
 
 **Overview text:** TBC
 
@@ -306,9 +315,10 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 |---|---|
 | Accession no. | MU2676 |
 | Material | Terracotta |
-| Dimensions | TBC |
+| Dimensions | H: 78mm W: 35mm D: 32mm |
 | Details | Cyprus, c.7th century B.C.E. Purchased in 1986. |
-| 3D model | TBC |
+| 3D model | n/a |
+| Audio file | [7. terracotta figurine MU2676.m4a](../assets/audio/7.%20terracotta%20figurine%20MU2676.m4a) |
 
 **Overview text:** TBC
 
@@ -331,9 +341,10 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 |---|---|
 | Accession no. | MU0523 |
 | Material | Green Faience |
-| Dimensions | TBC |
+| Dimensions | H: 33mm W: 14mm D: 8mm |
 | Details | Egypt, Third Intermediate Period or Ptolemaic period, c. 1069 - 664 / 332 - 30 B.C.E. Donation, Prof. Naguib Kanawati, 1980. |
 | 3D model | https://macquarie.nira.app/a/S89lZLMKRfCoB5qdh4sjRQ/1 |
+| Audio file | [8. Amulet of Pataikos MU0523.m4a](../assets/audio/8.%20Amulet%20of%20Pataikos%20MU0523.m4a) |
 
 **Overview text:** TBC
 
@@ -361,9 +372,10 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 |---|---|
 | Accession no. | AHM/1985/053 |
 | Material | Porcelain |
-| Dimensions | TBC |
+| Dimensions | H: 53mm W: 124mm |
 | Details | Unknown place of creation, 1930. Donation, Prof. Robin Walker, 1985. |
-| 3D model | TBC |
+| 3D model | https://macquarie.nira.app/a/f0YPLBCJSFiHXUOjfuQ0_w/1 |
+| Audio file | [9. Feeding cup AHM1985053.m4a](../assets/audio/9.%20Feeding%20cup%20AHM1985053.m4a) |
 
 **Overview text:** TBC
 
@@ -385,9 +397,10 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 |---|---|
 | Accession no. | MU0091 |
 | Material | Ceramic |
-| Dimensions | TBC |
+| Dimensions | H: 142mm W: 109mm |
 | Details | Mycenaean, c.1400-1200 B.C.E. Purchased in 1997. |
 | 3D model | https://macquarie.nira.app/a/zaSvnz2gQaKZvnd4oG-fYg/1 |
+| Audio file | [10. Spouted vessel MU0091.m4a](../assets/audio/10.%20Spouted%20vessel%20MU0091.m4a) |
 
 **Overview text:** TBC
 
@@ -409,9 +422,10 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 |---|---|
 | Accession no. | MU3368 |
 | Material | Ceramic |
-| Dimensions | TBC |
+| Dimensions | H: 54mm W: 89mm |
 | Details | Athens, c.400-350 B.C.E. Purchased in 1997. |
-| 3D model | TBC |
+| 3D model | n/a |
+| Audio file | [11. Feeding vessel MU3368.m4a](../assets/audio/11.%20Feeding%20vessel%20MU3368.m4a) |
 
 **Overview text:** TBC
 

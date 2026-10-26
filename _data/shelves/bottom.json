@@ -14,8 +14,8 @@
         "accNo": "AHM/1985/053",
         "material": "Porcelain",
         "dimension": [
-          0,
-          0,
+          53,
+          124,
           0
         ],
         "details": "Unknown place of creation, 1930. Donation, Prof. Robin Walker, 1985."
@@ -58,7 +58,7 @@
         }
       ],
       "audioDescription": {
-        "url": "TBC",
+        "url": "assets/audio/9. Feeding cup AHM1985053.m4a",
         "transcript": "A white porcelain cup, with a long pouring spout and small handle. The top of the cup is half- enclosed on the spout side to enable the vessel to be tilted. There is a gold decorative line applied to the top of the vessel, outlining the rim. A gold line also runs down the side of the spout to the point at which it meets the cup wall, and a gold line is also observed on the vessel’s handle. The faded nature of this line may indicate frequent use of this object."
       }
     },
@@ -69,8 +69,8 @@
         "accNo": "MU0091",
         "material": "Ceramic",
         "dimension": [
-          0,
-          0,
+          142,
+          109,
           0
         ],
         "details": "Mycenaean, c.1400-1200 B.C.E. Purchased in 1997."
@@ -117,7 +117,7 @@
         "altText": "Interactive 3D model of Spouted Vessel, MU0091."
       },
       "audioDescription": {
-        "url": "TBC",
+        "url": "assets/audio/10. Spouted vessel MU0091.m4a",
         "transcript": "A likely wheel-made ceramic vessel. There is a handle arching over a flaring rim. The vessel has a narrow neck and wide, ovoid-shaped body tapering to a small circular base.  At the shoulder of the vessel is a spout, pointed upwards at an acute angle to allow the vessel to tilt. Several faded black painted lines can be seen as decoration around the handle, neck, and body. The spout was likely originally painted black in colour, although the surface is now eroded in places. The painted lines around the neck are tightly arranged, with a thick black line at the neck base. A thick, faded, wavy line extends around the shoulder of the vessel at the level of the spout."
       }
     },
@@ -128,8 +128,8 @@
         "accNo": "MU3368",
         "material": "Ceramic",
         "dimension": [
-          0,
-          0,
+          54,
+          89,
           0
         ],
         "details": "Athens, c.400-350 B.C.E. Purchased in 1997."
@@ -187,7 +187,7 @@
         }
       ],
       "audioDescription": {
-        "url": "TBC",
+        "url": "assets/audio/11. Feeding vessel MU3368.m4a",
         "transcript": "A small, black ceramic vessel with an enclosed top featuring several perforated holes. The vessel features a narrow handle, thin pouring spout and a flat base.  In places, the applied black colouring is chipped, revealing orange coloured fired clay underneath."
       }
     }

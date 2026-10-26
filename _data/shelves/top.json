@@ -14,8 +14,8 @@
         "accNo": "MU4759",
         "material": "Ceramic",
         "dimension": [
-          0,
-          0,
+          344,
+          200,
           0
         ],
         "details": "Painter of Bari 8010, Southern Italy, 350-340 B.C.E. Purchase, 2013"
@@ -38,7 +38,7 @@
         }
       ],
       "audioDescription": {
-        "url": "TBC",
+        "url": "assets/audio/1. Pelike MU4759.m4a",
         "transcript": "This large ceramic vessel has a wide, thick rim upon a flared neck. A line of leaf-like decorations wraps around the neck. It has one handle on either side, starting below the rim and meeting at the shoulder of the vessel, which becomes a wide, bulbous body upon a circular base. The vessel is black in colour with a light orange scene in the centre. The scene depicts two young men facing each other. Both men are barefoot, have curly hair and wear large toga-style tunics that cover their bodies to the ankle, draping across one shoulder and leaving the other exposed. The man on the left is holding a long staff with his right hand; his arm is bent at the elbow. His right leg is outlined by the fabric and appears to be slightly bent forward, while his right shoulder is facing downwards, as if he is being supported by this staff. The other figure holds a shorter, curved object with his right hand around shoulder height; his arm is bent at the elbow. The two figures are standing on a geometric pattern above the vessel base and are framed by swirling patterns on either side."
       }
     }
