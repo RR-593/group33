@@ -1,47 +1,75 @@
 # Group 33 exhibition sandbox
 
-This public repository is Group 33's working Jekyll site. Commits to `main` are
-built and published automatically at
-<https://hannahvogelarchaeology.github.io/group33/>.
+Group 33 working Jekyll site. Push to `main` → auto build + publish at
+<https://hannahvogelarchaeology.github.io/group33/>. Public at once, so check
+before merge.
 
-## Work locally
+## Start site locally
 
-The repository pins Ruby 4.0.6 in `.ruby-version`. With rbenv, install it once
-with `rbenv install 4.0.6`; rbenv will select it automatically here. You also
-need ImageMagick: `brew install imagemagick` on macOS, or
-`winget install ImageMagick.ImageMagick` on Windows. Then run:
+Need Ruby 4.0.6 (pinned in `.ruby-version`; with rbenv, `rbenv install 4.0.6`
+once, auto-selected here) + ImageMagick (macOS `brew install imagemagick`,
+Windows `winget install ImageMagick.ImageMagick`, Linux
+`apt install imagemagick`). First time, install gems. After, one command:
 
 ```text
 bundle install
 bundle exec rake serve
 ```
 
-That makes the resized shelf photos and serves the site at
-<http://localhost:4000/group33/>. It works the same on macOS, Linux and Windows.
-Before pushing, run:
+`rake serve` makes resized shelf photos, then serves site at
+<http://localhost:4000/group33/>. Same on macOS, Linux, Windows; no Git Bash
+needed. Page, style, data edits show on browser refresh. `_config.yml` edits
+need restart: Ctrl+C, run again. Before push, `bundle exec rake build` makes
+production build in `_site/`; read output, fix errors first.
+`bundle exec rake -T` lists all tasks.
 
-```text
-bundle exec rake build
-```
+## Update assets
 
-`bundle exec rake -T` lists every task.
+Shelf photos live in `assets/exhibitionShelfs/<Shelf>/<Object>/` as JPEG. Add
+photo there, then add entry to object's `images` list in
+`_data/shelves/top.json`, `middle.json` or `bottom.json`: `url` (path from repo
+root, e.g. `assets/exhibitionShelfs/Top Shelf/Pelike/1 Pelike_MU4759_front_Image1.jpg`),
+`altText` (what photo shows, for its purpose here), `caption` (with credit,
+e.g. `© Gale History Museum`). New object = new entry in `artifacts` with
+`description`, `metaDescription`, `images`, `audioDescription`, optional
+`obj3D` for Nira model. Description not ready → write `TBC`; page hides it.
+`_data/schemas/shelf.schema.json` defines shape; `Validate data` workflow fails
+PR on missing or unknown fields.
 
-The separate `Lighthouse` workflow audits every page on desktop and mobile. It
-needs 100 for accessibility, best practices and SEO, and at least 95 (desktop)
-or 80 (mobile) for performance. It also runs axe-core's WCAG 2.2 A/AA rules and
-comments on the pull request with what failed, by criterion and component. A
-regression turns the workflow red and keeps its reports as artifacts, but it
-does not interrupt the independent Pages deployment.
+After adding or replacing photo, run `bundle exec rake images` (or restart
+`rake serve`). Makes 400, 800, 1600px copies in `assets/resized/` + tiny blur
+placeholder in `_data/lqip.json`; up-to-date copies skipped. Both outputs
+gitignored, rebuilt on deploy, never commit. Widths from `image_sizes` in
+`_config.yml`. Replace photo = overwrite same file name; newer original → copies
+remade. Old copy still showing (copied file kept old date) → delete its files
+in `assets/resized/`, run again. Rename or move photo → update `url` in shelf
+JSON too, else broken image.
 
-Edit Markdown pages in `pages/`. Site-wide values are in
-`_config.yml`; shared HTML is in `_includes` and `_layouts`; styling is under
-`_sass` and `assets`.
+Shelf header + other placeholder images in `assets/placeholders/`. Fonts in
+`assets/fonts/`, licence beside. Styles in `assets/main.scss` + `_sass/`
+(`shelves.scss`, `curation.scss`, Minima theme in `_sass/minima/`).
 
-Read `AGENTS.md` before using an AI coding assistant. Add preferred contributor
-names to `pages/team.md` and `CITATION.cff` rather than inferring them from accounts.
+Rights first. No third-party photo, audio, video or 3D model until owner,
+permitted use + required credit recorded: credit in caption, terms in
+`NOTICE.md` or beside asset.
+
+## Checks
+
+`Lighthouse` workflow audits every page, desktop + mobile: 100 accessibility,
+best practices, SEO; performance ≥95 desktop, ≥80 mobile. Also runs axe-core
+WCAG 2.2 A/AA rules, comments on PR with failures by criterion, component, page.
+Red → look, but Pages deploy not blocked. Automated checks miss much; do PR
+template's manual checks too.
+
+## Where things live
+
+Pages as Markdown in `pages/`. Nav order (`header_pages`) + site settings in
+`_config.yml`. Shared HTML in `_includes/`, `_layouts/`. Read `AGENTS.md` before
+AI assistant use. Contributor names → `pages/team.md` + `CITATION.cff`; ask,
+never infer from accounts.
 
 ## Licence and attribution
 
-The code is derived from the MIT-licensed Minima theme. See `LICENSE` and
-`NOTICE.md`. Content and media added by the team may have different terms; record
-those terms and the required credit beside each asset.
+Code derived from MIT-licensed Minima theme; see `LICENSE`, `NOTICE.md`. Team
+content + media may have other terms; record terms + required credit beside
+each asset.

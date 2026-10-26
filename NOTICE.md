@@ -6,8 +6,11 @@ Joel Glovier and contributors and is distributed under the MIT License retained
 in `LICENSE`.
 
 The vendored templates were modified in August 2026 to provide an explicitly
-named primary navigation landmark, a keyboard-native mobile menu, a skip link,
-and visible keyboard focus.
+named primary navigation landmark and visible keyboard focus. In October 2026
+the header and its mobile menu were replaced with a sticky pill-shaped
+navigation bar that is a single Tab stop, with arrow, Home and End keys to move
+between links and number keys to open them while it has focus; the skip link
+was removed.
 
 The "View in 3D" button on shelf pages uses the `rotate-3d` icon, and the 3D pop-up's close button the `x` icon, from
 [Lucide](https://lucide.dev) v0.469.0, inlined in `_layouts/shelf.html`.
