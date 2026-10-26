@@ -12,7 +12,12 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false  # one device failing still reports the other
+      matrix:
+        device: [desktop, mobile]
+    name: audit (${{ matrix.device }})
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -21,21 +26,52 @@ jobs:
         with:
           ruby-version: "4.0.6"
           bundler-cache: true
+      - name: Set up Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: _scripts/package-lock.json
+      # same photo step and environment as pages.yml, so the audit sees the live site
+      - name: Make resized photos and placeholders
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+          sh _scripts/image-sizes.sh
       - name: Build local audit target
+        env:
+          JEKYLL_ENV: production
         run: bundle exec jekyll build --destination "${RUNNER_TEMP}/site/group33"
       - name: Serve local audit target
         run: |
           mkdir -p "${RUNNER_TEMP}/lighthouse"
           python3 -m http.server 4173 --directory "${RUNNER_TEMP}/site" >"${RUNNER_TEMP}/jekyll-server.log" 2>&1 &
           curl --fail --silent --show-error --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:4173/group33/ >/dev/null
+      # every built page, so new pages are audited without editing this file
+      - name: List pages
+        id: pages
+        working-directory: ${{ runner.temp }}/site
+        run: |
+          paths=$(find group33 -name index.html | sed 's|index\.html$||' | sort)
+          echo "paths=$(echo $paths)" >> "$GITHUB_OUTPUT"
+          echo "urls=$(printf 'http://127.0.0.1:4173/%s,' $paths | sed 's/,$//')" >> "$GITHUB_OUTPUT"
+          echo "Auditing:" $paths
+      - name: Install WCAG checker
+        run: npm ci --prefix _scripts
+      - name: Check WCAG 2.2 A/AA (axe-core)
+        id: axe
+        env:
+          AXE_OUT: ${{ runner.temp }}/lighthouse
+        run: CHROME="$(command -v google-chrome)" node _scripts/axe-report.mjs http://127.0.0.1:4173 ${{ matrix.device }} ${{ steps.pages.outputs.paths }}
       - name: Run Lighthouse
         id: lighthouse
         uses: foo-software/lighthouse-check-action@a80267da2e0244b8a2e457a8575fc47590615852 # v12.0.1
         with:
-          device: desktop
+          device: ${{ matrix.device }}
           outputDirectory: ${{ runner.temp }}/lighthouse
-          urls: http://127.0.0.1:4173/group33/
+          urls: ${{ steps.pages.outputs.urls }}
       - name: Check shipped Lighthouse baseline
+        if: ${{ !cancelled() && steps.lighthouse.outcome == 'success' }}
         uses: foo-software/lighthouse-check-status-action@2b9d5101f7a0de86ddb153a0d77ad7046aac1052 # v3.0.1
         with:
           lighthouseCheckResults: ${{ steps.lighthouse.outputs.lighthouseCheckResults }}
@@ -43,10 +79,15 @@ jobs:
           minBestPracticesScore: "100"
           minPerformanceScore: "100"
           minSeoScore: "100"
-      - name: Upload Lighthouse reports
+      - name: Fail on WCAG failures
+        if: ${{ !cancelled() && steps.axe.outcome == 'success' && steps.axe.outputs.failures != '0' }}
+        run: |
+          echo "::error::${{ steps.axe.outputs.failures }} WCAG failure(s) on ${{ matrix.device }}. See the job summary for criterion, page and element."
+          exit 1
+      - name: Upload Lighthouse and WCAG reports
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: lighthouse-reports
+          name: lighthouse-reports-${{ matrix.device }}
           path: ${{ runner.temp }}/lighthouse
           if-no-files-found: error
