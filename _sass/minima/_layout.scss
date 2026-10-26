@@ -8,8 +8,6 @@ html { scroll-padding-top: 5rem; }  // in-page links land below the sticky pill
 @media (prefers-reduced-motion: no-preference) {
   @view-transition { navigation: auto; }
 }
-.site-nav ul { view-transition-name: site-nav; }
-
 .site-header {
   position: sticky;
   top: 0;
@@ -18,28 +16,44 @@ html { scroll-padding-top: 5rem; }  // in-page links land below the sticky pill
   pointer-events: none;  // the clear strip around the pill doesn't block clicks on the page
 }
 
-.site-nav ul {
-  display: flex;
-  gap: 0.25rem;
+// the pill: a solid white box, so contrast checkers can read the colour behind the links
+.site-nav {
   width: fit-content;
   max-width: 100%;
   margin: 0 auto;
-  padding: 0.3rem;
-  list-style: none;
-  overflow-x: auto;  // narrow screens: the pill scrolls sideways instead of wrapping
-  scrollbar-width: thin;
-  // edge shadows appear only on a side with more links to scroll to: the white covers
-  // move with the links (local) and hide the shadows (scroll) when there's nothing beyond
-  background:
-    linear-gradient(to right, $background-color 30%, rgba($background-color, 0)) left / 2rem 100% no-repeat local,
-    linear-gradient(to left, $background-color 30%, rgba($background-color, 0)) right / 2rem 100% no-repeat local,
-    radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.3), transparent) left / 0.75rem 100% no-repeat scroll,
-    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.3), transparent) right / 0.75rem 100% no-repeat scroll,
-    $background-color;
+  background: $background-color;
   border: 1px solid $grey-color-light;
   border-radius: 999px;
   box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
   pointer-events: auto;
+  view-transition-name: site-nav;
+}
+
+// links fade out at an edge only while more links are hidden past it. The fade widths
+// follow the scroll position (scroll-driven animation); where that isn't supported, or
+// nothing scrolls, they stay 0 and nothing fades
+@property --fade-start { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --fade-end { syntax: "<length>"; inherits: false; initial-value: 0px; }
+
+@keyframes nav-edge-fade {
+  0% { --fade-start: 0px; --fade-end: 2rem; }
+  10% { --fade-start: 2rem; }
+  90% { --fade-end: 2rem; }
+  100% { --fade-start: 2rem; --fade-end: 0px; }
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0.3rem;
+  list-style: none;
+  overflow-x: auto;  // narrow screens: the pill scrolls sideways instead of wrapping
+  scrollbar-width: thin;
+  border-radius: 999px;
+  mask-image: linear-gradient(to right, transparent, #000 var(--fade-start), #000 calc(100% - var(--fade-end)), transparent);
+  animation: nav-edge-fade linear both;
+  animation-timeline: scroll(self inline);
 }
 
 .site-nav li { margin: 0; flex: none; }

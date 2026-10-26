@@ -16,7 +16,13 @@ jobs:
     strategy:
       fail-fast: false  # one device failing still reports the other
       matrix:
-        device: [desktop, mobile]
+        # performance varies run to run on shared CI machines, and mobile Lighthouse
+        # simulates a slow phone on a slow network, so it scores lower than desktop
+        include:
+          - device: desktop
+            min-performance: "95"
+          - device: mobile
+            min-performance: "80"
     name: audit (${{ matrix.device }})
     steps:
       - name: Check out repository
@@ -77,7 +83,7 @@ jobs:
           lighthouseCheckResults: ${{ steps.lighthouse.outputs.lighthouseCheckResults }}
           minAccessibilityScore: "100"
           minBestPracticesScore: "100"
-          minPerformanceScore: "100"
+          minPerformanceScore: ${{ matrix.min-performance }}
           minSeoScore: "100"
       - name: Fail on WCAG failures
         if: ${{ !cancelled() && steps.axe.outcome == 'success' && steps.axe.outputs.failures != '0' }}
