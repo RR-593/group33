@@ -85,6 +85,8 @@ layout: default
         <dl id="meta-{{ slug }}">
           <dt>Accession number</dt><dd>{{ meta.accNo | escape }}</dd>
           <dt>Material</dt><dd>{{ meta.material | escape }}</dd>
+          {%- comment -%} dimension is [H, W, D] in mm; 0 means not measured {%- endcomment %}
+          <dt>Dimensions</dt><dd>{% for d in meta.dimension %}{{ "HWD" | slice: forloop.index0 }}: {% if d == 0 %}n/a{% else %}{{ d }}mm{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}</dd>
           <dt>Details</dt><dd>{{ meta.details | escape }}</dd>
         </dl>
   

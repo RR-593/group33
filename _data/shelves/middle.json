@@ -14,9 +14,9 @@
         "accNo": "MU4249",
         "material": "Ceramic",
         "dimension": [
-          0,
-          0,
-          0
+          70,
+          88,
+          26
         ],
         "details": "Possibly Rhodian, c.500-400 B.C.E. Bequest of Graham Joyner, 2008."
       },
@@ -38,7 +38,7 @@
         }
       ],
       "audioDescription": {
-        "url": "TBC",
+        "url": "assets/audio/2. Reclining Figure MU4249.m4a",
         "transcript": "This mould-made ceramic figure is of a person, reclining on their left side upon a chaise-like base. The bodily and facial features are unclear due to the softness of the moulding. There are remnants of pink-red, cream and yellow coloured paint, heavily worn on the base, back and legs of the figure."
       }
     },
@@ -49,9 +49,9 @@
         "accNo": "MU0101",
         "material": "Bronze",
         "dimension": [
-          0,
-          0,
-          0
+          154,
+          82,
+          45
         ],
         "details": "Boston, c.1997. Purchased in 1997. Copy of Etruscan bronze, c.525-500 BCE, 01.7482, from the Museum of Fine Arts, Boston"
       },
@@ -88,7 +88,7 @@
         }
       ],
       "audioDescription": {
-        "url": "TBC",
+        "url": "assets/audio/3. Bronze Dancer MU0101.m4a",
         "transcript": "A bronze figurine of a woman, fixed to a modern wooden block base. The figure is wearing a long dress that is fitted to the body, and a headdress; the hood or hair is shaped to a rounded point behind her head. The figure’s arms are held out wide with sleeves flaring slightly at the elbows. The left hand is held up with the palm facing outwards; the right is also held away from the body, but the palm faces down. The figure’s left foot is further forward than the right, and the heel of the right foot is slightly lifted to give the impression they are moving. The fabric of their dress appears slightly stretched around the legs, and several incised lines detail the head, face, neckline and dress."
       }
     },
@@ -99,9 +99,9 @@
         "accNo": "MU0086",
         "material": "TBC",
         "dimension": [
-          0,
-          0,
-          0
+          82,
+          30,
+          38
         ],
         "details": "Greece, 7th-6th century B.C.E. Purchased in 1997."
       },
@@ -148,7 +148,7 @@
         }
       ],
       "audioDescription": {
-        "url": "TBC",
+        "url": "assets/audio/4. Figure of a musician MU0086.m4a",
         "transcript": "A human figure kneeling and holding a drum with both hands at the front and centre of their body between waist and chest height. The figure is likely mould made and faces forward with the rendered impression of a human face. In several places, there are remnants of blue and black paint, with black lines concentrating around the top of the head, the neck and above the knees. The kilt-like skirt appears to have been painted to knee length with a large patch of blue pigment still extant below the waist."
       }
     },
@@ -159,9 +159,9 @@
         "accNo": "MU3735",
         "material": "Ceramic",
         "dimension": [
-          0,
-          0,
-          0
+          200,
+          95,
+          47
         ],
         "details": "Mesopotamia, Greek seated figurine, c.3000 B.C.E. Purchased in 2003."
       },
@@ -193,7 +193,7 @@
         }
       ],
       "audioDescription": {
-        "url": "TBC",
+        "url": "assets/audio/5. Seated Statuette MU3735.m4a",
         "transcript": "A ceramic statuette of a seated human figure. The object is possibly mould-made and is placed on a (modern) black base. The figure wears a tall, circular headdress and soft moulding suggests facial features, but not in detail. The figure’s arms, torso and legs are shaped, although the object appears more worn from the waist down. The figure is seated upright. The top of the chair finishes just behind the figure's shoulders, touching the nape of the neck. The arms of the chair are shaped wide around the hips of the seated figure, before tapering in towards the base which finishes at the floor."
       }
     },
@@ -204,9 +204,9 @@
         "accNo": "MU4697",
         "material": "Bronze",
         "dimension": [
-          0,
-          0,
-          0
+          80,
+          28,
+          30
         ],
         "details": "Roman, c.1st-4th century C.E. Purchased in 2012."
       },
@@ -262,7 +262,7 @@
         "altText": "Interactive 3D model of Bronze figure of Priapus, MU4697."
       },
       "audioDescription": {
-        "url": "TBC",
+        "url": "assets/audio/6. Bronze figurine of Priapus MU4697.m4a",
         "transcript": "A metal figurine of the deity Priapus. He is facing forward with an obviously enlarged and erect penis. He has a short beard and is wearing a toga-style draped tunic that is knee-length but gathers at the waist where it is held by both hands above the waist to expose the genitals. His legs are positioned together, and he is wearing shoes."
       }
     },
@@ -273,9 +273,9 @@
         "accNo": "MU2676",
         "material": "Terracotta",
         "dimension": [
-          0,
-          0,
-          0
+          78,
+          35,
+          32
         ],
         "details": "Cyprus, c.7th century B.C.E. Purchased in 1986."
       },
@@ -322,7 +322,7 @@
         }
       ],
       "audioDescription": {
-        "url": "TBC",
+        "url": "assets/audio/7. terracotta figurine MU2676.m4a",
         "transcript": "Humanoid clay figurine of beige colour. Modelling at the top of the head may represent either a short hairstyle or a headdress. The face is shaped with a long, pointed nose. Holes in the clay indicate eyes and a mouth. There is no indication of a chin; the head and neck seamlessly merge. The body is very loosely moulded, with the indication of arms and hands held inwards and against the body, made from pinched and folded clay. The lower body flares widely to an amorphous fluted shape. The object rests on a small black (modern) square plinth, held in place by short metal prongs on either side of the figurine base."
       }
     },
@@ -333,9 +333,9 @@
         "accNo": "MU0523",
         "material": "Green Faience",
         "dimension": [
-          0,
-          0,
-          0
+          33,
+          14,
+          8
         ],
         "details": "Egypt, Third Intermediate Period or Ptolemaic period, c. 1069 - 664 / 332 - 30 B.C.E. Donation, Prof. Naguib Kanawati, 1980."
       },
@@ -376,7 +376,7 @@
         "altText": "Interactive 3D model of Amulet of Pataikos, MU0523."
       },
       "audioDescription": {
-        "url": "TBC",
+        "url": "assets/audio/8. Amulet of Pataikos MU0523.m4a",
         "transcript": "Moulded in faience, a teal-green glazed ceramic, this small amuletic figure is of the ancient Egyptian deity Pataikos. Represented as a standing, naked human male with dwarfism, the figure has a large head, arms beside the torso, slightly bent at the elbows, clenched fists, and legs bent so they are slightly apart at the knees. There is a loop behind the figure’s head, indicating that it may have been suspended from a string."
       }
     }
