@@ -171,6 +171,7 @@ DEPENDENCIES
   jekyll (= 4.4.1)
   jekyll-feed (~> 0.17)
   jekyll-seo-tag (~> 2.8)
+  rake (~> 13.3)
 
 BUNDLED WITH
   4.0.16

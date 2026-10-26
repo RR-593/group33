@@ -7,23 +7,31 @@ built and published automatically at
 ## Work locally
 
 The repository pins Ruby 4.0.6 in `.ruby-version`. With rbenv, install it once
-with `rbenv install 4.0.6`; rbenv will select it automatically here. Then run:
+with `rbenv install 4.0.6`; rbenv will select it automatically here. You also
+need ImageMagick: `brew install imagemagick` on macOS, or
+`winget install ImageMagick.ImageMagick` on Windows. Then run:
 
 ```text
 bundle install
-bundle exec jekyll serve
+bundle exec rake serve
 ```
 
-Open <http://localhost:4000/group33/>. Before pushing, run:
+That makes the resized shelf photos and serves the site at
+<http://localhost:4000/group33/>. It works the same on macOS, Linux and Windows.
+Before pushing, run:
 
 ```text
-bundle exec jekyll build
+bundle exec rake build
 ```
 
-The separate `Lighthouse` workflow audits pull requests and pushes against the
-100/100/100/100 baseline shipped for accessibility, best practices, performance,
-and SEO. A regression turns that workflow red and preserves its HTML report as
-an artifact, but it does not interrupt the independent Pages deployment.
+`bundle exec rake -T` lists every task.
+
+The separate `Lighthouse` workflow audits every page on desktop and mobile. It
+needs 100 for accessibility, best practices and SEO, and at least 95 (desktop)
+or 80 (mobile) for performance. It also runs axe-core's WCAG 2.2 A/AA rules and
+comments on the pull request with what failed, by criterion and component. A
+regression turns the workflow red and keeps its reports as artifacts, but it
+does not interrupt the independent Pages deployment.
 
 Edit Markdown pages in `pages/`. Site-wide values are in
 `_config.yml`; shared HTML is in `_includes` and `_layouts`; styling is under

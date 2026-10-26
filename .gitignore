@@ -6,7 +6,7 @@ vendor/
 __pycache__/
 .vscode/
 
-# made by _scripts/image-sizes.sh (locally and on deploy)
+# made by `rake images` (locally and on deploy)
 assets/resized/
 _data/lqip.json
 node_modules/

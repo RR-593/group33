@@ -35,7 +35,7 @@ layout: default
           {%- for image in artifact.images %}
           <figure class="swiper-slide">
             {%- comment -%}
-              Resized copies come from _scripts/image-sizes.sh: assets/resized/<photo>-<width>.jpg for
+              Resized copies come from `rake images` (Rakefile): assets/resized/<photo>-<width>.jpg for
               each width in site.image_sizes, and a tiny placeholder from _data/lqip.json written
               straight into the page, so it shows before any download. Spaces are encoded because
               srcset splits on them. The first slide is visible on load, so only later slides wait.
