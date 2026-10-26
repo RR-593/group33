@@ -32,7 +32,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y imagemagick
-          sh _scripts/image-sizes.sh
+          bundle exec rake images
       - name: Build site
         env:
           JEKYLL_ENV: production

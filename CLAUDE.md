@@ -9,8 +9,9 @@ serves the repository as a project site under `/group33`.
 
 ## Commands
 
-- `bundle exec jekyll serve` — local site at `http://127.0.0.1:4000/group33/`
-- `bundle exec jekyll build` — static production build
+- `bundle exec rake serve` — makes resized photos, then local site at `http://127.0.0.1:4000/group33/`
+- `bundle exec rake build` — makes resized photos, then static production build
+- `bundle exec rake images` — resized photos and blur placeholders only (needs ImageMagick)
 
 ## Structure
 

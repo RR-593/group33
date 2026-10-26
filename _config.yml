@@ -18,8 +18,8 @@ header_pages:
   - pages/team.md
 
 # Widths (px) of the resized photo copies used by shelf pages. Read by
-# _scripts/image-sizes.sh and _layouts/shelf.html; the largest is the fallback src.
-# After changing, re-run the script and restart `jekyll serve`.
+# the Rakefile (`rake images`) and _layouts/shelf.html; the largest is the fallback src.
+# After changing, restart `bundle exec rake serve` (it makes the new sizes first).
 image_sizes: [400, 800, 1600]
 
 plugins:
@@ -35,4 +35,5 @@ exclude:
   - LICENSE
   - NOTICE.md
   - README.md
+  - Rakefile
   - docs
