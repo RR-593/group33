@@ -91,3 +91,33 @@ jobs:
           name: lighthouse-reports-${{ matrix.device }}
           path: ${{ runner.temp }}/lighthouse
           if-no-files-found: error
+
+  # one comment per pull request, updated on each run, with both devices' WCAG tables
+  comment:
+    needs: audit
+    if: ${{ !cancelled() && github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read          # download this run's reports
+      pull-requests: write   # post the comment
+    steps:
+      - name: Post WCAG results on the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh run download "$GITHUB_RUN_ID" --pattern 'lighthouse-reports-*' --dir reports || true
+          for d in desktop mobile; do
+            f="reports/lighthouse-reports-$d/wcag-$d.md"
+            if [ -f "$f" ]; then cat "$f"; else printf '## WCAG check: %s\n\nNo report; the audit stopped before the check. See the run.\n\n' "$d"; fi
+          done > comment.md
+          printf 'Full Lighthouse reports: [this run](%s), under Artifacts.\n' "$RUN_URL" >> comment.md
+          # GitHub comments max out at 65,536 characters
+          if [ "$(wc -c < comment.md)" -gt 60000 ]; then
+            head -c 60000 comment.md > short.md
+            printf '\n\n…cut short. The full tables are on [this run](%s).\n' "$RUN_URL" >> short.md
+            mv short.md comment.md
+          fi
+          gh pr comment "$PR" --body-file comment.md --edit-last --create-if-none
