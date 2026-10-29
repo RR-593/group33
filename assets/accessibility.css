@@ -1,0 +1,36 @@
+/* Accessibility page styles.
+   Scoped to the .accessibility wrapper so this file is isolated: it changes no
+   other page and conflicts with no other styling. Matches the Figma: centred
+   section headings with readable body text, left-aligned on small screens. */
+
+.accessibility {
+  max-width: 44rem;
+  margin: 0 auto;
+}
+
+.accessibility__section {
+  margin: 2.5rem 0;
+}
+.accessibility__section:first-child {
+  margin-top: 1.5rem;
+}
+
+.accessibility__heading {
+  text-align: center;
+  margin: 0 0 1rem;
+}
+
+.accessibility p {
+  margin: 0 0 1rem;
+  line-height: 1.6;
+}
+.accessibility p:last-child {
+  margin-bottom: 0;
+}
+
+/* Left-align the headings on small screens, matching the mobile design */
+@media screen and (max-width: 600px) {
+  .accessibility__heading {
+    text-align: left;
+  }
+}
