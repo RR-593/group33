@@ -58,7 +58,12 @@
   background: var(--curation-placeholder);
 }
 
-/* --- Funding bodies: centred logos --- */
+/* --- Funding bodies: centred logos with names --- */
+.curation__funding-intro {
+  max-width: 40rem;
+  margin: 0 auto 1.5rem;
+  text-align: center;
+}
 .curation__funders {
   list-style: none;
   margin: 0;
@@ -70,14 +75,21 @@
 }
 .curation__funder {
   margin: 0;
+  text-align: center;
 }
 .curation__funder img {
   display: block;
+  margin: 0 auto;
   width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: contain;
   background: var(--curation-placeholder);
+}
+.curation__funder-name {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
 }
 
 /* --- Team: role / name pairs --- */
