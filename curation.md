@@ -8,8 +8,9 @@ permalink: /curation/
 Curation & Acknowledgements page (first draft).
 Self-contained: this page and /assets/curation.css only. It adds no navigation
 and edits no shared files, so it can be merged on its own.
-Replace the placeholder bio text, portrait, funder logos and licence links where
-marked. Keep the heading order (page h1 -> section h2) and the image alt text.
+Bio and funder text are from the sponsor's master document. The curator photo
+and funder logos are still placeholders — replace the images in /assets/curation/
+and update each image's alt text when the real files are supplied.
 {%- endcomment -%}
 
 <link rel="stylesheet" href="{{ '/assets/curation.css' | relative_url }}">
@@ -17,16 +18,19 @@ marked. Keep the heading order (page h1 -> section h2) and the image alt text.
 <div class="curation">
 
   <section class="curation__section" aria-labelledby="bio-heading">
-    <h2 id="bio-heading" class="curation__heading curation__heading--start">Curator Bio</h2>
+    <h2 id="bio-heading" class="curation__heading curation__heading--start">Curator</h2>
     <div class="curation__bio">
       <div class="curation__bio-text">
-        <p>Placeholder biography. Replace this with the curator's bio — who they
-        are, their background, and their role in the exhibition.</p>
+        <p>Hannah Vogel is an archaeologist researching ableism and disability, and
+        an advocate for accessibility with experience in museums, outreach and
+        inclusive pedagogies. She is a teaching academic and PhD candidate in the
+        School of Humanities at Macquarie University, and was named an emerging
+        leader of disability by the National Disability Research Partnership.</p>
       </div>
       <figure class="curation__bio-figure">
-        <!-- Replace src with the curator's photo. Then write alt text describing
-             the person for its purpose here, e.g. alt="Dr Jane Doe, curator".
-             Leave alt="" only while this remains a decorative placeholder. -->
+        <!-- Placeholder: the curator's profile photo is still to come. When it
+             is supplied, replace this src and set alt to describe her, e.g.
+             alt="Hannah Vogel, curator". Keep alt="" only while it is a placeholder. -->
         <img class="curation__portrait"
              src="{{ '/assets/curation/placeholder-portrait.svg' | relative_url }}"
              alt="" width="240" height="240">
@@ -36,19 +40,23 @@ marked. Keep the heading order (page h1 -> section h2) and the image alt text.
 
   <section class="curation__section" aria-labelledby="funding-heading">
     <h2 id="funding-heading" class="curation__heading">Funding Bodies</h2>
+    <p class="curation__funding-intro">This exhibition is funded by the National
+    Disability Research Partnership’s Disability Research Leadership Program (2026).
+    It is part of Hannah Vogel’s PhD project, supported by the Commonwealth through
+    an Australian Government Research Training Program Scholarship.</p>
     <ul class="curation__funders" role="list">
       <li class="curation__funder">
-        <!-- Replace src with the funder's logo and set alt to the funder's name. -->
+        <!-- Placeholder logo — replace src with the funder's logo when supplied. -->
         <img src="{{ '/assets/curation/placeholder-logo.svg' | relative_url }}"
-             alt="Funding body logo (placeholder)" width="120" height="120">
+             alt="National Disability Research Partnership logo (placeholder)"
+             width="120" height="120">
+        <span class="curation__funder-name">National Disability Research Partnership</span>
       </li>
       <li class="curation__funder">
         <img src="{{ '/assets/curation/placeholder-logo.svg' | relative_url }}"
-             alt="Funding body logo (placeholder)" width="120" height="120">
-      </li>
-      <li class="curation__funder">
-        <img src="{{ '/assets/curation/placeholder-logo.svg' | relative_url }}"
-             alt="Funding body logo (placeholder)" width="120" height="120">
+             alt="Australian Government logo (placeholder)"
+             width="120" height="120">
+        <span class="curation__funder-name">Australian Government — Research Training Program</span>
       </li>
     </ul>
   </section>
