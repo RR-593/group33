@@ -215,19 +215,19 @@ layout: default
 
       const clock = s => Number.isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}` : '0:00';
       const isOpen = () => bar.classList.contains('is-open');
-      // the size change animates as a view transition where supported; elsewhere, or with
-      // reduced motion, the bar just switches
+      // the pill slides out sideways from the button's width to the full row (and back);
+      // with reduced motion it just switches
       const calm = matchMedia('(prefers-reduced-motion: reduce)');
       const open = on => {
         if (!on) audio.pause();
         if (isOpen() === on) return;
-        const change = () => {
-          bar.classList.toggle('is-open', on);
-          keyList.hidden = !on;
-        };
-        if (!document.startViewTransition || calm.matches) return change();
-        bar.style.viewTransitionName = 'audio-bar';
-        document.startViewTransition(change).finished.finally(() => bar.style.viewTransitionName = '');
+        const from = `${bar.offsetWidth}px`;
+        bar.classList.toggle('is-open', on);
+        keyList.hidden = !on;
+        if (calm.matches) return;
+        // open: to the row's full width; close: to the button's own width
+        const to = on ? '100%' : `${bar.offsetWidth}px`;
+        bar.animate({ width: [from, to] }, { duration: 350, easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)' });
       };
       const playPause = () => {
         open(true);

@@ -249,7 +249,7 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
   .artifact-transcript h3 { font-size: $base-font-size * 1.125; }
 
   // audio description: one solid blue pill. Closed it's a button ("Audio description" + a white
-  // play badge); open it grows (shelf.html script) into the player bar: play/pause badge, seek,
+  // play badge); open it slides out (shelf.html script) into the player bar: play/pause badge, seek,
   // time, mute. White on #005fcc is 5.6:1
   .artifact-audio {
     display: inline-flex;
@@ -260,6 +260,7 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
     background: #005fcc;
     border-radius: 999px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 95, 204, 0.25);
+    overflow: hidden;  // controls stay clipped inside while the pill slides out
 
     &[hidden] { display: none; }
 
@@ -346,7 +347,7 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
 
   .artifact-audio.is-open {
     display: flex;
-    flex-basis: 100%;
+    width: 100%;
     padding-right: 0.25rem;
     .artifact-play { padding: 0 0.4rem; }
     .artifact-play-label { display: none; }
@@ -366,5 +367,3 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
   dd { margin: 0; }
 }
 
-// the blue button growing into the player bar (shelf.html script)
-::view-transition-group(audio-bar) { animation-duration: 0.35s; }
