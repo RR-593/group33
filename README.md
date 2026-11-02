@@ -17,7 +17,7 @@ before merge.
 | `_data/lqip.json` | Tiny blur placeholders. Generated. Gitignored. |
 | `_layouts/shelf.html` | One template → all shelf pages. Hero, card loop, 3D pop-up. |
 | `_includes/artifact-card.html` | One object card: carousel, key hints, audio player, captions, 3D button, details. |
-| `_layouts/`, `_includes/` | Shared HTML. Nav pill + zoom buttons (`header.html`), head, footer, `shelf-card.html` (home), `responsive-image.html` (resized photo + blur placeholder). |
+| `_layouts/`, `_includes/` | Shared HTML. Nav pill + zoom buttons (`header.html`), head, footer, `shelf-card.html` (home), `responsive-image.html` (resized photo + blur placeholder), `page-turn.html` (previous/next links, nav order), `footer.html` (visit details, acknowledgement, © year). |
 | `_plugins/seo_defaults.rb` | Search/share tags: shelf pages reuse shelf `description`; every page shares home display photo. Page front matter `description:` / `image:` overrides. |
 | `assets/js/` | `site.js` every page: nav keys, zoom, back to top. `shelf.js` shelf pages: carousel, audio player, 3D pop-up, card keys. |
 | `assets/css/main.scss` | Stylesheet entry. Lists every partial in load order. |

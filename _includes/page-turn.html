@@ -1,0 +1,29 @@
+{%- comment -%}
+  Previous and next links at the foot of a page, following the nav order (header_pages
+  in _config.yml), so a visitor can walk through the exhibition in order. A link is left
+  out at either end. Icons: Lucide chevron-left and chevron-right (see NOTICE.md).
+  Usage: include page-turn.html
+{%- endcomment -%}
+{%- for path in site.header_pages %}
+  {%- if path == page.path %}{% assign here = forloop.index0 %}{% endif %}
+{%- endfor %}
+{%- if here != nil %}
+{%- assign prev_index = here | minus: 1 %}
+{%- assign next_index = here | plus: 1 %}
+{%- if here > 0 %}{% assign prev = site.pages | where: "path", site.header_pages[prev_index] | first %}{% endif %}
+{%- assign next = site.pages | where: "path", site.header_pages[next_index] | first %}
+<nav class="page-turn" aria-label="Previous and next page">
+  {%- if prev %}
+  <a class="page-turn__link page-turn__link--prev" href="{{ prev.url | relative_url }}" rel="prev">
+    <span class="page-turn__label">{% include icon.html name="chevron-left" size=18 %} Previous</span>
+    <span class="page-turn__title">{{ prev.nav_title | default: prev.title | escape }}</span>
+  </a>
+  {%- endif %}
+  {%- if next %}
+  <a class="page-turn__link page-turn__link--next" href="{{ next.url | relative_url }}" rel="next">
+    <span class="page-turn__label">Next {% include icon.html name="chevron-right" size=18 %}</span>
+    <span class="page-turn__title">{{ next.nav_title | default: next.title | escape }}</span>
+  </a>
+  {%- endif %}
+</nav>
+{%- endif %}

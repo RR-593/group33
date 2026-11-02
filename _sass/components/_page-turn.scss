@@ -1,0 +1,50 @@
+@use "settings" as *;
+
+// Previous / next page links (_includes/page-turn.html): two cards side by side, the
+// next one always on the right, even when there is no previous.
+.page-turn {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: $spacing * 1.5;
+}
+
+.page-turn__link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  padding: 1rem 1.25rem;
+  color: $text;
+  background: $white;
+  border: 1px solid $grey-light;
+  border-radius: 16px;
+  text-decoration: none;
+  transition: border-color 0.15s, background-color 0.15s;
+
+  &:visited { color: $text; }
+  &:hover { color: $text; text-decoration: none; background: #f6f6f6; border-color: #ccc; }
+  &:hover .page-turn__title { text-decoration: underline; }
+
+  @media (prefers-reduced-motion: reduce) { transition: none; }
+}
+
+.page-turn__link--next {
+  grid-column: 2;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.page-turn__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: $small-font-size;
+  color: $muted-text;
+}
+
+.page-turn__title {
+  font-size: $font-size * 1.125;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
