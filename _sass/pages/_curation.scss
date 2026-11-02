@@ -60,37 +60,6 @@
   color: $muted-text;
 }
 
-// Funding bodies: one card per funder, name then programme
-.curation__funders {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-.curation__funder {
-  flex: 1 1 16rem;
-  max-width: 22rem;
-  margin: 0;
-  padding: 1.25rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  text-align: center;
-  border: 1px solid $grey-light;
-  border-radius: $radius;
-}
-.curation__funder-name {
-  font-weight: $bold;
-}
-.curation__funder-program {
-  color: $muted-text;
-}
-.curation__funding-note {
-  margin: 1.5rem 0 0;
-}
-
 // Team: role / name pairs
 .curation__team {
   max-width: 34rem;
