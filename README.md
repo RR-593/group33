@@ -118,9 +118,11 @@ Add `"obj3D": { "url": "<nira link>", "altText": "<object name>" }` to object. B
 | Workflow | When | Does | Blocks? |
 |---|---|---|---|
 | `pages.yml` | push `main` | resize photos, build, deploy Pages | is deploy |
-| `validate-data.yml` | `_data/**` change | schema check shelf JSON, parse all JSON | red = fix |
+| `validate-data.yml` | `_data/**` change | schema check shelf JSON | red = fix |
 | `rebase-check.yml` | PR | branch behind `main` or has merges → fail | red = rebase |
 | `lighthouse.yml` | PR + push | every page, desktop + mobile: 100 accessibility, best practices, SEO; performance ≥95 desktop, ≥80 mobile. axe-core WCAG 2.2 A/AA, PR comment with failures by criterion, component, page. Reports saved as artifact | no. Read report anyway |
+
+`pages.yml` + `lighthouse.yml` share `.github/actions/prepare-site/`: Ruby (version from `.ruby-version`), ImageMagick, `rake images`. Change Ruby → edit `.ruby-version` only.
 
 Automated checks miss much; do PR template's manual checks too.
 

@@ -1,0 +1,22 @@
+name: Prepare site
+description: >-
+  Install Ruby (version from .ruby-version) with cached gems and ImageMagick, then
+  make the resized photos and blur placeholders the build needs. Run after checkout.
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+      with:
+        bundler-cache: true
+
+    - name: Install ImageMagick
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y imagemagick
+
+    - name: Make resized photos and placeholders
+      shell: bash
+      run: bundle exec rake images

@@ -1,3 +1,5 @@
+# Pull requests into main must sit on top of the latest main with no merge commits,
+# so main's history stays a straight line.
 name: Rebase check
 
 on:
@@ -11,11 +13,12 @@ jobs:
   rebased:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out PR head
+      - name: Check out pull request
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
+          fetch-depth: 0  # full history, to compare with main
+
       - name: Require branch rebased on latest main
         run: |
           git fetch origin main
