@@ -1,0 +1,26 @@
+@use "settings" as *;
+
+// "Are you still there?" warning in gallery tablet mode (assets/js/kiosk.js): a centred
+// card over a dimmed page, with one large button to stay.
+.kiosk-warning {
+  width: min(26rem, calc(100vw - 2rem));
+  padding: 2rem;
+  color: $text;
+  background: $white;
+  border: 0;
+  border-radius: $radius;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
+  text-align: center;
+
+  &::backdrop { background: rgba(0, 0, 0, 0.6); }
+
+  h2 { margin-bottom: 0.75rem; }
+  p { margin-bottom: 1.5rem; }
+
+  .pill {
+    min-width: 12rem;
+    padding: 0.9rem 1.5rem;
+    font-size: 1.05rem;
+    font-weight: $bold;
+  }
+}
