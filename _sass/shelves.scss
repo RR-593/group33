@@ -77,6 +77,26 @@ body:has(.exhibit) {
   text-align: center;
 }
 
+// display photo: under the title on phones, behind it (dimmed) from 500px
+.hero__figure {
+  position: relative;
+  z-index: 1;  // above the black side lenses
+  width: min(100%, 320px);
+  margin: 0;
+}
+
+.hero__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background-size: cover;  // blur placeholder while the photo downloads
+  border-radius: 14px;
+}
+
+.hero__caption { margin-top: 0.5rem; font-size: 0.8rem; line-height: 1.5; text-align: center; }
+
 .hero__subtitle {
   margin: 0;
   max-width: 40ch;
@@ -261,9 +281,37 @@ a.pill:active {
     padding: 3rem clamp(1.5rem, 5vw, 4rem);
     background: $hero-bg;
     color: $white;
+    isolation: isolate;  // keeps the photo behind the title but above the black background
 
     &::before,
     &::after { display: none; }
+  }
+
+  .hero__figure {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: auto;
+  }
+
+  .hero__image {
+    height: 100%;
+    aspect-ratio: auto;
+    object-position: center 40%;
+    border-radius: 0;
+    filter: brightness(0.4);  // dark enough for white text over the brightest part of the photo
+  }
+
+  .hero__caption {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    max-width: 40ch;
+    margin: 0;
+    padding: 0.4rem 0.75rem;
+    text-align: right;
+    background: rgba(0, 0, 0, 0.6);
+    border-top-left-radius: 10px;
   }
 
   .hero__title {

@@ -7,7 +7,8 @@ require "json"
 require "tmpdir"
 require "yaml"
 
-PHOTOS = "assets/exhibitionShelfs"
+# object photos, and the placeholder photos (home page display photo, shelf headers)
+PHOTOS = %w[assets/exhibitionShelfs assets/placeholders]
 
 task default: :serve
 
@@ -21,7 +22,7 @@ task build: :images do
   sh({ "JEKYLL_ENV" => "production" }, "bundle exec jekyll build")
 end
 
-# Makes smaller copies of every exhibition photo for the shelf pages:
+# Makes smaller copies of every JPEG photo in PHOTOS for the pages:
 #   assets/resized/<photo>-<width>.jpg -> srcset, one per width in `image_sizes` in _config.yml
 #   _data/lqip.json                    -> a tiny blurred placeholder per photo, written
 #                                         into the page so it shows before any download
@@ -32,7 +33,7 @@ task :images do
   im = %w[magick convert].find { |cmd| system(cmd, "-version", out: File::NULL, err: File::NULL) } or
     abort "ImageMagick not found. Install it (see the top of Rakefile) and try again."
   sizes = YAML.load_file("_config.yml").fetch("image_sizes")
-  originals = Dir.glob("#{PHOTOS}/**/*").select { |f| File.file?(f) && f.match?(/\.jpe?g\z/i) }.sort
+  originals = Dir.glob(PHOTOS.map { |d| "#{d}/**/*" }).select { |f| File.file?(f) && f.match?(/\.jpe?g\z/i) }.sort
   resized = ->(src) { src.sub(%r{\Aassets/}, "assets/resized/").sub(/\.[^.]+\z/, "") }
 
   originals.each do |src|
