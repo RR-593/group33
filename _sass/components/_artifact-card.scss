@@ -1,0 +1,117 @@
+@use "settings" as *;
+
+// One object card (_includes/artifact-card.html): photo carousel and key hints beside
+// the name, actions, details and description text. Player styles: _audio-player.scss.
+
+.artifact {
+  // the card: white panel, soft edge and shadow; carousel beside the description,
+  // stacking on narrow screens
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: $white;
+  border: 1px solid #e6e6e6;
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+
+  h2 { margin-top: 0; }
+
+  // shortcut keys sit under the description, shown only while the card has keyboard focus;
+  // screen readers get them via aria-describedby
+  .artifact-keys {
+    display: none;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin: 1rem 0 0;
+    padding: 0.75rem 0 0;
+    border-top: 1px solid #e8e8e8;
+    list-style: none;
+    font-size: $small-font-size;
+    color: $muted-text;
+  }
+  &:focus-visible .artifact-keys { display: flex; }
+  // player keys under the photo: shown whenever the player is open, not only on focus
+  .artifact-audio-keys:not([hidden]) { display: flex; margin-top: 0.5rem; }
+  .artifact-keys li { margin: 0; }
+  .artifact-keys kbd + kbd { margin-left: 0.2rem; }
+
+
+  .artifact-media, .description { flex: 1 1 300px; }
+  // the open player bar must not decide the column's width, or the card stacks when it opens
+  // (Firefox's range sliders are especially wide by default)
+  .description { min-width: 0; }
+
+  // narrow screens: stack, with the name above the carousel.
+  // display: contents lets the description's children join the card's flex row,
+  // so the h2 can be moved first with order. The HTML order is unchanged.
+  // 760px is where the two 300px columns plus the card's padding no longer fit side by side.
+  @media screen and (max-width: 760px) {
+    padding: 1rem;
+    gap: 1rem;
+    .artifact-media { flex-basis: 100%; }
+    .description { display: contents; }
+    .description > * { flex-basis: 100%; margin-top: 0; margin-bottom: 0; }  // card's gap spaces them
+    h2 { order: -1; }
+  }
+  .artifact-media { min-width: 0; }  // lets Swiper size slides instead of stretching the row
+  .artifact-images {
+    padding-bottom: 2rem;    // room for the dots below the caption
+  }
+  .swiper-pagination { bottom: 0; }
+  figure { margin: 0; }
+  img { width: 100%; height: auto; }
+  // same frame for every slide; portrait shots fit inside without cropping
+  // the tiny placeholder (set inline) is stretched blurry behind the photo until it downloads;
+  // grey shows if even that hasn't arrived
+  .swiper-slide img {
+    aspect-ratio: 3 / 2;
+    border-radius: 12px;
+    object-fit: contain;
+    background-color: #eee;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  // Read description and View in 3D: outlined pills, the same 44px height as the blue audio
+  // control beside them. The focus blue passes contrast on white
+  .artifact-actions {
+    container-type: inline-size;  // lets the player drop its time readout when the column is narrow
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .artifact-actions > button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    height: 2.75rem;
+    padding: 0 1rem;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $blue;
+    background: $white;
+    border: 2px solid $blue;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+
+    &:hover { background: #e8f0fb; }
+    &[aria-pressed="true"] { color: $white; background: $blue; }
+    &[aria-pressed="true"]::after { content: "✓" / ""; }  // tick so "on" isn't shown by colour alone; empty alt keeps it silent for screen readers
+  }
+  .artifact-transcript h3 { font-size: $font-size * 1.125; }
+
+  // accession, material and details as a two-column table
+  dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.25rem 1rem;
+  }
+  dd { margin: 0; }
+}

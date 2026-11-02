@@ -1,0 +1,13 @@
+// Atkinson Hyperlegible, self-hosted (SIL OFL 1.1, see NOTICE.md). System fonts show
+// until it loads (swap). Paths are relative to the built assets/css/main.css.
+@each $weight in 400, 700 {
+  @each $style in normal, italic {
+    @font-face {
+      font-family: "Atkinson Hyperlegible";
+      font-style: $style;
+      font-weight: $weight;
+      font-display: swap;
+      src: url("../fonts/atkinson-hyperlegible/atkinson-hyperlegible-latin-#{$weight}-#{$style}.woff2") format("woff2");
+    }
+  }
+}

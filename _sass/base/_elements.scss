@@ -1,0 +1,85 @@
+@use "settings" as *;
+
+// Plain HTML elements, before any class styles them.
+
+body, h1, h2, h3, h4, h5, h6,
+p, hr, dl, dd, ol, ul, figure {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: clip;  // 100vw includes the scrollbar; stops a sideways scroll
+  font: 400 #{$font-size}/#{$line-height} $font-family;
+  font-kerning: normal;
+  color: $text;
+  background-color: $background;
+  -webkit-text-size-adjust: 100%;
+}
+
+:focus-visible {
+  outline: 3px solid $blue;
+  outline-offset: 3px;
+}
+
+// vertical rhythm
+h1, h2, h3, h4, h5, h6,
+p, ul, ol, dl, figure {
+  margin-bottom: $spacing * 0.5;
+}
+
+h1, h2, h3, h4, h5, h6 { font-weight: 400; }
+
+ul, ol { margin-left: $spacing; }
+li > ul, li > ol { margin-bottom: 0; }
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+figure > img { display: block; }
+figcaption { font-size: $small-font-size; }
+
+a {
+  color: $link;
+  text-decoration: none;
+
+  &:visited { color: $link-visited; }
+  &:hover { color: $text; text-decoration: underline; }
+}
+
+table {
+  width: 100%;
+  margin-bottom: $spacing;
+  text-align: left;
+  color: #3f3f3f;
+  border-collapse: collapse;
+  border: 1px solid $grey-light;
+
+  tr:nth-child(even) { background-color: #f7f7f7; }
+  th, td { padding: 10px 15px; border: 1px solid $grey-light; }
+  th {
+    background-color: #f0f0f0;
+    border-color: #dedede;
+    border-bottom-color: #c9c9c9;
+  }
+}
+
+// key caps for shortcut hints
+kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0 0.35em;
+  font: inherit;
+  font-size: 0.85em;
+  line-height: 1.5;
+  text-align: center;
+  color: $muted-text;
+  background: #f6f6f6;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+}

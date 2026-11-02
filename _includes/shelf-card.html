@@ -2,7 +2,7 @@
 <section class="shelf" id="shelf-{{ include.number }}" aria-labelledby="shelf-{{ include.number }}-title">
   <header class="shelf__header">
     <h3 class="shelf__title" id="shelf-{{ include.number }}-title">{{ s.title | escape }}</h3>
-    <p class="shelf__count"><span class="shelf__sr">Shelf </span>{{ include.number }}/{{ include.total }}</p>
+    <p class="shelf__count"><span class="visually-hidden">Shelf </span>{{ include.number }}/{{ include.total }}</p>
   </header>
 
   <figure class="shelf__figure">
@@ -15,7 +15,7 @@
   {% endunless %}
 
   <div class="shelf__actions">
-    <a class="pill shelf__explore" href="{{ include.url | relative_url }}">Explore<span class="shelf__sr"> {{ s.title | escape }}</span> <svg class="shelf__icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a class="pill shelf__explore" href="{{ include.url | relative_url }}">Explore<span class="visually-hidden"> {{ s.title | escape }}</span> <svg class="shelf__icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </div>
 
   {% if include.number < include.total %}

@@ -21,7 +21,6 @@ header_pages:
 image_sizes: [400, 800, 1600]
 
 plugins:
-  - jekyll-feed
   - jekyll-seo-tag
 
 exclude:

@@ -1,0 +1,31 @@
+---
+# front matter tells Jekyll to compile this file to assets/css/main.css
+---
+
+// Site stylesheet. Partials live in _sass/, grouped by what they style:
+//   base/        fonts and plain HTML elements
+//   layout/      the page frame: header, page column, footer
+//   components/  reusable pieces: pills, cards, the audio player, the 3D pop-up
+//   pages/       styles used by one page only
+// Colours, type and spacing are in _sass/_settings.scss.
+
+@use "base/fonts";
+@use "base/elements";
+
+@use "layout/header";
+@use "layout/page";
+@use "layout/footer";
+
+@use "components/back-to-top";
+@use "components/pill";
+@use "components/shelf-card";
+@use "components/artifact-card";
+@use "components/audio-player";
+@use "components/model-dialog";
+
+@use "pages/home";
+@use "pages/shelf";
+@use "pages/curation";
+@use "pages/accessibility";
+
+@use "base/utilities";

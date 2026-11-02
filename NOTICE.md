@@ -1,6 +1,6 @@
 # Template provenance
 
-This site vendors files from [Minima 2.5.2](https://github.com/jekyll/minima/tree/v2.5.2),
+This site began as a copy of [Minima 2.5.2](https://github.com/jekyll/minima/tree/v2.5.2),
 commit `c6e74bbfe7a0d0ae8c806cb38b012d01b25b1f7d`. Minima is copyright
 Joel Glovier and contributors and is distributed under the MIT License retained
 in `LICENSE`.
@@ -10,7 +10,9 @@ named primary navigation landmark and visible keyboard focus. In October 2026
 the header and its mobile menu were replaced with a sticky pill-shaped
 navigation bar that is a single Tab stop, with arrow, Home and End keys to move
 between links and number keys to open them while it has focus; the skip link
-was removed.
+was removed. In November 2026 Minima's unused blog features (posts, comments,
+analytics, social links, syntax highlighting, news feed) were deleted and its
+remaining stylesheets were folded into the site's own partials in `_sass/`.
 
 Icons from [Lucide](https://lucide.dev) v0.469.0 are kept one per file in
 `assets/icons/` and drawn by `_includes/icon.html`: `rotate-3d` (View in 3D), `x`
