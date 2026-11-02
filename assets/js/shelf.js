@@ -26,7 +26,7 @@ dialog.querySelector('.model-dialog-close').addEventListener('click', () => dial
 document.addEventListener('play', e => document.querySelectorAll('audio')
   .forEach(a => a !== e.target && a.pause()), true);
 
-// The card's blue "Audio description" button grows into its player bar and plays; the bar's
+// The card's "Audio description" button grows into its player bar and plays; the bar's
 // controls skip Tab like the rest of the card, with keys listed under the photo while it's open.
 // Returns null when the object has no recording.
 const audioPlayer = card => {

@@ -1,29 +1,35 @@
 // Colours, type and spacing shared by every partial. Load with `@use "settings" as *;`.
 
-// One ink, one accent, one muted grey across every page. Contrast on white in brackets.
+// The museum editorial look: warm paper, deep ink, one terracotta accent, square
+// corners and thin rules, like a printed exhibition catalogue. Contrast against the page
+// in brackets; WCAG AA needs 4.5:1 for text and 3:1 for the focus ring and controls.
 
 // text and surfaces
-$text: #111;             // all body text and headings (18.9:1)
-$background: #fdfdfd;
-$surface: #f6f6f6;       // footer, hover fills, key caps
-$muted-text: #595959;    // captions, hints, secondary text (7:1)
-$grey: #828282;          // disabled icons only, too light for text
-$grey-light: #e8e8e8;    // borders
-$grey-dark: #424242;     // nav key hint text
+$text: #1f1a17;          // body text and headings (15.5)
+$background: #f7f2ea;    // the page
+$card: #fffcf7;          // cards, dialogs, the nav pill
+$surface: #efe7da;       // footer, hover fills, key caps
+$muted-text: #5c524a;    // captions, hints, secondary text (6.8)
+$grey: #8a8076;          // disabled icons only, too light for text
+$grey-light: #d9cdbb;    // borders and thin rules
+$grey-dark: $muted-text; // nav key hint text
 
-// links and controls: one blue for links, buttons, the player and the focus ring
-$blue: #005fcc;          // (5.6:1; white on it 5.6:1; 3.2:1 against the dark band)
-$blue-tint: #e8f0fb;     // hover fill behind blue text
-$link: $blue;
-$link-visited: $blue;
+// one accent for links, buttons and the audio player
+$accent: #9a3412;        // (6.6; white on it 7.3)
+$accent-tint: #f6e3d8;   // hover fill behind accent text
+$focus: #c05621;         // the focus ring (4.1; 3.8 on the dark band)
+$link: $accent;
+$link-visited: $accent;
 
-// dark band on the home page, and photo labels
-$black: $text;
-$white: #fff;
+// strong fills: the home band and hero, round buttons, photo labels
+$black: #1f1a17;
+$on-band: #f7f2ea;       // text on those fills (15.5)
+$white: #fff;            // text on the accent
 
-// shape
-$radius: 16px;           // cards, photos, dialogs
-$radius-small: 10px;     // smaller surfaces inside cards: photos in a carousel, menu items
+// shape: square corners, as in print
+$radius: 4px;            // cards, photos, dialogs
+$radius-small: 2px;      // smaller surfaces inside cards
+$pill: 4px;              // buttons, the nav pill and the player bar
 
 // type
 $font-family: "Atkinson Hyperlegible", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -39,11 +45,21 @@ $content-width: 800px;
 $on-laptop: 800px;       // below this, narrower page padding and headings
 $nav-collapse: 759px;    // at or below this, the nav pill becomes the phone top bar and menu
 
-// The one focus ring: a blue outline with a thin white halo inside it, so it shows on
-// white, on the dark home band and on photos. On a blue surface, pass $white as the ring
-// and $blue as the halo. Windows high-contrast mode drops the halo and keeps the outline
-@mixin focus-ring($ring: $blue, $halo: $white, $offset: 2px) {
+// The one focus ring: an outline in the focus colour with a thin halo in the page colour
+// inside it, so it shows on the page, on the strong fill and on photos. On an accent
+// surface, pass $white as the ring and $accent as the halo. Windows high-contrast mode
+// drops the halo and keeps the outline
+@mixin focus-ring($ring: $focus, $halo: $background, $offset: 2px) {
   outline: 3px solid $ring;
   outline-offset: $offset;
   box-shadow: 0 0 0 $offset $halo;
+}
+
+// Small spaced-out capitals, like a museum wall label: shelf numbers, "Previous"/"Next",
+// footer headings and the names in an object's details
+@mixin label {
+  font-size: 0.75rem;
+  font-weight: $bold;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }

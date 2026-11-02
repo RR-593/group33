@@ -13,10 +13,9 @@
   height: 3rem;
   padding: 0;
   color: $text;
-  background: $background;
+  background: $card;
   border: 1px solid $grey-light;
   border-radius: 50%;
-  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
   cursor: pointer;
   opacity: 0;
   visibility: hidden;

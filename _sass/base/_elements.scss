@@ -39,6 +39,7 @@ p, ul, ol, dl, figure {
 h1, h2, h3, h4, h5, h6 {
   font-weight: $bold;
   line-height: 1.2;
+  letter-spacing: -0.015em;
   text-wrap: balance;  // no single word left alone on the last line
 }
 h1 { font-size: clamp(1.875rem, 1.4rem + 2vw, 2.5rem); }
@@ -68,16 +69,16 @@ table {
   width: 100%;
   margin-bottom: $spacing;
   text-align: left;
-  color: #3f3f3f;
+  color: $text;
   border-collapse: collapse;
   border: 1px solid $grey-light;
 
-  tr:nth-child(even) { background-color: #f7f7f7; }
+  tr:nth-child(even) { background-color: $surface; }
   th, td { padding: 10px 15px; border: 1px solid $grey-light; }
   th {
-    background-color: #f0f0f0;
-    border-color: #dedede;
-    border-bottom-color: #c9c9c9;
+    background-color: $surface;
+    border-color: $grey-light;
+    border-bottom-color: $grey;
   }
 }
 
@@ -91,8 +92,8 @@ kbd {
   line-height: 1.5;
   text-align: center;
   color: $muted-text;
-  background: #f6f6f6;
-  border: 1px solid #ccc;
+  background: $surface;
+  border: 1px solid $grey;
   border-bottom-width: 2px;
   border-radius: 4px;
 }

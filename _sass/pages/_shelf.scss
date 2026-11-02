@@ -14,7 +14,7 @@
     height: 30vh;
     min-height: 240px;
     object-fit: cover;
-    background: #333 center / cover no-repeat;  // dark frame, then the blur placeholder, while the photo downloads
+    background: $black center / cover no-repeat;  // dark frame, then the blur placeholder, while the photo downloads
   }
 
   h1 {
@@ -25,14 +25,14 @@
     margin: 0;
     // left edge lines up with the page text below
     padding: $spacing max(#{$spacing}, calc((100% - #{$content-width}) / 2 + #{$spacing}));
-    color: $white;
+    color: $on-band;
   }
   // a solid dark label behind the title: readable on any photo, and contrast checkers
   // can measure it (they can't see through to a photo or a gradient)
   h1 span {
     padding: 0.1em 0.45em;
-    background: #111;
-    border-radius: 10px;
+    background: $black;
+    border-radius: $radius-small;
     box-decoration-break: clone;  // each line gets its own label if the title wraps
   }
 }

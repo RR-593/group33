@@ -16,14 +16,14 @@
   min-width: 0;
   padding: 1rem 1.25rem;
   color: $text;
-  background: $white;
+  background: $card;
   border: 1px solid $grey-light;
   border-radius: $radius;
   text-decoration: none;
   transition: border-color 0.15s, background-color 0.15s;
 
   &:visited { color: $text; }
-  &:hover { color: $text; text-decoration: none; background: #f6f6f6; border-color: #ccc; }
+  &:hover { color: $text; text-decoration: none; background: $surface; border-color: $grey; }
   &:hover .page-turn__title { text-decoration: underline; }
 
   @media (prefers-reduced-motion: reduce) { transition: none; }
@@ -39,7 +39,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.2rem;
-  font-size: $small-font-size;
+  @include label;
   color: $muted-text;
 }
 

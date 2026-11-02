@@ -3,18 +3,18 @@
 // Audio description player inside an artifact card; the script is assets/js/shelf.js.
 
 .artifact {
-  // audio description: one solid blue pill. Closed it's a button ("Audio description" + a white
+  // audio description: one solid accent-coloured pill. Closed it's a button ("Audio description" + a white
   // play badge); open it slides out (assets/js/shelf.js) into the player bar: play/pause badge, seek,
-  // time, mute. White on blue is 5.6:1
+  // time, mute. White on the accent is 7.3:1
   .artifact-audio {
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
     height: 2.75rem;
     color: $white;
-    background: $blue;
-    border-radius: 999px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 95, 204, 0.25);
+    background: $accent;
+    border-radius: $pill;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 4px 12px color-mix(in srgb, #{$accent} 25%, transparent);
 
     &[hidden] { display: none; }
 
@@ -32,22 +32,22 @@
       color: inherit;
       background: none;
       border: 0;
-      border-radius: 999px;
+      border-radius: $pill;
       cursor: pointer;
       transition: background-color 0.15s;
 
       &:hover { background: rgba(255, 255, 255, 0.14); }
-      &:focus-visible { outline: 3px solid $white; outline-offset: -5px; box-shadow: none; }  // white, inside: the bar is blue
+      &:focus-visible { outline: 3px solid $white; outline-offset: -5px; box-shadow: none; }  // white, inside: the bar is the accent colour
     }
     .artifact-play { padding: 0 0.375rem 0 1rem; }
 
-    // white disc with a filled blue play/pause icon
+    // white disc with a filled accent-coloured play/pause icon
     .artifact-play-icon {
       display: grid;
       place-items: center;
       width: 2rem;
       height: 2rem;
-      color: $blue;
+      color: $accent;
       background: $white;
       border-radius: 50%;
       transition: transform 0.15s;
@@ -60,9 +60,9 @@
     .player-seek, .player-time, .player-volume, .player-captions, .player-close { display: none; }
     .icon-pause, .icon-muted { display: none; }
     .player-volume-btn svg, .player-captions svg, .player-close svg { width: 1.25rem; height: 1.25rem; }
-    // captions on: icon flips to blue on a white disc, so "on" isn't shown by colour alone
+    // captions on: icon flips to the accent on a white disc, so "on" isn't shown by colour alone
     .player-captions[aria-pressed="true"],
-    .player-captions[aria-pressed="true"]:hover { color: $blue; background: $white; }
+    .player-captions[aria-pressed="true"]:hover { color: $accent; background: $white; }
 
     // volume: a white card dropping down under the speaker, with an upright slider
     .player-volume { position: relative; }
@@ -84,7 +84,7 @@
       width: 1.5rem;
       height: 6rem;
       margin: 0;
-      accent-color: $blue;
+      accent-color: $accent;
       cursor: pointer;
       writing-mode: vertical-lr;
       direction: rtl;  // loud at the top

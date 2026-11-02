@@ -18,13 +18,13 @@
   padding: 0.75rem 1.25rem;
   font-weight: $bold;
   color: $white;
-  background: $blue;
-  border-radius: 999px;
+  background: $accent;
+  border-radius: $pill;
   text-decoration: none;
   transform: translateY(-200%);
 
   &:visited, &:hover { color: $white; }
-  &:focus-visible { transform: none; @include focus-ring($blue, $white); }
+  &:focus-visible { transform: none; @include focus-ring($accent, $white); }
 }
 
 // focus lands here from the skip link; the page itself needs no ring
@@ -51,7 +51,12 @@ main:focus { outline: none; }
 }
 
 // _layouts/page.html: a title, then the page's own text
-.page-header { margin-bottom: $spacing; }
+// a heavy rule under every page title, as in a printed catalogue
+.page-header {
+  margin-bottom: $spacing;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid $text;
+}
 
 .page-title { margin: 0; }
 
