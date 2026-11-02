@@ -1,5 +1,5 @@
-// Shelf pages (_layouts/shelf.html): the 3D model pop-up, each card's photo carousel,
-// audio description player, captions toggle and shortcut keys. Card markup is in
+// Shelf pages (_layouts/shelf.html): the 3D model pop-up, the photo viewer, each card's
+// photo carousel, audio description player, captions toggle and shortcut keys. Card markup is in
 // _includes/artifact-card.html. Swiper is loaded before this in _includes/head.html.
 
 // native <dialog>: traps focus, closes on Esc and hands focus back to the card
@@ -114,6 +114,154 @@ const audioPlayer = card => {
   };
 };
 
+// Photo viewer: one shared dialog (in _layouts/shelf.html) showing a card's photos large.
+// Zoom with pinch, double-tap or double-click, the wheel, the +/- buttons or keys; drag
+// to look around a zoomed photo; swipe, the arrows or ←/→ for the other photos. Zooming in
+// swaps to the original photo for detail. Closing returns to the card on the same photo.
+const viewer = document.querySelector('.photo-viewer');
+const stage = viewer.querySelector('.photo-viewer__stage');
+const shown = viewer.querySelector('.photo-viewer__image');
+const caption = viewer.querySelector('.photo-viewer__caption');
+const count = viewer.querySelector('.photo-viewer__count');
+const [prevPhoto, nextPhoto] = ['.photo-viewer__prev', '.photo-viewer__next'].map(s => viewer.querySelector(s));
+const MAX_ZOOM = 5;
+let photos = [], current = 0, openedFrom = null;
+let zoom = 1, x = 0, y = 0;
+
+// keep a zoomed photo's edges from moving inside the stage
+const clamp = () => {
+  const room = (size, frame) => Math.max(0, (size * zoom - frame) / 2);
+  const mx = room(shown.offsetWidth, stage.clientWidth), my = room(shown.offsetHeight, stage.clientHeight);
+  x = Math.min(mx, Math.max(-mx, x));
+  y = Math.min(my, Math.max(-my, y));
+};
+const draw = () => {
+  clamp();
+  shown.style.transform = `translate(${x}px, ${y}px) scale(${zoom})`;
+  stage.classList.toggle('is-zoomed', zoom > 1);
+  viewer.querySelector('[data-zoom="-1"]').setAttribute('aria-disabled', zoom <= 1);
+  viewer.querySelector('[data-zoom="1"]').setAttribute('aria-disabled', zoom >= MAX_ZOOM);
+  // past fit size, the resized copy runs out of detail: load the original once
+  const full = photos[current]?.full;
+  if (zoom > 1 && full && shown.dataset.full !== full) {
+    shown.dataset.full = full;
+    shown.removeAttribute('srcset');
+    shown.src = full;
+  }
+};
+// zoom to `to`, keeping the point under (cx, cy) in place; the stage centre by default
+const zoomTo = (to, cx, cy) => {
+  const box = stage.getBoundingClientRect();
+  const px = (cx ?? box.left + box.width / 2) - (box.left + box.width / 2);
+  const py = (cy ?? box.top + box.height / 2) - (box.top + box.height / 2);
+  const next = Math.min(MAX_ZOOM, Math.max(1, to));
+  x = px - (px - x) * (next / zoom);
+  y = py - (py - y) * (next / zoom);
+  zoom = next;
+  if (zoom === 1) x = y = 0;
+  draw();
+};
+
+const showPhoto = i => {
+  current = (i + photos.length) % photos.length;
+  const photo = photos[current];
+  zoom = 1; x = y = 0;
+  delete shown.dataset.full;
+  shown.srcset = photo.srcset;
+  shown.sizes = '100vw';
+  shown.src = photo.src;
+  shown.alt = photo.alt;
+  caption.textContent = photo.caption;
+  count.textContent = photos.length > 1 ? `Photo ${current + 1} of ${photos.length}` : '';
+  draw();
+};
+const step = n => { if (photos.length > 1) showPhoto(current + n); };
+
+const openViewer = (card, index) => {
+  photos = [...card.querySelectorAll('.swiper-slide')].map(slide => {
+    const img = slide.querySelector('img');
+    return { src: img.currentSrc || img.src, srcset: img.srcset, full: img.dataset.full, alt: img.alt, caption: slide.querySelector('figcaption')?.textContent ?? '' };
+  });
+  openedFrom = card;
+  viewer.querySelector('.photo-viewer__title').textContent = card.querySelector('h2').textContent;
+  viewer.classList.toggle('has-one', photos.length < 2);
+  showPhoto(index);
+  viewer.showModal();
+};
+
+viewer.addEventListener('close', () => {
+  openedFrom?.querySelector('.swiper')?.swiper?.slideTo(current, 0);
+  openedFrom?.focus();
+  openedFrom = null;
+});
+viewer.querySelector('.photo-viewer__close').addEventListener('click', () => viewer.close());
+// a click on the dark area around the photo closes, like the 3D pop-up's backdrop
+viewer.addEventListener('click', e => { if (e.target === viewer) viewer.close(); });
+prevPhoto.addEventListener('click', () => step(-1));
+nextPhoto.addEventListener('click', () => step(1));
+viewer.querySelectorAll('[data-zoom]').forEach(b => b.addEventListener('click', () => zoomTo(zoom * (Number(b.dataset.zoom) > 0 ? 1.5 : 1 / 1.5))));
+
+viewer.addEventListener('keydown', e => {
+  if (e.ctrlKey || e.metaKey || e.altKey) return;  // keep the browser's own zoom
+  const act = { ArrowLeft: () => step(-1), ArrowRight: () => step(1), '+': () => zoomTo(zoom * 1.5), '=': () => zoomTo(zoom * 1.5), '-': () => zoomTo(zoom / 1.5), '0': () => zoomTo(1) }[e.key];
+  if (!act) return;
+  act();
+  e.preventDefault();
+});
+
+stage.addEventListener('wheel', e => {
+  e.preventDefault();
+  zoomTo(zoom * Math.exp(-e.deltaY * 0.002), e.clientX, e.clientY);
+}, { passive: false });
+
+// Touch and mouse: one pointer drags (or swipes, at fit size), two pinch
+const pointers = new Map();
+let start = null, lastTap = 0;
+const spread = () => { const [a, b] = [...pointers.values()]; return Math.hypot(a.x - b.x, a.y - b.y); };
+const middle = () => { const [a, b] = [...pointers.values()]; return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }; };
+
+stage.addEventListener('pointerdown', e => {
+  if (e.target.closest('button')) return;
+  try { stage.setPointerCapture(e.pointerId); } catch {}  // keeps the drag going outside the stage
+  pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  stage.classList.add('is-moving');
+  start = pointers.size === 2
+    ? { pinch: spread(), zoom }
+    : { x: e.clientX, y: e.clientY, ox: x, oy: y, time: Date.now() };
+});
+stage.addEventListener('pointermove', e => {
+  if (!pointers.has(e.pointerId)) return;
+  pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (pointers.size === 2 && start?.pinch) {
+    const m = middle();
+    zoomTo(start.zoom * spread() / start.pinch, m.x, m.y);
+  } else if (pointers.size === 1 && start && !start.pinch && zoom > 1) {
+    x = start.ox + e.clientX - start.x;
+    y = start.oy + e.clientY - start.y;
+    draw();
+  }
+});
+const lift = e => {
+  if (!pointers.has(e.pointerId)) return;
+  pointers.delete(e.pointerId);
+  if (pointers.size) { start = null; return; }  // one finger still down after a pinch
+  stage.classList.remove('is-moving');
+  if (start && !start.pinch) {
+    const dx = e.clientX - start.x, dy = e.clientY - start.y;
+    const quick = Date.now() - start.time < 300;
+    if (zoom === 1 && Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);  // swipe
+    else if (quick && Math.hypot(dx, dy) < 10) {
+      // a double tap or double click zooms in on that point, or back out
+      if (Date.now() - lastTap < 300) { zoomTo(zoom > 1 ? 1 : 2.5, e.clientX, e.clientY); lastTap = 0; }
+      else lastTap = Date.now();
+    }
+  }
+  start = null;
+};
+stage.addEventListener('pointerup', lift);
+stage.addEventListener('pointercancel', lift);
+addEventListener('resize', () => { if (viewer.open) draw(); });
+
 document.querySelectorAll('.artifact').forEach(card => {
   const el = card.querySelector('.artifact-images.swiper');
   const swiper = new Swiper(el, {
@@ -129,6 +277,10 @@ document.querySelectorAll('.artifact').forEach(card => {
     .forEach(b => b.tabIndex = -1);
   skipArrows();
   swiper.on('fromEdge toEdge lock unlock', skipArrows);
+
+  // the photo viewer: a tap or click on a photo (not a drag), the Enlarge button, or key Z
+  swiper.on('click', (s, e) => { if (e.target.closest('img')) openViewer(card, s.clickedIndex ?? s.activeIndex); });
+  card.querySelector('.artifact-enlarge').addEventListener('click', () => openViewer(card, swiper.activeIndex));
 
   const button3d = card.querySelector('.artifact-3d');
   const player = audioPlayer(card);
@@ -154,6 +306,7 @@ document.querySelectorAll('.artifact').forEach(card => {
     else if (key === 'arrowright') swiper.slideNext();
     else if (key === 'enter' && player) player.playPause();
     else if (key === 't') toggle.click();
+    else if (key === 'z') openViewer(card, swiper.activeIndex);
     else if (key === 'd' && button3d) button3d.click();
     // player keys only while it's open; otherwise ↑/↓ scroll and Esc does nothing here
     else if (player?.isOpen() && key in player.keys) player.keys[key]();

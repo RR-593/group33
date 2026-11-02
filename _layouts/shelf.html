@@ -36,6 +36,42 @@ layout: default
   One shared pop-up for the 3D models, opened by each card's "View in 3D" button.
   Carousel, player, pop-up and keys are wired up by assets/js/shelf.js.
 {%- endcomment %}
+{%- comment -%}
+  One shared photo viewer, opened by tapping an object's photo, its Enlarge button or key
+  Z. Fills most of the screen (all of it on phones); pinch, double-tap, wheel or +/- to
+  zoom, drag to look around, swipe or arrows for the other photos. Wired up in
+  assets/js/shelf.js. Icons: Lucide x, zoom-in, zoom-out, chevron-left/right (NOTICE.md).
+{%- endcomment %}
+<dialog class="photo-viewer" aria-labelledby="photo-viewer-title" aria-describedby="photo-viewer-keys">
+  <div class="photo-viewer__bar">
+    <h2 class="photo-viewer__title" id="photo-viewer-title"></h2>
+    <p class="photo-viewer__count" aria-live="polite"></p>
+    <div class="photo-viewer__zoom" role="group" aria-label="Zoom">
+      <button type="button" class="photo-viewer__button" data-zoom="-1" aria-label="Zoom out">{% include icon.html name="zoom-out" size=20 %}</button>
+      <button type="button" class="photo-viewer__button" data-zoom="1" aria-label="Zoom in">{% include icon.html name="zoom-in" size=20 %}</button>
+    </div>
+    {%- comment -%} autofocus: focus starts here when the viewer opens, so Esc, Enter or Tab work at once {%- endcomment %}
+    <button type="button" class="photo-viewer__button photo-viewer__close" autofocus>
+      {% include icon.html name="x" size=20 %}
+      <span class="visually-hidden">Close</span>
+    </button>
+  </div>
+  <div class="photo-viewer__stage">
+    <img class="photo-viewer__image" alt="" draggable="false">
+    <button type="button" class="photo-viewer__step photo-viewer__prev" aria-label="Previous photo">{% include icon.html name="chevron-left" size=28 %}</button>
+    <button type="button" class="photo-viewer__step photo-viewer__next" aria-label="Next photo">{% include icon.html name="chevron-right" size=28 %}</button>
+  </div>
+  <div class="photo-viewer__foot">
+    <p class="photo-viewer__caption"></p>
+    <p class="photo-viewer__keys" id="photo-viewer-keys">
+      <span><kbd>←</kbd><kbd>→</kbd> Photos</span>
+      <span><kbd>+</kbd><kbd>−</kbd> Zoom</span>
+      <span><kbd>0</kbd> Fit</span>
+      <span><kbd>Esc</kbd> Close</span>
+    </p>
+  </div>
+</dialog>
+
 <dialog class="model-dialog" aria-labelledby="model-dialog-title">
   <div class="model-dialog-bar">
     <h2 id="model-dialog-title"></h2>

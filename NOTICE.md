@@ -17,7 +17,8 @@ remaining stylesheets were folded into the site's own partials in `_sass/`.
 Icons from [Lucide](https://lucide.dev) v0.469.0 are kept one per file in
 `assets/icons/` and drawn by `_includes/icon.html`: `rotate-3d` (View in 3D), `x`
 (close buttons), the audio description player's `play`, `pause`, `volume-2`,
-`volume-x` and `captions`, the page zoom buttons' `zoom-out` and `zoom-in`, the
+`volume-x` and `captions`, the page zoom buttons' `zoom-out` and `zoom-in` (also in the photo viewer), the photo
+viewer's `maximize-2` (Enlarge), the
 section buttons' `arrow-up-to-line` (top), `chevron-up` and `chevron-down`, the phone
 menu button's `menu` (and `x` to close it), and the previous and next links'
 `chevron-left` and `chevron-right` (also on the home page's "Explore" links).

@@ -55,7 +55,7 @@ nav.addEventListener('keydown', e => {
 // the nav pill (the current page's link)
 document.addEventListener('keydown', e => {
   if (!e.shiftKey || e.key !== 'ArrowUp' || e.ctrlKey || e.metaKey || e.altKey) return;
-  if (e.target.closest('input, textarea, select, [contenteditable]')) return;  // Shift+Up selects text there
+  if (e.target.closest('input, textarea, select, [contenteditable], dialog')) return;  // Shift+Up selects text there; dialogs have their own keys
   goToTop();
   e.preventDefault();
 });
@@ -91,7 +91,7 @@ zoom.addEventListener('click', e => {
 // = is + without Shift. Anywhere on the page, but not while typing
 document.addEventListener('keydown', e => {
   if (e.ctrlKey || e.metaKey || e.altKey) return;  // keep the browser's own Ctrl/Cmd zoom
-  if (e.target.closest('input:not([type="range"]), textarea, select, [contenteditable]')) return;
+  if (e.target.closest('input:not([type="range"]), textarea, select, [contenteditable], dialog')) return;  // the photo viewer zooms the photo instead
   const n = { '-': -1, '+': 1, '=': 1 }[e.key];
   if (!n) return;
   step(n);
