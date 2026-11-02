@@ -58,12 +58,27 @@ layout: default
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
       </div>
+      {%- comment -%}
+        Shortcut keys, shown under the photo while the card has keyboard focus.
+        Screen readers hear it through the card's aria-describedby.
+      {%- endcomment %}
+      <ul class="artifact-keys" id="keys-{{ slug }}">
+        <li><kbd>←</kbd><kbd>→</kbd> Images</li>
+        {%- if has_audio %}
+        <li><kbd>Enter</kbd> Play audio description</li>
+        {%- endif %}
+        <li><kbd>T</kbd> Read description</li>
+        {%- if artifact.obj3D %}
+        <li><kbd>D</kbd> 3D model</li>
+        {%- endif %}
+      </ul>
       {%- if has_audio %}
       {%- comment -%} player keys, under the photo while the player is open {%- endcomment %}
       <ul class="artifact-keys artifact-audio-keys" id="audio-keys-{{ slug }}" hidden>
         <li><kbd>Enter</kbd> Play / pause</li>
         <li><kbd>↑</kbd><kbd>↓</kbd> Volume</li>
         <li><kbd>J</kbd><kbd>L</kbd> Back / forward 10s</li>
+        <li><kbd>M</kbd> Mute</li>
         <li><kbd>Esc</kbd> Close player</li>
       </ul>
       {%- endif %}
@@ -77,20 +92,30 @@ layout: default
   
         {%- comment -%}
           Buttons skip Tab like everything inside the card (Enter, T and D are the keyboard route).
-          The audio description and play buttons start hidden and the text and native player
-          visible, so without JavaScript nobody loses them; the script swaps them on start.
-          Icons: Lucide play, pause, rotate-ccw, rotate-cw, volume-2, x (ISC, see NOTICE.md).
+          The audio control and text toggle start hidden and the text and native player visible,
+          so without JavaScript nobody loses them; the script swaps them on start.
+          The blue "Audio description" button grows into the player bar in place: its play icon
+          becomes the bar's play/pause, then seek, time and mute follow.
+          Icons: Lucide play, pause, volume-2, volume-x (ISC, see NOTICE.md).
         {%- endcomment %}
         <div class="artifact-actions">
-          <button type="button" class="artifact-transcript-toggle" aria-pressed="false"
-                  aria-controls="meta-{{ slug }} transcript-{{ slug }}" tabindex="-1" hidden>Audio description</button>
           {%- if has_audio %}
-          <button type="button" class="artifact-play" aria-label="Play audio description" aria-expanded="false"
-                  aria-controls="player-{{ slug }}" tabindex="-1" hidden>
-            <svg class="icon-play" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
-            <svg class="icon-pause" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg>
-          </button>
+          <div class="artifact-audio" id="player-{{ slug }}" role="group" aria-label="Audio description player" hidden>
+            <button type="button" class="artifact-play" aria-label="Play audio description" tabindex="-1">
+              <span class="artifact-play-label" aria-hidden="true">Audio description</span>
+              <svg class="icon-play" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+              <svg class="icon-pause" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg>
+            </button>
+            <input class="player-seek" type="range" min="0" max="0" step="any" value="0" aria-label="Position" tabindex="-1">
+            <span class="player-time" aria-hidden="true">0:00/0:00</span>
+            <button type="button" class="player-mute" aria-label="Mute" aria-pressed="false" tabindex="-1">
+              <svg class="icon-volume" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg>
+              <svg class="icon-muted" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><line x1="22" x2="16" y1="9" y2="15"/><line x1="16" x2="22" y1="9" y2="15"/></svg>
+            </button>
+          </div>
           {%- endif %}
+          <button type="button" class="artifact-transcript-toggle" aria-pressed="false"
+                  aria-controls="meta-{{ slug }} transcript-{{ slug }}" tabindex="-1" hidden>Read description</button>
           {%- if artifact.obj3D %}
           <button type="button" class="artifact-3d" tabindex="-1"
                   data-src="{{ artifact.obj3D.url }}" data-title="{{ artifact.obj3D.altText | escape }}">
@@ -100,17 +125,6 @@ layout: default
           </button>
           {%- endif %}
         </div>
-        {%- if has_audio %}
-        <div class="artifact-player" id="player-{{ slug }}" role="group" aria-label="Audio description player" hidden>
-          <button type="button" data-skip="-10" aria-label="Back 10 seconds" tabindex="-1"><svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
-          <input class="player-seek" type="range" min="0" max="0" step="any" value="0" aria-label="Position" tabindex="-1">
-          <span class="player-time" aria-hidden="true">0:00 / 0:00</span>
-          <button type="button" data-skip="10" aria-label="Forward 10 seconds" tabindex="-1"><svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg></button>
-          <svg class="player-volume-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg>
-          <input class="player-volume" type="range" min="0" max="1" step="0.1" value="1" aria-label="Volume" tabindex="-1">
-          <button type="button" class="player-close" aria-label="Close player" tabindex="-1"><svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
-        </div>
-        {%- endif %}
   
         <dl id="meta-{{ slug }}">
           <dt>Accession number</dt><dd>{{ meta.accNo | escape }}</dd>
@@ -128,20 +142,6 @@ layout: default
           <p>{{ artifact.audioDescription.transcript | escape }}</p>
         </div>
   
-        {%- comment -%}
-          Shortcut keys, shown at the bottom while the card has keyboard focus.
-          Screen readers hear it through the card's aria-describedby.
-        {%- endcomment %}
-        <ul class="artifact-keys" id="keys-{{ slug }}">
-          <li><kbd>←</kbd><kbd>→</kbd> Images</li>
-          {%- if has_audio %}
-          <li><kbd>Enter</kbd> Play audio description</li>
-          {%- endif %}
-          <li><kbd>T</kbd> Read audio description</li>
-          {%- if artifact.obj3D %}
-          <li><kbd>D</kbd> 3D model</li>
-          {%- endif %}
-        </ul>
       </div>
     </article>
     {%- endfor %}
@@ -195,28 +195,37 @@ layout: default
     document.addEventListener('play', e => document.querySelectorAll('audio')
       .forEach(a => a !== e.target && a.pause()), true);
 
-    // The card's play button opens its player bar and plays; the bar's controls skip Tab
-    // like the rest of the card, with keys listed under the photo while it's open.
+    // The card's blue "Audio description" button grows into its player bar and plays; the bar's
+    // controls skip Tab like the rest of the card, with keys listed under the photo while it's open.
     // Returns null when the object has no recording.
     const audioPlayer = card => {
       const audio = card.querySelector('audio');
       if (!audio) return null;
-      const play = card.querySelector('.artifact-play');
-      const bar = card.querySelector('.artifact-player');
+      const bar = card.querySelector('.artifact-audio');
+      const play = bar.querySelector('.artifact-play');
       const keyList = card.querySelector('.artifact-audio-keys');
       const seek = bar.querySelector('.player-seek');
-      const volume = bar.querySelector('.player-volume');
+      const mute = bar.querySelector('.player-mute');
       const time = bar.querySelector('.player-time');
       audio.controls = false;
       audio.hidden = true;
-      play.hidden = false;
+      bar.hidden = false;
 
       const clock = s => Number.isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}` : '0:00';
-      const isOpen = () => !bar.hidden;
+      const isOpen = () => bar.classList.contains('is-open');
+      // the size change animates as a view transition where supported; elsewhere, or with
+      // reduced motion, the bar just switches
+      const calm = matchMedia('(prefers-reduced-motion: reduce)');
       const open = on => {
-        bar.hidden = keyList.hidden = !on;
-        play.setAttribute('aria-expanded', on);
         if (!on) audio.pause();
+        if (isOpen() === on) return;
+        const change = () => {
+          bar.classList.toggle('is-open', on);
+          keyList.hidden = !on;
+        };
+        if (!document.startViewTransition || calm.matches) return change();
+        bar.style.viewTransitionName = 'audio-bar';
+        document.startViewTransition(change).finished.finally(() => bar.style.viewTransitionName = '');
       };
       const playPause = () => {
         open(true);
@@ -228,7 +237,7 @@ layout: default
       const showTime = () => {
         seek.max = audio.duration || 0;
         seek.value = audio.currentTime;
-        time.textContent = `${clock(audio.currentTime)} / ${clock(audio.duration)}`;
+        time.textContent = `${clock(audio.currentTime)}/${clock(audio.duration)}`;
         seek.setAttribute('aria-valuetext', `${clock(audio.currentTime)} of ${clock(audio.duration)}`);
       };
       const showPlaying = () => {
@@ -239,19 +248,17 @@ layout: default
       audio.addEventListener('loadedmetadata', showTime);
       audio.addEventListener('play', showPlaying);
       audio.addEventListener('pause', showPlaying);
-      audio.addEventListener('volumechange', () => volume.value = audio.volume);
-      seek.addEventListener('input', () => audio.currentTime = seek.value);
-      volume.addEventListener('input', () => audio.volume = volume.value);
-      play.addEventListener('click', playPause);
-      bar.addEventListener('click', e => {
-        const b = e.target.closest('button');
-        if (b?.dataset.skip) skip(Number(b.dataset.skip));
-        else if (b?.classList.contains('player-close')) open(false);
+      audio.addEventListener('volumechange', () => {
+        mute.setAttribute('aria-pressed', audio.muted);
+        mute.setAttribute('aria-label', audio.muted ? 'Unmute' : 'Mute');
       });
+      seek.addEventListener('input', () => audio.currentTime = seek.value);
+      play.addEventListener('click', playPause);
+      mute.addEventListener('click', () => audio.muted = !audio.muted);
 
       return {
         playPause, isOpen,
-        keys: { arrowup: () => louder(0.1), arrowdown: () => louder(-0.1), j: () => skip(-10), l: () => skip(10), escape: () => open(false) },
+        keys: { arrowup: () => louder(0.1), arrowdown: () => louder(-0.1), j: () => skip(-10), l: () => skip(10), m: () => mute.click(), escape: () => open(false) },
       };
     };
 
@@ -274,7 +281,7 @@ layout: default
       const button3d = card.querySelector('.artifact-3d');
       const player = audioPlayer(card);
 
-      // Audio description button swaps the metadata list for the description text
+      // Read description button swaps the metadata list for the description text
       const toggle = card.querySelector('.artifact-transcript-toggle');
       const meta = card.querySelector('dl');
       const transcript = card.querySelector('.artifact-transcript');
