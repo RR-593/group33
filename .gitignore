@@ -10,3 +10,5 @@ __pycache__/
 assets/resized/
 _data/lqip.json
 node_modules/
+
+.playwright-mcp
