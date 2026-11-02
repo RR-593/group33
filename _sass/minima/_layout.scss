@@ -31,7 +31,9 @@ html { scroll-padding-top: 5rem; }  // in-page links land below the sticky pill
 
 // links fade out at an edge only while more links are hidden past it. The fade widths
 // follow the scroll position (scroll-driven animation); where that isn't supported, or
-// nothing scrolls, they stay 0 and nothing fades
+// nothing scrolls, they stay 0 and nothing fades. The @supports guard matters: without
+// scroll timelines the animation runs instantly and sticks on its last frame, fading the
+// left edge (and the filled Home link) on every page
 @property --fade-start { syntax: "<length>"; inherits: false; initial-value: 0px; }
 @property --fade-end { syntax: "<length>"; inherits: false; initial-value: 0px; }
 
@@ -52,8 +54,11 @@ html { scroll-padding-top: 5rem; }  // in-page links land below the sticky pill
   scrollbar-width: thin;
   border-radius: 999px;
   mask-image: linear-gradient(to right, transparent, #000 var(--fade-start), #000 calc(100% - var(--fade-end)), transparent);
-  animation: nav-edge-fade linear both;
-  animation-timeline: scroll(self inline);
+
+  @supports (animation-timeline: scroll()) {
+    animation: nav-edge-fade linear both;
+    animation-timeline: scroll(self inline);
+  }
 }
 
 .site-nav li { margin: 0; flex: none; }
