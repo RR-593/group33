@@ -1,5 +1,6 @@
 The MIT License (MIT)
 
+Copyright (c) 2026 Group 33 contributors
 Copyright (c) 2016-present Parker Moore and the minima contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,3 +20,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+---
+
+This licence covers the website's code only. It does not cover the exhibition
+content: object photographs, audio descriptions, 3D models, exhibition text,
+the curator's portrait or other media. Those belong to their owners, such as
+the Gale History Museum and Hannah Vogel, and are credited beside each asset.
+The Atkinson Hyperlegible font and Lucide icons keep their own licences; see
+NOTICE.md.
