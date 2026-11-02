@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=../schemas/license.schema.yml
+name: Lighthouse
+use: site audits
+used_for: building
+licence:
+  name: Apache License 2.0
+  url: https://github.com/GoogleChrome/lighthouse/blob/main/LICENSE
+author:
+  name: Google LLC
+  url: https://github.com/GoogleChrome/lighthouse

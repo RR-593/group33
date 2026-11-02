@@ -1,0 +1,73 @@
+# Rules for one shelf file in _data/shelves/ (JSON Schema, written in YAML).
+# CI checks every shelf against it: .github/workflows/validate-data.yml.
+# Every text field must be non-empty: unknown → "TBC", never "".
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: shelf.schema.yml
+title: Shelf
+type: object
+required: [title, description, image, artifacts]
+additionalProperties: false
+properties:
+  title: { $ref: "#/$defs/text" }
+  description: { $ref: "#/$defs/text" }
+  image: { $ref: "#/$defs/image" }   # shelf page header photo
+  artifacts:
+    type: array
+    minItems: 1
+    items: { $ref: "#/$defs/artifact" }
+
+$defs:
+  text: { type: string, minLength: 1 }
+
+  artifact:
+    type: object
+    required: [metaDescription, images, audioDescription]
+    additionalProperties: false
+    properties:
+      metaDescription: { $ref: "#/$defs/metaDescription" }
+      images:   # first image is the card cover
+        type: array
+        minItems: 1
+        items: { $ref: "#/$defs/image" }
+      obj3D: { $ref: "#/$defs/object3D" }   # optional: adds the "View in 3D" button
+      audioDescription: { $ref: "#/$defs/audioDescription" }
+
+  metaDescription:
+    type: object
+    required: [name, accNo, material, dimension, details]
+    additionalProperties: false
+    properties:
+      name: { $ref: "#/$defs/text" }
+      accNo: { $ref: "#/$defs/text" }
+      material: { $ref: "#/$defs/text" }
+      dimension:   # [height, width, depth] in mm; 0 = not measured, shown as "n/a"
+        type: array
+        minItems: 3
+        maxItems: 3
+        items: { type: number }
+      details: { $ref: "#/$defs/text" }
+
+  image:
+    type: object
+    required: [url, altText, caption]
+    additionalProperties: false
+    properties:
+      url: { $ref: "#/$defs/text" }       # path from the repo root, no leading slash
+      altText: { $ref: "#/$defs/text" }
+      caption: { $ref: "#/$defs/text" }   # carries the © credit
+
+  object3D:
+    type: object
+    required: [url, altText]
+    additionalProperties: false
+    properties:
+      url: { $ref: "#/$defs/text" }   # Nira viewer link
+      altText: { $ref: "#/$defs/text" }
+
+  audioDescription:
+    type: object
+    required: [url, transcript]
+    additionalProperties: false
+    properties:
+      url: { $ref: "#/$defs/text" }   # "TBC" = no recording yet; the transcript still shows
+      transcript: { $ref: "#/$defs/text" }

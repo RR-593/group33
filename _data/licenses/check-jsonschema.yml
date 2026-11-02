@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=../schemas/license.schema.yml
+name: check-jsonschema 0.38.2
+use: shelf and licence data checks
+used_for: building
+licence:
+  name: Apache License 2.0
+  url: https://github.com/python-jsonschema/check-jsonschema/blob/main/LICENSE
+author:
+  name: Stephen Rosen
+  url: https://github.com/python-jsonschema/check-jsonschema

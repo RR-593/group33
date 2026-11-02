@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=../schemas/license.schema.yml
+name: Rake 13
+use: project tasks
+used_for: building
+licence:
+  name: MIT License
+  url: https://github.com/ruby/rake/blob/master/MIT-LICENSE
+author:
+  name: Jim Weirich & Ruby contributors
+  url: https://github.com/ruby/rake

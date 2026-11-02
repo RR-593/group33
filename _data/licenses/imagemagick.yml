@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=../schemas/license.schema.yml
+name: ImageMagick
+use: resized photos
+used_for: building
+licence:
+  name: ImageMagick License
+  url: https://imagemagick.org/license/
+author:
+  name: ImageMagick Studio LLC
+  url: https://imagemagick.org

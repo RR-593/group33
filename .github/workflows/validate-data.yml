@@ -1,5 +1,6 @@
-# Checks the shelf JSON in _data/shelves/ against _data/schemas/shelf.schema.json,
-# whenever data or this workflow changes. Validating also catches JSON that won't parse.
+# Checks the YAML data files against their schemas in _data/schemas/ whenever data or
+# this workflow changes. check-jsonschema reads YAML, so it also catches files that
+# won't parse. Schemas are JSON Schema, written in YAML.
 name: Validate data
 
 on:
@@ -24,8 +25,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Check the schema itself is valid
-        run: pipx run --spec "$CHECK_JSONSCHEMA" check-jsonschema --check-metaschema _data/schemas/*.json
+      - name: Check the schemas themselves are valid
+        run: pipx run --spec "$CHECK_JSONSCHEMA" check-jsonschema --check-metaschema _data/schemas/*.yml
 
-      - name: Check every shelf against the schema
-        run: pipx run --spec "$CHECK_JSONSCHEMA" check-jsonschema --schemafile _data/schemas/shelf.schema.json _data/shelves/*.json
+      - name: Check every shelf
+        run: pipx run --spec "$CHECK_JSONSCHEMA" check-jsonschema --schemafile _data/schemas/shelf.schema.yml _data/shelves/*.yml
+
+      - name: Check every licence
+        run: pipx run --spec "$CHECK_JSONSCHEMA" check-jsonschema --schemafile _data/schemas/license.schema.yml _data/licenses/*.yml

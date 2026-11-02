@@ -1,0 +1,24 @@
+{%- comment -%}
+  One licence table on the Curation page, filled from _data/licenses/ (one file per row),
+  sorted by name. Usage: include license-table.html used_for="website" caption="..."
+{%- endcomment -%}
+{%- assign rows = site.data.licenses | where: "used_for", include.used_for | sort_natural: "name" %}
+<table class="curation__licenses">
+  <caption class="curation__caption">{{ include.caption }}</caption>
+  <thead>
+    <tr>
+      <th scope="col">Asset</th>
+      <th scope="col">Licence</th>
+      <th scope="col">Author</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%- for row in rows %}
+    <tr>
+      <td>{{ row.name | escape }}{% if row.use %} ({{ row.use | escape }}){% endif %}</td>
+      <td><a href="{{ row.licence.url }}">{{ row.licence.name | escape }}</a>{% if row.licence.note %} ({{ row.licence.note | escape }}){% endif %}</td>
+      <td><a href="{{ row.author.url }}">{{ row.author.name | escape }}</a></td>
+    </tr>
+    {%- endfor %}
+  </tbody>
+</table>

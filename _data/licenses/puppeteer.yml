@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=../schemas/license.schema.yml
+name: Puppeteer 25.13.0
+use: browser for the WCAG check
+used_for: building
+licence:
+  name: Apache License 2.0
+  url: https://github.com/puppeteer/puppeteer/blob/main/LICENSE
+author:
+  name: Google LLC
+  url: https://pptr.dev

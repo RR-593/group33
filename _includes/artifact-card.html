@@ -1,5 +1,5 @@
 {%- comment -%}
-  One artifact card: photo carousel and its key hints on one side; name, description,
+  One artifact card: photo carousel and its key hints on one side; name,
   audio description player, View in 3D and details on the other. Stacks on narrow screens.
   Used by _layouts/shelf.html once per object in the shelf's JSON; assets/js/shelf.js
   wires up the carousel, player and keys.
@@ -63,9 +63,6 @@
 
   <div class="description">
     <h2 id="name-{{ slug }}">{{ meta.name | escape }}</h2>
-    {%- unless artifact.description == "TBC" %}
-    <p>{{ artifact.description | escape }}</p>
-    {%- endunless %}
 
     {%- comment -%}
       Buttons skip Tab like everything inside the card (Enter, T and D are the keyboard route).

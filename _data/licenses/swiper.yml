@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=../schemas/license.schema.yml
+name: Swiper 11.2.10
+use: image carousels
+used_for: website
+licence:
+  name: MIT License
+  url: https://github.com/nolimits4web/swiper/blob/master/LICENSE
+author:
+  name: Vladimir Kharlampidi
+  url: https://swiperjs.com

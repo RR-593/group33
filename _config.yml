@@ -15,7 +15,7 @@ header_pages:
   - pages/shelves/bottom.md
   - pages/curation.md
 
-# Shelf order on the home page and /shelves/; each key matches _data/shelves/<key>.json
+# Shelf order on the home page and /shelves/; each key matches _data/shelves/<key>.yml
 shelves: [top, middle, bottom]
 
 # Widths (px) of the resized photo copies used by shelf pages. Read by
