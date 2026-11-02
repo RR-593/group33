@@ -9,7 +9,7 @@ layout: default
 {%- assign shelf = site.data.shelves[page.shelf] -%}
   <header class="shelf-hero">
     <img src="{{ shelf.image.url | relative_url }}" alt="{{ shelf.image.altText | escape }}">
-    <h1>{{ page.title | escape }}</h1>
+    <h1><span>{{ page.title | escape }}</span></h1>
   </header>
   <p class="shelf-credit">{{ shelf.image.caption | escape }}</p>
   {%- unless shelf.description == "TBC" %}

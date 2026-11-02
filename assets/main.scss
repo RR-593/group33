@@ -71,7 +71,7 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
     height: 30vh;
     min-height: 240px;
     object-fit: cover;
-    background: #333;  // dark frame while the photo downloads; matches the title's gradient
+    background: #333;  // dark frame while the photo downloads
   }
 
   h1 {
@@ -83,7 +83,14 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
     // left edge lines up with the page text below
     padding: $spacing-unit max(#{$spacing-unit}, calc((100% - #{$content-width}) / 2 + #{$spacing-unit}));
     color: #fff;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));  // keeps white text readable on any photo
+  }
+  // a solid dark label behind the title: readable on any photo, and contrast checkers
+  // can measure it (they can't see through to a photo or a gradient)
+  h1 span {
+    padding: 0.1em 0.45em;
+    background: #111;
+    border-radius: 10px;
+    box-decoration-break: clone;  // each line gets its own label if the title wraps
   }
 }
 
