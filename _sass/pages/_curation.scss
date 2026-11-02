@@ -1,21 +1,19 @@
-/* Curation & Acknowledgements page styles.
-   Scoped to the .curation wrapper so this file is isolated: it changes no other
-   page and conflicts with no other styling. Colours match the Minima theme and
-   meet WCAG 2.2 AA contrast (text on the light background is at least 4.5:1). */
+// Curation & Acknowledgements page (pages/curation.md), scoped to .curation.
+
+$rule: #cfcfcf;          // section dividers (decorative)
+$muted: #595959;         // secondary text, at least 4.5:1 on white
+$placeholder: #e2e2e2;   // placeholder portrait fill (decorative)
 
 .curation {
-  --curation-rule: #cfcfcf;          /* section divider (decorative) */
-  --curation-muted: #595959;         /* secondary text, >= 4.5:1 on white */
-  --curation-placeholder: #e2e2e2;   /* placeholder image fill (decorative) */
   max-width: 48rem;
   margin: 0 auto;
 }
 
-/* Sections divided by a thin rule, like the mockup */
+// Sections divided by a thin rule, like the mockup
 .curation__section {
   margin: 2.5rem 0;
   padding-top: 2rem;
-  border-top: 1px solid var(--curation-rule);
+  border-top: 1px solid $rule;
 }
 .curation__section:first-child {
   margin-top: 1rem;
@@ -31,7 +29,7 @@
   text-align: left;
 }
 
-/* --- Curator bio: text beside portrait, stacking on small screens --- */
+// Curator bio: text beside portrait, stacking on small screens
 .curation__bio {
   display: flex;
   flex-wrap: wrap;
@@ -44,6 +42,9 @@
 .curation__bio-text p {
   margin: 0;
 }
+.curation__bio-text p + p {
+  margin-top: 1rem;
+}
 .curation__bio-figure {
   flex: 0 0 auto;
   margin: 0;
@@ -55,10 +56,10 @@
   max-width: 100%;
   border-radius: 16px;
   object-fit: cover;
-  background: var(--curation-placeholder);
+  background: $placeholder;
 }
 
-/* --- Funding bodies: one card per funder, name then programme --- */
+// Funding bodies: one card per funder, name then programme
 .curation__funders {
   list-style: none;
   margin: 0;
@@ -77,25 +78,21 @@
   flex-direction: column;
   gap: 0.35rem;
   text-align: center;
-  border: 1px solid var(--curation-rule);
+  border: 1px solid $rule;
   border-radius: 16px;
 }
 .curation__funder-name {
   font-weight: 600;
 }
 .curation__funder-program {
-  color: var(--curation-muted);
+  color: $muted;
 }
 .curation__funding-note {
   margin: 1.5rem 0 0;
   text-align: center;
 }
 
-.curation__bio-text p + p {
-  margin-top: 1rem;
-}
-
-/* --- Team: role / name pairs --- */
+// Team: role / name pairs
 .curation__team {
   max-width: 34rem;
   margin: 0 auto;
@@ -116,18 +113,18 @@
   margin: 0;
 }
 
-/* --- Licences table --- */
+// Licences table
 .curation__licenses {
   width: 100%;
   border-collapse: collapse;
 }
-/* two tables (on the website / building and checking), three columns so they fit a phone */
+// two tables (on the website / building and checking), three columns so they fit a phone
 .curation__licenses + .curation__licenses {
   margin-top: 2rem;
 }
 .curation__caption {
   text-align: left;
-  color: var(--curation-muted);
+  color: $muted;
   margin-bottom: 0.75rem;
 }
 .curation__licenses th,
@@ -135,17 +132,17 @@
   text-align: left;
   vertical-align: top;
   padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid var(--curation-rule);
+  border-bottom: 1px solid $rule;
 }
 .curation__licenses th {
   font-weight: 600;
 }
-/* long link texts break inside the cell instead of pushing the table sideways */
+// long link texts break inside the cell instead of pushing the table sideways
 .curation__licenses a {
   overflow-wrap: anywhere;
 }
 
-/* --- Small screens --- */
+// Small screens
 @media screen and (max-width: 600px) {
   .curation__bio {
     flex-direction: column-reverse;

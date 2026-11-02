@@ -1,0 +1,29 @@
+// Colours, type and spacing shared by every partial. Load with `@use "settings" as *;`.
+
+// text and surfaces
+$text: #111;
+$background: #fdfdfd;
+$muted-text: #666;       // hints and key caps; 5.7:1 on white
+$grey: #828282;          // disabled icons only, too light for text
+$grey-light: #e8e8e8;    // borders and hover fills
+$grey-dark: #424242;     // nav key hint text
+
+// links and controls
+$link: #005ea8;
+$link-visited: #00335b;
+$blue: #005fcc;          // focus ring, buttons and the audio player; white on it is 5.6:1
+
+// home page
+$black: #131212;
+$white: #fff;
+
+// type
+$font-family: "Atkinson Hyperlegible", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$font-size: 16px;
+$small-font-size: 14px;
+$line-height: 1.5;
+
+// layout
+$spacing: 30px;
+$content-width: 800px;
+$on-laptop: 800px;       // below this, narrower page padding and headings

@@ -1,0 +1,149 @@
+@use "settings" as *;
+
+// Audio description player inside an artifact card; the script is in _layouts/shelf.html.
+
+.artifact {
+  // audio description: one solid blue pill. Closed it's a button ("Audio description" + a white
+  // play badge); open it slides out (script in _layouts/shelf.html) into the player bar: play/pause badge, seek,
+  // time, mute. White on blue is 5.6:1
+  .artifact-audio {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    height: 2.75rem;
+    color: $white;
+    background: $blue;
+    border-radius: 999px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 95, 204, 0.25);
+
+    &[hidden] { display: none; }
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      min-width: 2.75rem;  // 44px targets
+      height: 2.75rem;
+      padding: 0;
+      font: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: inherit;
+      background: none;
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background-color 0.15s;
+
+      &:hover { background: rgba(255, 255, 255, 0.14); }
+      &:focus-visible { outline: 2px solid $white; outline-offset: -4px; }
+    }
+    .artifact-play { padding: 0 0.375rem 0 1rem; }
+
+    // white disc with a filled blue play/pause icon
+    .artifact-play-icon {
+      display: grid;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      color: $blue;
+      background: $white;
+      border-radius: 50%;
+      transition: transform 0.15s;
+
+      svg { width: 0.9rem; height: 0.9rem; fill: currentColor; }
+      .icon-play { margin-left: 2px; }  // optical centre of the triangle
+    }
+    .artifact-play:hover .artifact-play-icon { transform: scale(1.06); }
+
+    .player-seek, .player-time, .player-volume, .player-captions, .player-close { display: none; }
+    .icon-pause, .icon-muted { display: none; }
+    .player-volume-btn svg, .player-captions svg, .player-close svg { width: 1.25rem; height: 1.25rem; }
+    // captions on: icon flips to blue on a white disc, so "on" isn't shown by colour alone
+    .player-captions[aria-pressed="true"],
+    .player-captions[aria-pressed="true"]:hover { color: $blue; background: $white; }
+
+    // volume: a white card dropping down under the speaker, with an upright slider
+    .player-volume { position: relative; }
+    .player-volume-pop {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      left: 50%;
+      z-index: 10;
+      display: grid;
+      padding: 0.75rem 0.5rem;
+      background: $white;
+      border-radius: 12px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 6px 16px rgba(0, 0, 0, 0.18);
+      transform: translateX(-50%);
+
+      &[hidden] { display: none; }
+    }
+    .player-volume-slider {
+      width: 1.5rem;
+      height: 6rem;
+      margin: 0;
+      accent-color: $blue;
+      cursor: pointer;
+      writing-mode: vertical-lr;
+      direction: rtl;  // loud at the top
+    }
+    .player-time {
+      min-width: 6.5ch;
+      font-size: 0.85rem;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    // slim track, white fill up to the playhead (--p, set by the script), white thumb
+    .player-seek {
+      --p: 0%;
+      flex: 1;
+      width: 0;  // no built-in slider width: it takes whatever room is left
+      min-width: 2rem;
+      height: 1.5rem;
+      margin: 0 0.5rem;
+      background: none;
+      cursor: pointer;
+      appearance: none;
+    }
+    .player-seek::-webkit-slider-runnable-track {
+      height: 4px;
+      border-radius: 2px;
+      background: linear-gradient(to right, $white var(--p), rgba(255, 255, 255, 0.35) var(--p));
+    }
+    .player-seek::-webkit-slider-thumb {
+      width: 14px;
+      height: 14px;
+      margin-top: -5px;
+      background: $white;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      appearance: none;
+      transition: transform 0.15s;
+    }
+    .player-seek:hover::-webkit-slider-thumb { transform: scale(1.25); }
+    .player-seek::-moz-range-track { height: 4px; border-radius: 2px; background: rgba(255, 255, 255, 0.35); }
+    .player-seek::-moz-range-progress { height: 4px; border-radius: 2px; background: $white; }
+    .player-seek::-moz-range-thumb { width: 14px; height: 14px; background: $white; border: 0; border-radius: 50%; }
+  }
+
+  .artifact-audio.is-open {
+    display: flex;
+    width: 100%;
+    padding-right: 0.25rem;
+    .artifact-play { padding: 0 0.4rem; }
+    .artifact-play-label { display: none; }
+    .player-time { display: block; }
+    .player-seek { display: block; }
+    .player-volume, .player-captions, .player-close { display: inline-flex; }
+  }
+  .artifact-play.is-playing .icon-play, .player-volume-btn.is-muted .icon-volume { display: none; }
+  .artifact-play.is-playing .icon-pause, .player-volume-btn.is-muted .icon-muted { display: block; }
+
+  // narrow column: the time readout goes; the seek bar still shows progress
+  @container (max-width: 320px) {
+    .artifact-audio.is-open .player-time { display: none; }
+  }
+}

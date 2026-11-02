@@ -1,0 +1,27 @@
+@use "settings" as *;
+
+// Round black link-button: "Scroll to continue", "Explore", "Scroll for next shelf".
+
+.pill,
+a.pill,
+a.pill:visited,
+a.pill:hover,
+a.pill:active {
+  color: $white;
+  text-decoration: none;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.7rem 1.25rem;
+  background: $black;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.9rem;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover { background: #000; }
+  &:focus-visible { outline: 3px solid $black; outline-offset: 2px; }
+}

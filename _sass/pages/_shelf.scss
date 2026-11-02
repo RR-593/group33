@@ -1,0 +1,48 @@
+@use "settings" as *;
+
+// Shelf pages (_layouts/shelf.html): photo header, credit line and the card list.
+
+// shelf image runs edge to edge under the site header, title sits on top
+.shelf-hero {
+  position: relative;
+  width: 100vw;
+  margin: (-$spacing) 0 0 calc(50% - 50vw);  // break out of .wrapper and .page-content padding
+
+  img {
+    display: block;
+    width: 100%;
+    height: 30vh;
+    min-height: 240px;
+    object-fit: cover;
+    background: #333;  // dark frame while the photo downloads
+  }
+
+  h1 {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    // left edge lines up with the page text below
+    padding: $spacing max(#{$spacing}, calc((100% - #{$content-width}) / 2 + #{$spacing}));
+    color: $white;
+  }
+  // a solid dark label behind the title: readable on any photo, and contrast checkers
+  // can measure it (they can't see through to a photo or a gradient)
+  h1 span {
+    padding: 0.1em 0.45em;
+    background: #111;
+    border-radius: 10px;
+    box-decoration-break: clone;  // each line gets its own label if the title wraps
+  }
+}
+
+.shelf-credit { font-size: $small-font-size; margin-top: $spacing * 0.25; }
+
+// artifact cards (_includes/artifact-card.html) stacked top to bottom
+.artifacts-box {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: $spacing;
+}

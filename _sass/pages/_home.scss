@@ -1,14 +1,6 @@
-$black: #131212;
-$black-hover: #000;
-$white: #fff;
-$hero-bg: $black;
-$lens: $black;
+@use "settings" as *;
 
-body { overflow-x: hidden; }
-
-@media (prefers-reduced-motion: no-preference) {
-  html { scroll-behavior: smooth; }
-}
+// Home page (_layouts/home.html): hero, Auslan video, overview and the dark shelf band.
 
 // the home page runs edge to edge: its page column is made full width rather than the
 // exhibit breaking out of a narrow one. Breaking out left text lines straddling the
@@ -16,7 +8,6 @@ body { overflow-x: hidden; }
 body:has(.exhibit) {
   .page-content { padding: 0; }
   .page-content > .wrapper { max-width: none; padding: 0; }
-  .footer-heading { display: none; }
 }
 
 .exhibit {
@@ -29,14 +20,6 @@ body:has(.exhibit) {
 .exhibit__inner {
   max-width: 1100px;
   margin: 0 auto;
-}
-
-.shelf__sr {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
 }
 
 .hero {
@@ -60,7 +43,7 @@ body:has(.exhibit) {
     top: -40.5%;
     height: 181%;
     width: calc(var(--s) * 12);
-    background: $lens;
+    background: $black;
     border-radius: 50%;
   }
   .hero__lens--start { left: calc(var(--s) * -11); }
@@ -190,94 +173,6 @@ body:has(.exhibit) {
   text-transform: uppercase;
 }
 
-.shelves {
-  display: grid;
-  gap: 1.25rem;
-  align-items: start;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
-}
-
-.pill,
-a.pill,
-a.pill:visited,
-a.pill:hover,
-a.pill:active {
-  color: $white;
-  text-decoration: none;
-}
-
-.pill {
-  display: inline-block;
-  padding: 0.7rem 1.25rem;
-  background: $black;
-  border: 0;
-  border-radius: 999px;
-  font: inherit;
-  font-size: 0.9rem;
-  text-align: center;
-  cursor: pointer;
-
-  &:hover { background: $black-hover; }
-  &:focus-visible { outline: 3px solid $black; outline-offset: 2px; }
-}
-
-.shelf {
-  display: flex;
-  flex-direction: column;
-  padding: 1.25rem;
-  background: $white;
-  border-radius: 16px;
-}
-
-.shelf__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
-.shelf__title { margin: 0; font-size: 1.1rem; font-weight: 600; }
-.shelf__count { margin: 0; font-size: 0.9rem; }
-
-.shelf__figure { margin: 1rem 0; }
-
-.shelf__image {
-  display: block;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: contain;
-  background: $white;
-  border-radius: 14px;
-}
-
-.shelf__caption { margin-top: 0.6rem; font-size: 0.8rem; line-height: 1.5; }
-.shelf__intro { margin: 0 0 1rem; font-size: 0.9rem; line-height: 1.5; }
-
-.shelf__actions { display: flex; gap: 0.6rem; margin-bottom: 0.75rem; }
-.shelf__explore,
-.shelf__next {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 3rem;
-  padding-right: 3rem;
-  text-align: center;
-}
-.shelf__explore { flex: 1; }
-.shelf__chevron,
-.shelf__icon {
-  position: absolute;
-  top: 50%;
-  right: 1.25rem;
-  width: 1.25rem;
-  height: 1.25rem;
-  transform: translateY(-50%);
-}
-
-@media (min-width: 1000px) {
-  .shelf__next { display: none; }
-}
-
 @media (min-width: 500px) {
   .hero {
     --h: clamp(300px, 45vh, 440px);
@@ -285,7 +180,7 @@ a.pill:active {
     justify-content: center;
     gap: 1.5rem;
     padding: 3rem clamp(1.5rem, 5vw, 4rem);
-    background: $hero-bg;
+    background: $black;
     color: $white;
 
     .hero__lens { display: none; }
@@ -324,7 +219,7 @@ a.pill:active {
       margin: 0;
       padding: 0.5rem 1rem;
       text-align: right;
-      background: $hero-bg;  // solid strip under the photo
+      background: $black;  // solid strip under the photo
     }
   }
 
@@ -340,45 +235,4 @@ a.pill:active {
     &:hover { text-decoration: underline; }
     &:focus-visible { outline-color: $white; }
   }
-}
-
-@media (min-width: 900px) {
-  .shelves {
-    grid-template-columns: 1fr;
-    gap: 1.75rem;
-  }
-
-  .shelf {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-    grid-template-rows: 1fr auto auto auto auto 1fr;
-    grid-template-areas:
-      ". fig"
-      "head fig"
-      "intro fig"
-      "actions fig"
-      "next fig"
-      ". fig";
-    column-gap: 2rem;
-    align-items: start;
-    padding: 1.5rem;
-
-    &:nth-child(even) {
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-      grid-template-areas:
-        "fig ."
-        "fig head"
-        "fig intro"
-        "fig actions"
-        "fig next"
-        "fig .";
-    }
-  }
-
-  .shelf__header { grid-area: head; margin-bottom: 1rem; }
-  .shelf__figure { grid-area: fig; margin: 0; }
-  .shelf__intro { grid-area: intro; }
-  .shelf__actions { grid-area: actions; }
-
-  .shelf__next { grid-area: next; display: flex; justify-self: stretch; }
 }

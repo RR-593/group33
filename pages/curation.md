@@ -7,7 +7,7 @@ permalink: /curation/
 
 {%- comment -%}
 Curation & Acknowledgements page (first draft).
-Styles live in _sass/curation.scss, scoped to .curation.
+Styles live in _sass/pages/_curation.scss, scoped to .curation.
 Bio and funding text are copied word for word from docs/HannasMasterDoc.md
 (About page > Curator, Funding); change them there first. Replace the placeholder
 portrait where marked. Licences: add a row when the site gains a font, library,
@@ -139,8 +139,8 @@ section h2) and the image alt text.
       </thead>
       <tbody>
         <tr>
-          <td>Jekyll 4.4.1 with jekyll-feed and jekyll-seo-tag (site builder, news feed, page metadata)</td>
-          <td><a href="https://github.com/jekyll/jekyll/blob/master/LICENSE">MIT License</a> (same for both plugins)</td>
+          <td>Jekyll 4.4.1 with jekyll-seo-tag (site builder, page metadata)</td>
+          <td><a href="https://github.com/jekyll/jekyll/blob/master/LICENSE">MIT License</a> (same for the plugin)</td>
           <td><a href="https://jekyllrb.com">Jekyll contributors</a></td>
         </tr>
         <tr>

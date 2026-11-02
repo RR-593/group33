@@ -82,7 +82,7 @@ video:
         {% for key in keys %}
           {% assign shelf = site.data.shelves[key] %}
           {% assign shelf_url = '/shelves/' | append: key | append: '/' %}
-          {% include shelf.html shelf=shelf number=forloop.index total=total url=shelf_url %}
+          {% include shelf-card.html shelf=shelf number=forloop.index total=total url=shelf_url %}
         {% endfor %}
       </div>
     </div>

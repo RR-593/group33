@@ -17,7 +17,8 @@ before merge.
 | `_layouts/shelf.html` | One template → all shelf pages. Hero, card loop, 3D pop-up, card script. |
 | `_includes/artifact-card.html` | One object card: carousel, key hints, audio player, captions, 3D button, details. |
 | `_layouts/`, `_includes/` | Shared HTML. Nav pill + zoom buttons (`header.html`), head, footer. |
-| `_sass/`, `assets/main.scss` | Styles. Vendored Minima (`_sass/minima/`) + `shelves.scss`, `curation.scss`, accessibility changes. |
+| `assets/css/main.scss` | Stylesheet entry. Lists every partial in load order. |
+| `_sass/` | Styles. `_settings.scss` colours/type/spacing; `base/` fonts + HTML elements; `layout/` header, page, footer; `components/` pills, cards, audio player, 3D pop-up; `pages/` one-page styles. |
 | `assets/exhibitionShelfs/<Shelf>/<Object>/` | Original object photos. |
 | `assets/audio/` | Audio-visual description recordings (`.m4a`), one per object. |
 | `assets/resized/` | Generated photo sizes. Gitignored. |
@@ -165,4 +166,4 @@ Read `AGENTS.md` first.
 
 ## Licence and attribution
 
-Code from MIT-licensed Minima theme. See `LICENSE`, `NOTICE.md`. Team content + media may carry other terms. Record terms + credit beside each asset.
+Code began as MIT-licensed Minima theme. See `LICENSE`, `NOTICE.md`. Team content + media may carry other terms. Record terms + credit beside each asset.

@@ -1,0 +1,71 @@
+@use "settings" as *;
+
+// 3D model pop-up on shelf pages, opened by each card's "View in 3D" button.
+
+.model-dialog {
+  width: 90vw;
+  height: 85vh;
+  padding: 0;
+  border: 0;
+
+  &[open] { display: flex; flex-direction: column; }
+  &::backdrop { background: rgba(0, 0, 0, 0.7); }
+
+  .model-dialog-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+  }
+  h2 { margin: 0; font-size: $font-size * 1.125; }
+
+  // minimal close: × icon with a grey Esc key cap beside it
+  .model-dialog-close {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.4rem;
+    color: inherit;
+    background: none;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover { background: #f0f0f0; }
+  }
+  .model-dialog-stage { position: relative; flex: 1; display: flex; }
+  iframe { flex: 1; width: 100%; border: 0; }
+
+  // spinner shows while the status has text; the frame stays hidden so the
+  // previous model never shows under a new title
+  .model-dialog-loading {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    &:empty { display: none; }
+    &:not(:empty) + iframe { visibility: hidden; }
+
+    &::before {
+      content: "";
+      width: 3rem;
+      height: 3rem;
+      border: 4px solid #ccc;
+      border-top-color: $blue;  // same blue as the focus outline
+      border-radius: 50%;
+      animation: model-spin 1s linear infinite;
+    }
+  }
+}
+
+@keyframes model-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .model-dialog-loading::before { animation: none; }  // still shows the text and a static ring
+}

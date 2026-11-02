@@ -6,12 +6,9 @@ permalink: /accessibility/
 
 {%- comment -%}
 Accessibility page (first draft), built from the Figma design.
-Self-contained: this page and /assets/accessibility.css only. It adds no
-navigation and edits no shared files, so it can be merged on its own.
+Styles live in _sass/pages/_accessibility.scss, scoped to .accessibility.
 The on-campus visitor details (location, hours) are marked to be confirmed.
 {%- endcomment -%}
-
-<link rel="stylesheet" href="{{ '/assets/accessibility.css' | relative_url }}">
 
 <div class="accessibility">
 
