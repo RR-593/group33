@@ -2,7 +2,7 @@
 
 **Disability Heritage: Archaeology with Difference**, curated by Hannah Vogel
 
-This file reorganises the curator's master document. Exhibition text is copied word for word. `TBC` means the source document has not supplied it yet.
+This file reorganises the curator's master document (raw copy in [tempMasterDoc.md](tempMasterDoc.md)). Exhibition text is copied word for word. `TBC` means the source document has not supplied it yet.
 
 ## Contents
 
@@ -26,6 +26,7 @@ This file reorganises the curator's master document. Exhibition text is copied w
 | About | Curator profile photo |
 | About | Website team (students to fill in) |
 | Middle shelf | Hero image: file, caption and alt text |
+| Top, middle, bottom shelf | Final shelf photos. The website shows placeholder photos of another exhibition's display case ([assets/placeholders/](../assets/placeholders/)) |
 | Objects 2–11 | Object overview text |
 | Objects 1, 2, 3 | 3D model (none yet) |
 | Objects 4, 5 | 3D link (labelled "View in 3D" but no URL given) |
@@ -60,6 +61,7 @@ These are inconsistencies spotted in the source document. They have **not** been
 | Caption | Photograph (Placeholder) of the display at the Gale History Museum © Hannah Vogel and Gale History Museum |
 | Alt text | A photograph of the Disability Heritage: Archaeology with Difference display. There is a tall glass cabinet with three shelves and a panel to the left. The panel features the overview text, an iPad with this website, a QR code to this website and several tactile models of the objects in the glass case. |
 | Audio description | TBC |
+| On the website | Behind the title at the top of the home page (resized copies made by `rake images`) |
 
 ### Overview text
 
