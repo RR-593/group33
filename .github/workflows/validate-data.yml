@@ -31,5 +31,8 @@ jobs:
       - name: Check every shelf
         run: pipx run --spec "$CHECK_JSONSCHEMA" check-jsonschema --schemafile _data/schemas/shelf.schema.yml _data/shelves/*.yml
 
+      - name: Check the curator portrait
+        run: pipx run --spec "$CHECK_JSONSCHEMA" check-jsonschema --schemafile _data/schemas/bio_pic.schema.yml _data/bio_pic.yml
+
       - name: Check every licence
         run: pipx run --spec "$CHECK_JSONSCHEMA" check-jsonschema --schemafile _data/schemas/license.schema.yml _data/licenses/*.yml

@@ -1,0 +1,7 @@
+# yaml-language-server: $schema=schemas/bio_pic.schema.yml
+# Curator portrait on the Curation page (pages/curation.md). Rules: _data/schemas/bio_pic.schema.yml.
+# Wording copied word for word from the curator; record changes in docs/HannasMasterDoc.md too.
+
+url: assets/images/curator/hannah-vogel-saqqara.jpg
+altText: Hannah kneeling in an Egyptian stone tomb. She is facing the camera and behind her is a carved false door. The carvings have rows of ancient Egyptian hieroglyphics and the surrounding walls have worn relief carvings.
+caption: Hannah Vogel at the archaeological site of Saqqara necropolis, Egypt. © Vogel 2026

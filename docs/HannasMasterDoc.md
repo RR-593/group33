@@ -22,8 +22,6 @@ This file reorganises the curator's master document (raw copy in [tempMasterDoc.
 | Home | Audio description of the display |
 | Home | Auslan video, transcript and caption |
 | Home | Final display photo (currently a placeholder) |
-| About | Visitor information: website accessibility features (students to draft) |
-| About | Curator profile photo |
 | About | Website team (students to fill in) |
 | Middle shelf | Hero image: file, caption and alt text |
 | Top, middle, bottom shelf | Final shelf photos. The website shows placeholder photos of another exhibition's display case ([assets/images/placeholders/](../assets/images/placeholders/)) |
@@ -41,12 +39,14 @@ These are inconsistencies spotted in the source document. They have **not** been
 4. **"Community of Practise"** should probably be "Practice".
 5. **Caption numbering is inconsistent.** Objects 1–3 and 6–9 drop the "N." prefix that the other objects use.
 6. **Object 3 is a replica made c.1997.** Check that this is how it should be presented next to the ancient objects.
-7. **Object 5 details** say "Mesopotamia, Greek seated figurine, c.3000 B.C.E." Check whether that is correct.
+7. **Object 5 details** were revised to give two attributions: "Greek, c. 5th century BCE or Mesopotamia, c.3000 B.C.E." The line now mixes "BCE" and "B.C.E.", and repeats the accession number.
 8. **Object 8, Image 6 alt text** quotes the museum number as "MU523". The accession number is MU0523. This may be what is literally written on the object.
 9. **Object 9, Image 7 alt text** quotes the label as "AH85053". The accession number is AHM/1985/053.
 10. **Image file names** in the source document have no extension. The actual files are `.jpg`, except the placeholder, which is `.jpeg`.
 11. **Curator bio typos:** "Macquaire" should be "Macquarie", and "has been recognised an emerging research leader" is missing "as".
 12. **Objects 1, 9, 10 and 11 dimensions** give only height and width (no depth).
+13. **Website accessibility text** says the site "will also respect your device’s reduced-motion and high-contrast settings". Reduced motion is handled; the site has no styles for high-contrast (forced colours) mode yet, so that part is untested.
+14. **Curator photo alt text** says "a caved false door". Probably "carved"; screen readers will read it as written.
 
 ## Home page
 
@@ -87,7 +87,7 @@ This project is supported by the Commonwealth through an Australian Government R
 
 ### Visitor information and accessibility
 
-**Website:** TBC (students to draft the accessibility features developed for the website).
+**Website:** This website has considered accessibility throughout its development. Targeted testing has ensured access to this exhibition site with a range of devices, browsers and assistive technologies. It aims to meet the Web Content Accessibility Guidelines (WCAG) 2.2 at Level AA. Several features support accessibility, including the Atkinson Hyperlegible typeface, created by the Braille Institute to be easier to read for people with low vision. It includes a simple, high-contrast colour scheme of dark text on a light background with a single clear link colour and sans-serif typefaces. The layout is consistent across pages with a scaled heading structure and a single reading order that reflows to fit desktop, tablet and mobile screens, without text breaking or overlapping. All links, the Menu, and the 3D object viewers can be operated via the keyboard with a visible highlight on selected sections. Testing and use by screen readers have been enabled through ordered headings, landmarks and meaningful descriptions on all assets. Other features include audio-visual descriptions paired with captions and a full transcript, 3D models of the objects can be rotated and zoomed from the keyboard. In case a model fails to load a still image and description is available. The site will also respect your device’s reduced-motion and high-contrast settings.
 
 **On campus:** This exhibition is displayed at the Gale History Museum from 10th November 2026 until the 1st of March 2027. The Museum is open 10am to 4pm, Monday to Friday (closed on public holidays) and is located on Macquarie University's Wallumattagal Campus, North Ryde, on the ground floor of the Arts Precinct at 25C Wally's Walk. Please refer to P-12 on the Campus Map. Parking and public transport information can be accessed via Museum’s Visit page on the Macquarie University Website.
 
@@ -100,7 +100,14 @@ Accessibility features for the on-campus display include:
 
 ### Curator
 
-**Hannah Vogel.** Profile photo still needed.
+**Hannah Vogel.**
+
+| Field | Value |
+|---|---|
+| File | [hannah-vogel-saqqara.jpg](../assets/images/curator/hannah-vogel-saqqara.jpg) (supplied as "bio option 2.JPG") |
+| Caption | Hannah Vogel at the archaeological site of Saqqara necropolis, Egypt. © Vogel 2026 |
+| Alt text | Hannah kneeling in an Egyptian stone tomb. She is facing the camera and behind her is a caved false door. The carvings have rows of ancient Egyptian hieroglyphics and the surrounding walls have worn relief carvings. |
+| On the website | Beside the curator bio on the Curation page (`_data/bio_pic.yml`) |
 
 > Hannah Vogel is an archaeologist, teaching academic, and PhD candidate researcher in the School of Humanities, Macquarie University (Sydney, Australia). As a leading researcher on ableism and disability, she combines archaeological scholarship with advocacy and experience in museums, public outreach, accessibility, and inclusive pedagogies. Her work has helped shape the emerging field of archaeological disability studies.
 >
@@ -150,7 +157,7 @@ TBC (students to fill in).
 | 2 | Middle | [Reclining Figure](#2-reclining-figure) | MU4249 | Ceramic | Possibly Rhodian, c.500-400 B.C.E. Bequest of Graham Joyner, 2008. | 3 | None yet |
 | 3 | Middle | [Bronze dancer (replica)](#3-bronze-dancer-replica) | MU0101 | Bronze | Boston, c.1997. Purchased in 1997. Copy of Etruscan bronze, c.525-500 BCE, 01.7482, from the Museum of Fine Arts, Boston | 6 | None yet |
 | 4 | Middle | [Figure of a musician](#4-figure-of-a-musician) | MU0086 | Ceramic | Greece, 7th-6th century B.C.E. Purchased in 1997. | 8 | TBC ("View in 3D", no URL) |
-| 5 | Middle | [Seated statuette](#5-seated-statuette) | MU3735 | Ceramic | Mesopotamia, Greek seated figurine, c.3000 B.C.E. Purchased in 2003. | 5 | TBC ("View in 3D", no URL) |
+| 5 | Middle | [Seated statuette](#5-seated-statuette) | MU3735 | Ceramic | Seated statuette Greek, c. 5th century BCE or Mesopotamia, c.3000 B.C.E. MU3735 Purchase, 2003 | 5 | TBC ("View in 3D", no URL) |
 | 6 | Middle | [Bronze figure of Priapus](#6-bronze-figure-of-priapus) | MU4697 | Bronze | Roman, c.1st-4th century C.E. Purchased in 2012. | 9 | [View](https://macquarie.nira.app/a/hpbtWsRWSQaHaJPHElDtJQ/1) |
 | 7 | Middle | [Terracotta figurine](#7-terracotta-figurine) | MU2676 | Terracotta | Cyprus, c.7th century B.C.E. Purchased in 1986. | 8 | n/a |
 | 8 | Middle | [Amulet of Pataikos](#8-amulet-of-pataikos) | MU0523 | Green Faience | Egypt, Third Intermediate Period or Ptolemaic period, c. 1069 - 664 / 332 - 30 B.C.E. Donation, Prof. Naguib Kanawati, 1980. | 6 | [View](https://macquarie.nira.app/a/S89lZLMKRfCoB5qdh4sjRQ/1) |
@@ -268,7 +275,7 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 | Accession no. | MU3735 |
 | Material | Ceramic |
 | Dimensions | H: 200mm W: 95mm D: 47mm |
-| Details | Mesopotamia, Greek seated figurine, c.3000 B.C.E. Purchased in 2003. |
+| Details | Seated statuette Greek, c. 5th century BCE or Mesopotamia, c.3000 B.C.E. MU3735 Purchase, 2003 |
 | 3D model | TBC ("View in 3D", no URL) |
 | Audio file | [5. Seated Statuette MU3735.m4a](../assets/audio/5.%20Seated%20Statuette%20MU3735.m4a) |
 

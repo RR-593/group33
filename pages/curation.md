@@ -10,8 +10,8 @@ description: Who curated the exhibition, funded and developed it along with soft
 Curation & Acknowledgements page (first draft).
 Styles live in _sass/pages/_curation.scss, scoped to .curation.
 Bio and funding text are copied word for word from docs/HannasMasterDoc.md
-(About page > Curator, Funding); change them there first. Replace the placeholder
-portrait where marked. Licence tables: one file per row in _data/licenses/ (rules in
+(About page > Curator, Funding); change them there first. Curator
+portrait: _data/bio_pic.yml. Licence tables: one file per row in _data/licenses/ (rules in
 _data/schemas/license.schema.yml); add one when the site gains a font, library,
 icon set or tool. NOTICE.md holds the full terms for what ships. Keep the heading order (page h1 ->
 section h2) and the image alt text.
@@ -37,13 +37,11 @@ section h2) and the image alt text.
         University Profile</a> or <a href="https://hvogel.org/">Website (hvogel.org)</a> for
         more information about her projects, research, outreach and advocacy.</p>
       </div>
+      {%- comment -%} photo, alt text and caption: _data/bio_pic.yml {%- endcomment %}
+      {%- assign bio_pic = site.data.bio_pic %}
       <figure class="curation__bio-figure">
-        <!-- Replace src with the curator's photo. Then write alt text describing
-             the person for its purpose here, e.g. alt="Dr Jane Doe, curator".
-             Leave alt="" only while this remains a decorative placeholder. -->
-        <img class="curation__portrait"
-             src="{{ '/assets/images/placeholders/placeholder-portrait.svg' | relative_url }}"
-             alt="" width="240" height="240">
+        {% include responsive-image.html src=bio_pic.url alt=bio_pic.altText class="curation__portrait" sizes="(max-width: 600px) 200px, 240px" eager=true %}
+        <figcaption class="curation__portrait-caption">{{ bio_pic.caption | escape }}</figcaption>
       </figure>
     </div>
   </section>

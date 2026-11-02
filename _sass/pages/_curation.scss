@@ -2,7 +2,7 @@
 
 $rule: #cfcfcf;          // section dividers (decorative)
 $muted: #595959;         // secondary text, at least 4.5:1 on white
-$placeholder: #e2e2e2;   // placeholder portrait fill (decorative)
+$placeholder: #e2e2e2;   // portrait fill until the photo loads (decorative)
 
 .curation {
   max-width: 48rem;
@@ -47,16 +47,24 @@ $placeholder: #e2e2e2;   // placeholder portrait fill (decorative)
 }
 .curation__bio-figure {
   flex: 0 0 auto;
+  width: 240px;
+  max-width: 100%;
   margin: 0;
 }
+// fixed frame, so a replacement photo of another shape is cropped the same way;
+// the blurred placeholder (inline style) fills it while the photo downloads
 .curation__portrait {
   display: block;
-  width: 240px;
-  height: 240px;
-  max-width: 100%;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 11 / 12;
   border-radius: 16px;
   object-fit: cover;
-  background: $placeholder;
+  background: $placeholder center / cover no-repeat;
+}
+.curation__portrait-caption {
+  margin-top: 0.5rem;
+  color: $muted;
 }
 
 // Funding bodies: one card per funder, name then programme
@@ -150,9 +158,8 @@ $placeholder: #e2e2e2;   // placeholder portrait fill (decorative)
   .curation__bio-figure {
     align-self: center;
   }
-  .curation__portrait {
+  .curation__bio-figure {
     width: 200px;
-    height: 200px;
   }
   .curation__team-item {
     grid-template-columns: 1fr;
