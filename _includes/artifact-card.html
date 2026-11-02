@@ -67,6 +67,8 @@
   </div>
 
   <div class="description">
+    {%- comment -%} the accession number as a wall-label line above the name; already in the details below, so hidden from screen readers {%- endcomment %}
+    <p class="artifact__accession" aria-hidden="true">{{ meta.accNo | escape }}</p>
     <h2 id="name-{{ slug }}">{{ meta.name | escape }}</h2>
 
     {%- comment -%}

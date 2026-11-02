@@ -1,5 +1,6 @@
 ---
 layout: page
+eyebrow: Visiting  # small label above the title
 title: Accessibility
 permalink: /accessibility/
 description: How accessibility was incorporated into the website.

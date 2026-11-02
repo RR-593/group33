@@ -14,7 +14,8 @@
   padding: 1.5rem 0;
   border-top: 3px solid $text;
 
-  h2 { margin-top: 0; }
+  h2 { margin-top: 0; font-size: clamp(1.625rem, 1.25rem + 1.2vw, 2.125rem); }
+  .artifact__accession { margin: 0; @include section-index; }
 
   // shortcut keys sit under the description, shown only while the card has keyboard focus;
   // screen readers get them via aria-describedby
@@ -51,6 +52,7 @@
     .artifact-media { flex-basis: 100%; }
     .description { display: contents; }
     .description > * { flex-basis: 100%; margin-top: 0; margin-bottom: 0; }  // card's gap spaces them
+    .artifact__accession { order: -2; }
     h2 { order: -1; }
   }
   .artifact-media { min-width: 0; }  // lets Swiper size slides instead of stretching the row

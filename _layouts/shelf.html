@@ -7,15 +7,22 @@ layout: default
   "TBC" marks content still to be written; it is hidden, not shown.
 {%- endcomment -%}
 {%- assign shelf = site.data.shelves[page.shelf] -%}
-<header class="shelf-hero">
-  {%- comment -%} largest thing on screen at load, so fetched first, at a size that fits the screen {%- endcomment %}
-  {% include responsive-image.html src=shelf.image.url alt=shelf.image.altText sizes="100vw" eager=true priority=true %}
-  <h1><span>{{ page.title | escape }}</span></h1>
+{%- for key in site.shelves %}{% if key == page.shelf %}{% assign shelf_number = forloop.index %}{% assign shelf_total = forloop.length %}{% endif %}{% endfor %}
+{%- comment -%} laid out like the home page hero: label, title and introduction beside the photo {%- endcomment %}
+<header class="shelf-intro">
+  <div class="shelf-intro__text">
+    <p class="eyebrow">Shelf {{ shelf_number }} of {{ shelf_total }}</p>
+    <h1 class="page-title">{{ page.title | escape }}</h1>
+    {%- unless shelf.description == "TBC" %}
+    <p class="shelf-intro__lede">{{ shelf.description | escape }}</p>
+    {%- endunless %}
+  </div>
+  <figure class="shelf-intro__figure">
+    {%- comment -%} largest thing on screen at load, so fetched first, at a size that fits the screen {%- endcomment %}
+    {% include responsive-image.html src=shelf.image.url alt=shelf.image.altText class="shelf-intro__image" sizes="(min-width: 900px) 50vw, 100vw" eager=true priority=true %}
+    <figcaption class="shelf-intro__caption">{{ shelf.image.caption | escape }}</figcaption>
+  </figure>
 </header>
-<p class="shelf-credit">{{ shelf.image.caption | escape }}</p>
-{%- unless shelf.description == "TBC" %}
-<p>{{ shelf.description | escape }}</p>
-{%- endunless %}
 
 <div class="artifacts-box">
   {%- for artifact in shelf.artifacts %}

@@ -1,5 +1,6 @@
 ---
 layout: page
+eyebrow: The display  # small label above the title
 title: Shelves
 permalink: /shelves/
 description: Artifacts that represented on each shelf 

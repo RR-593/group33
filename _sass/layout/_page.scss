@@ -37,30 +37,47 @@ main:focus { outline: none; }
 
 // centred text column
 .wrapper {
-  max-width: $content-width - $spacing * 2;
+  box-sizing: border-box;
+  max-width: $content-width;
   margin-right: auto;
   margin-left: auto;
-  padding-right: $spacing;
-  padding-left: $spacing;
-
-  @media screen and (max-width: $on-laptop) {
-    max-width: $content-width - $spacing;
-    padding-right: $spacing * 0.5;
-    padding-left: $spacing * 0.5;
-  }
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
 }
 
-// _layouts/page.html: a title, then the page's own text
-// a heavy rule under every page title, as in a printed catalogue
+// _layouts/page.html, _layouts/shelf.html and the home hero: a small accent label, then
+// the large title
+.eyebrow { @include section-index; }
+
 .page-header {
-  margin-bottom: $spacing;
-  padding-bottom: 1rem;
-  border-bottom: 3px solid $text;
+  padding-top: clamp(1rem, 4vw, 3rem);
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
 }
 
-.page-title { margin: 0; }
+.page-title {
+  max-width: 18ch;
+  margin: 0;
+  @include display-title;
+}
 
-.page-body { margin-bottom: $spacing; }
+// sections numbered 01, 02… by CSS, each under a heavy rule, as on the home page. The
+// numbers are decoration: empty alt text keeps screen readers from reading them
+.page-body {
+  margin-bottom: $spacing;
+  counter-reset: section;
+
+  h2 {
+    @include section-title;
+    counter-increment: section;
+
+    &::before {
+      content: counter(section, decimal-leading-zero) / "";
+      @include section-index;
+    }
+  }
+
+  p { max-width: 68ch; }
+}
 
 // a link on its own in a list item, like the /shelves/ list: at least 24px tall, so it
 // meets WCAG 2.5.8 target size (links inside sentences are exempt)

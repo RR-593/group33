@@ -3,18 +3,10 @@
 // Home page (_layouts/home.html), laid out like an exhibition catalogue: a hero with the
 // title and display photo, then numbered sections divided by heavy rules.
 
-$home-width: 1120px;
-
-// the home page runs edge to edge; each section keeps its own centred column
+// the home page runs edge to edge; each section keeps its own centred column (.wrapper)
 body:has(.home) {
   .page-content { padding: 0; }
   .page-content > .wrapper { max-width: none; padding: 0; }
-}
-
-.home__inner {
-  max-width: $home-width;
-  margin: 0 auto;
-  padding: 0 1.5rem;
 }
 
 // Hero: text and photo side by side from 900px, stacked below that
@@ -28,12 +20,6 @@ body:has(.home) {
   align-items: center;
 
   @media (min-width: 900px) { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
-}
-
-.hero__eyebrow {
-  margin-bottom: 1rem;
-  @include label;
-  color: $accent;
 }
 
 .hero__title {
@@ -82,24 +68,14 @@ body:has(.home) {
   color: $muted-text;
 }
 
-// Numbered sections: a heavy rule, a small accent number, then the heading
+// Numbered sections, the same as every page's (_sass/_settings.scss): a heavy rule, a
+// small accent number, then the heading
 .home-section {
   padding-bottom: clamp(2.5rem, 6vw, 5rem);
 }
 
-.home-section__title {
-  margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
-  padding-top: 1.25rem;
-  border-top: 3px solid $text;
-  font-size: clamp(1.75rem, 1.2rem + 2vw, 2.75rem);
-}
-
-.home-section__index {
-  display: block;
-  margin-bottom: 0.5rem;
-  @include label;
-  color: $accent;
-}
+.home-section__title { @include section-title; }
+.home-section__index { @include section-index; }
 
 // About the exhibition: the overview beside the Auslan video from 900px
 .about {
