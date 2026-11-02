@@ -117,12 +117,13 @@
 }
 
 /* --- Licences table --- */
-.curation__table-wrap {
-  overflow-x: auto;
-}
 .curation__licenses {
   width: 100%;
   border-collapse: collapse;
+}
+/* two tables (on the website / building and checking), three columns so they fit a phone */
+.curation__licenses + .curation__licenses {
+  margin-top: 2rem;
 }
 .curation__caption {
   text-align: left;
@@ -142,12 +143,6 @@
 /* long link texts break inside the cell instead of pushing the table sideways */
 .curation__licenses a {
   overflow-wrap: anywhere;
-}
-/* group rows: "On the website" / "Building and checking the site" */
-.curation__licenses .curation__group {
-  padding-top: 1.25rem;
-  font-size: 1.05rem;
-  background: none;
 }
 
 /* --- Small screens --- */
