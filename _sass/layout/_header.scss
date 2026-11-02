@@ -66,8 +66,21 @@
   padding: 0.5rem 1rem;  // with the line height, a 44px-tall target
   line-height: 1.75rem;
   white-space: nowrap;
+  text-align: center;
   border-radius: $pill;
   text-decoration: none;
+
+  // an invisible bold copy of the name sets every link's width, so the bold current
+  // page is no wider than the others and the pill keeps one size on every page.
+  // Empty alt text and visibility: hidden keep screen readers from reading it twice
+  &::after {
+    content: attr(data-label) / "";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    font-weight: $bold;
+  }
 
   &, &:visited { color: $text; }
   &:hover { background: $grey-light; }
