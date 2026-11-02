@@ -1,7 +1,7 @@
 # Group 33 exhibition sandbox
 
 Group 33 Jekyll site. Public repo. Push to `main` → auto build + publish →
-<https://hannahvogelarchaeology.github.io/group33/>. Public at once, so check
+<https://rr-593.github.io/group33/>. Public at once, so check
 before merge.
 
 ## Repo map
