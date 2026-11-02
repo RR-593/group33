@@ -1,0 +1,163 @@
+// Shelf pages (_layouts/shelf.html): the 3D model pop-up, each card's photo carousel,
+// audio description player, captions toggle and shortcut keys. Card markup is in
+// _includes/artifact-card.html. Swiper is loaded before this in _includes/head.html.
+
+// native <dialog>: traps focus, closes on Esc and hands focus back to the card
+const dialog = document.querySelector('.model-dialog');
+const frame = dialog.querySelector('iframe');
+const loading = dialog.querySelector('.model-dialog-loading');
+// Nira is another site, so `load` means its page is up, not that the model has
+// finished streaming; Nira shows its own progress from there
+frame.addEventListener('load', () => loading.textContent = '');
+document.querySelectorAll('.artifact-3d').forEach(button => button.addEventListener('click', () => {
+  dialog.querySelector('h2').textContent = button.dataset.title;
+  frame.title = button.dataset.title;
+  // the last model stays loaded after closing (browsers throttle hidden frames),
+  // so reopening it is instant; a different model hides the old one behind the spinner
+  if (frame.src !== button.dataset.src) {
+    loading.textContent = 'Loading 3D model…';
+    frame.src = button.dataset.src;
+  }
+  dialog.showModal();
+}));
+dialog.querySelector('.model-dialog-close').addEventListener('click', () => dialog.close());
+
+// one audio description at a time
+document.addEventListener('play', e => document.querySelectorAll('audio')
+  .forEach(a => a !== e.target && a.pause()), true);
+
+// The card's blue "Audio description" button grows into its player bar and plays; the bar's
+// controls skip Tab like the rest of the card, with keys listed under the photo while it's open.
+// Returns null when the object has no recording.
+const audioPlayer = card => {
+  const audio = card.querySelector('audio');
+  if (!audio) return null;
+  const bar = card.querySelector('.artifact-audio');
+  const play = bar.querySelector('.artifact-play');
+  const keyList = card.querySelector('.artifact-audio-keys');
+  const seek = bar.querySelector('.player-seek');
+  const volumeBtn = bar.querySelector('.player-volume-btn');
+  const volumePop = bar.querySelector('.player-volume-pop');
+  const volume = bar.querySelector('.player-volume-slider');
+  const time = bar.querySelector('.player-time');
+  audio.controls = false;
+  audio.hidden = true;
+  bar.hidden = false;
+
+  const clock = s => Number.isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}` : '0:00';
+  const isOpen = () => bar.classList.contains('is-open');
+  // the pill slides out sideways from the button's width to the full row (and back);
+  // with reduced motion it just switches
+  const calm = matchMedia('(prefers-reduced-motion: reduce)');
+  const showVolume = on => {
+    volumePop.hidden = !on;
+    volumeBtn.setAttribute('aria-expanded', on);
+  };
+  const open = on => {
+    if (!on) { audio.pause(); showVolume(false); }
+    if (isOpen() === on) return;
+    const from = `${bar.offsetWidth}px`;
+    bar.classList.toggle('is-open', on);
+    keyList.hidden = !on;
+    if (calm.matches) return;
+    // open: to the row's full width; close: to the button's own width. Controls are
+    // clipped only while it moves, so the volume pop-up can hang below the bar after
+    const to = on ? '100%' : `${bar.offsetWidth}px`;
+    bar.style.overflow = 'hidden';
+    bar.animate({ width: [from, to] }, { duration: 350, easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)' })
+      .finished.finally(() => bar.style.overflow = '');
+  };
+  const playPause = () => {
+    open(true);
+    audio.paused ? audio.play() : audio.pause();
+  };
+  const skip = s => audio.currentTime = Math.min(Math.max(audio.currentTime + s, 0), audio.duration || 0);
+  const setVolume = v => {
+    audio.volume = Math.min(Math.max(v, 0), 1);
+    audio.muted = false;
+  };
+  const louder = v => setVolume(Math.round(((audio.muted ? 0 : audio.volume) + v) * 10) / 10);
+
+  const showTime = () => {
+    seek.max = audio.duration || 0;
+    seek.value = audio.currentTime;
+    seek.style.setProperty('--p', `${audio.duration ? audio.currentTime / audio.duration * 100 : 0}%`);
+    time.textContent = `${clock(audio.currentTime)} / ${clock(audio.duration)}`;
+    seek.setAttribute('aria-valuetext', `${clock(audio.currentTime)} of ${clock(audio.duration)}`);
+  };
+  const showPlaying = () => {
+    play.classList.toggle('is-playing', !audio.paused);
+    play.setAttribute('aria-label', `${audio.paused ? 'Play' : 'Pause'} audio description`);
+  };
+  audio.addEventListener('timeupdate', showTime);
+  audio.addEventListener('loadedmetadata', showTime);
+  audio.addEventListener('play', showPlaying);
+  audio.addEventListener('pause', showPlaying);
+  // muted, or turned all the way down, both show the muted speaker
+  audio.addEventListener('volumechange', () => {
+    const level = audio.muted ? 0 : audio.volume;
+    volume.value = level;
+    volume.style.setProperty('--p', `${level * 100}%`);
+    volumeBtn.classList.toggle('is-muted', level === 0);
+    volumeBtn.setAttribute('aria-label', `Volume ${level === 0 ? 'muted' : `${Math.round(level * 100)}%`}`);
+  });
+  seek.addEventListener('input', () => audio.currentTime = seek.value);
+  volume.addEventListener('input', () => setVolume(Number(volume.value)));
+  play.addEventListener('click', playPause);
+  volumeBtn.addEventListener('click', () => showVolume(volumePop.hidden));
+  bar.querySelector('.player-close').addEventListener('click', () => open(false));
+  document.addEventListener('click', e => volumePop.hidden || volumeBtn.parentElement.contains(e.target) || showVolume(false));
+
+  return {
+    playPause, isOpen,
+    keys: { arrowup: () => louder(0.1), arrowdown: () => louder(-0.1), j: () => skip(-10), l: () => skip(10), m: () => audio.muted = !audio.muted, escape: () => open(false) },
+  };
+};
+
+document.querySelectorAll('.artifact').forEach(card => {
+  const el = card.querySelector('.artifact-images.swiper');
+  const swiper = new Swiper(el, {
+    // each carousel gets its own dots and arrows, so they don't control each other;
+    // dots aren't clickable so Swiper doesn't make them Tab stops
+    pagination: { el: el.querySelector('.swiper-pagination') },
+    navigation: { nextEl: el.querySelector('.swiper-button-next'), prevEl: el.querySelector('.swiper-button-prev') },
+    // a11y module is on by default in the bundle: labels the arrows and announces slides
+  });
+  // Swiper's a11y module makes its arrow buttons Tab stops on start and again whenever
+  // the carousel reaches or leaves an end; the card is the only Tab stop, so undo it each time
+  const skipArrows = () => el.querySelectorAll('.swiper-button-prev, .swiper-button-next')
+    .forEach(b => b.tabIndex = -1);
+  skipArrows();
+  swiper.on('fromEdge toEdge lock unlock', skipArrows);
+
+  const button3d = card.querySelector('.artifact-3d');
+  const player = audioPlayer(card);
+
+  // captions button (or Read description, with no recording) swaps the metadata list for the description text
+  const toggle = card.querySelector('.artifact-transcript-toggle');
+  const meta = card.querySelector('dl');
+  const transcript = card.querySelector('.artifact-transcript');
+  const showTranscript = on => {
+    toggle.setAttribute('aria-pressed', on);
+    meta.hidden = on;
+    transcript.hidden = !on;
+  };
+  toggle.hidden = false;
+  showTranscript(false);
+  toggle.addEventListener('click', () => showTranscript(transcript.hidden));
+
+  // shortcuts work only while the card itself has focus (WCAG 2.1.4)
+  card.addEventListener('keydown', e => {
+    if (e.target !== card || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return;  // keep browser shortcuts and Shift+Up (to the nav)
+    const key = e.key.toLowerCase();
+    if (key === 'arrowleft') swiper.slidePrev();
+    else if (key === 'arrowright') swiper.slideNext();
+    else if (key === 'enter' && player) player.playPause();
+    else if (key === 't') toggle.click();
+    else if (key === 'd' && button3d) button3d.click();
+    // player keys only while it's open; otherwise ↑/↓ scroll and Esc does nothing here
+    else if (player?.isOpen() && key in player.keys) player.keys[key]();
+    else return;
+    e.preventDefault();
+  });
+});

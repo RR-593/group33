@@ -15,10 +15,17 @@ header_pages:
   - pages/shelves/bottom.md
   - pages/curation.md
 
+# Shelf order on the home page and /shelves/; each key matches _data/shelves/<key>.json
+shelves: [top, middle, bottom]
+
 # Widths (px) of the resized photo copies used by shelf pages. Read by
 # the Rakefile (`rake images`) and _layouts/shelf.html; the largest is the fallback src.
 # After changing, restart `bundle exec rake serve` (it makes the new sizes first).
 image_sizes: [400, 800, 1600]
+
+# keep straight quotes in Markdown pages, as copied from the curator's master doc
+kramdown:
+  smart_quotes: ["apos", "apos", "quot", "quot"]
 
 plugins:
   - jekyll-seo-tag

@@ -1,10 +1,10 @@
 @use "settings" as *;
 
-// Audio description player inside an artifact card; the script is in _layouts/shelf.html.
+// Audio description player inside an artifact card; the script is assets/js/shelf.js.
 
 .artifact {
   // audio description: one solid blue pill. Closed it's a button ("Audio description" + a white
-  // play badge); open it slides out (script in _layouts/shelf.html) into the player bar: play/pause badge, seek,
+  // play badge); open it slides out (assets/js/shelf.js) into the player bar: play/pause badge, seek,
   // time, mute. White on blue is 5.6:1
   .artifact-audio {
     display: inline-flex;
