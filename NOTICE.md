@@ -12,11 +12,10 @@ navigation bar that is a single Tab stop, with arrow, Home and End keys to move
 between links and number keys to open them while it has focus; the skip link
 was removed.
 
-The "View in 3D" button on shelf pages uses the `rotate-3d` icon, and the 3D pop-up's close button the `x` icon, from
-[Lucide](https://lucide.dev) v0.469.0, inlined in `_layouts/shelf.html`, as are the
-audio description player's `play`, `pause`, `volume-2`, `volume-x`, `captions` and `x` icons. The page zoom
-buttons beside the navigation bar use Lucide's `zoom-out` and `zoom-in` icons,
-inlined in `_includes/header.html`.
+Icons from [Lucide](https://lucide.dev) v0.469.0 are kept one per file in
+`assets/icons/` and drawn by `_includes/icon.html`: `rotate-3d` (View in 3D), `x`
+(close buttons), the audio description player's `play`, `pause`, `volume-2`,
+`volume-x` and `captions`, and the page zoom buttons' `zoom-out` and `zoom-in`.
 Lucide is distributed under the ISC License:
 
 > Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2022 as part
