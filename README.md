@@ -148,9 +148,10 @@ Read output. Build error or schema fail → fix first.
 Check by hand on each shelf page:
 
 - Tab moves card to card. Focus ring visible.
-- In card: ←/→ images, Enter audio, T transcript, D 3D model, Esc close 3D.
+- In card: ←/→ images, T audio description text, D 3D model, Esc close 3D.
+- Audio: Enter or play button opens player bar + plays. While open, keys shown under photo: Enter play/pause, ↑/↓ volume, J/L back/forward 10s, Esc close. Bar controls skip Tab.
 - Every image has alt text. Audio plays. Dimensions show `n/a` for 0.
-- Nav pill: one Tab stop, ←/→ move, 1–9 jump while focused. Zoom buttons beside it: page scales, level kept on next page.
+- Nav pill: one Tab stop, ←/→ move, 1–9 jump while focused. Zoom buttons beside it (or -/+ while nav or zoom pill focused): page scales, level kept on next page.
 - Phone width: no side scroll.
 
 Bundler error `cannot load such file ... bundler-X/exe/bundle` → broken Bundler install. Run `gem install bundler -v X` (X from `BUNDLED WITH` in `Gemfile.lock`), or `bundle _<installed version>_ exec rake serve`.
