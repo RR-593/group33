@@ -48,18 +48,8 @@ section h2) and the image alt text.
 
   <section class="curation__section" aria-labelledby="funding-heading">
     <h2 id="funding-heading" class="curation__heading">Funding Bodies</h2>
-    <ul class="curation__funders" role="list">
-      <li class="curation__funder">
-        <a class="curation__funder-name" href="https://www.ndrp.org.au/">National Disability Research Partnership</a>
-        <span class="curation__funder-program">Disability Research Leadership Program (2026)</span>
-      </li>
-      <li class="curation__funder">
-        <span class="curation__funder-name">Australian Government</span>
-        <span class="curation__funder-program">Research Training Program Scholarship</span>
-      </li>
-    </ul>
-    <p class="curation__funding-note">This exhibition is funded by the National Disability Research
-    Partnership's Disability Research Leadership Program (2026). It is part of Hannah Vogel's PhD
+    <p>This exhibition is funded by the <a href="https://www.ndrp.org.au/">National Disability Research
+    Partnership</a>'s Disability Research Leadership Program (2026). It is part of Hannah Vogel's PhD
     project supported by the Commonwealth through an Australian Government Research Training
     Program Scholarship DOI: <a href="https://doi.org/10.82133/C42F-K220">https://doi.org/10.82133/C42F-K220</a>.</p>
   </section>
