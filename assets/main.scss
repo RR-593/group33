@@ -181,6 +181,8 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
     color: $muted-text;
   }
   &:focus-visible .artifact-keys { display: flex; }
+  // player keys under the photo: shown whenever the player is open, not only on focus
+  .artifact-audio-keys:not([hidden]) { display: flex; margin-top: 0.5rem; }
   .artifact-keys li { margin: 0; }
   .artifact-keys kbd + kbd { margin-left: 0.2rem; }
 
@@ -190,20 +192,20 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
   flex-wrap: wrap;
   gap: 1rem;
 
-  .artifact-images, .description { flex: 1 1 300px; }
+  .artifact-media, .description { flex: 1 1 300px; }
 
   // narrow screens: stack, with the name above the carousel.
   // display: contents lets the description's children join the card's flex row,
   // so the h2 can be moved first with order. The HTML order is unchanged.
   // 700px is where the two 300px columns no longer fit side by side.
   @media screen and (max-width: 700px) {
-    .artifact-images { flex-basis: 100%; }
+    .artifact-media { flex-basis: 100%; }
     .description { display: contents; }
     .description > * { flex-basis: 100%; margin-top: 0; margin-bottom: 0; }  // card's gap spaces them
     h2 { order: -1; }
   }
+  .artifact-media { min-width: 0; }  // lets Swiper size slides instead of stretching the row
   .artifact-images {
-    min-width: 0;            // lets Swiper size slides instead of stretching the row
     padding-bottom: 2rem;    // room for the dots below the caption
   }
   .swiper-pagination { bottom: 0; }
@@ -241,6 +243,60 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
   }
   .artifact-transcript h3 { font-size: $base-font-size * 1.125; }
 
+  // play button: icon only, play/pause swap
+  .artifact-actions .artifact-play { padding: 0.4rem 0.6rem; }
+  .artifact-play .icon-pause, .artifact-play.is-playing .icon-play { display: none; }
+  .artifact-play.is-playing .icon-pause { display: block; }
+
+  // player bar under the buttons; wipes open from the left, out of the play button
+  .artifact-player {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+    padding: 0.2rem 0.4rem;
+    color: #005fcc;
+    border: 2px solid #005fcc;
+    border-radius: 999px;
+
+    &[hidden] { display: none; }
+
+    button {
+      display: grid;
+      place-items: center;
+      flex: none;
+      width: 2.75rem;  // 44px targets
+      height: 2.75rem;
+      padding: 0;
+      color: inherit;
+      background: none;
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+
+      &:hover { background: #e8f0fb; }
+    }
+    svg { flex: none; }
+    input[type="range"] { accent-color: #005fcc; }
+    .player-seek { flex: 1; min-width: 3rem; }
+    .player-volume { width: 4.5rem; }
+    .player-time {
+      font-size: $small-font-size;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      color: $text-color;
+    }
+
+    // phones: no room, and phone volume buttons do the job (iOS ignores page volume anyway)
+    @media (max-width: 480px) {
+      .player-volume, .player-volume-icon { display: none; }
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .artifact-player:not([hidden]) { animation: player-open 0.35s ease-out; }
+  }
+
   // accession, material and details as a two-column table
   dl {
     display: grid;
@@ -248,4 +304,9 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
     gap: 0.25rem 1rem;
   }
   dd { margin: 0; }
+}
+
+@keyframes player-open {
+  from { opacity: 0; clip-path: inset(0 100% 0 0 round 999px); }
+  to { opacity: 1; clip-path: inset(0 round 999px); }
 }
