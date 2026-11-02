@@ -193,6 +193,9 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
   gap: 1rem;
 
   .artifact-media, .description { flex: 1 1 300px; }
+  // the open player bar must not decide the column's width, or the card stacks when it opens
+  // (Firefox's range sliders are especially wide by default)
+  .description { min-width: 0; }
 
   // narrow screens: stack, with the name above the carousel.
   // display: contents lets the description's children join the card's flex row,
@@ -225,7 +228,14 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
 
   // Read description and View in 3D: outlined pills, the same 44px height as the blue audio
   // control beside them. #005fcc (the focus blue) passes contrast on white
-  .artifact-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+  .artifact-actions {
+    container-type: inline-size;  // lets the player drop its time readout when the column is narrow
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
   .artifact-actions > button {
     display: inline-flex;
     align-items: center;
@@ -345,7 +355,8 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
     .player-seek {
       --p: 0%;
       flex: 1;
-      min-width: 3rem;
+      width: 0;  // no built-in slider width: it takes whatever room is left
+      min-width: 2rem;
       height: 1.5rem;
       margin: 0 0.5rem;
       background: none;
@@ -395,3 +406,7 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
   dd { margin: 0; }
 }
 
+// narrow column: the time readout goes; the seek bar still shows progress
+@container (max-width: 320px) {
+  .artifact-audio.is-open .player-time { display: none; }
+}
