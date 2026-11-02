@@ -14,8 +14,33 @@ permissions:
   contents: read
 
 jobs:
+  # Builds the site once, as pages.yml does, so the audit sees what visitors get. Both
+  # device audits below use this copy; they need Node but not Ruby or ImageMagick
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Prepare site
+        uses: ./.github/actions/prepare-site
+
+      - name: Build site
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build --destination "$RUNNER_TEMP/site/group33"
+
+      - name: Save built site
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: site
+          path: ${{ runner.temp }}/site
+          retention-days: 1  # only needed by the audits in this run
+
   audit-device:
     name: audit (${{ matrix.device }})
+    needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
@@ -29,19 +54,16 @@ jobs:
           - device: mobile
             min-performance: "80"
     steps:
-      - name: Check out repository
+      - name: Check out repository  # for the scripts in _scripts/
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      # same setup and build as pages.yml, so the audit sees what visitors get
-      - name: Prepare site
-        uses: ./.github/actions/prepare-site
 
       # site goes to $RUNNER_TEMP/site, served at http://127.0.0.1:4173/group33/;
       # reports collect in $RUNNER_TEMP/reports
-      - name: Build site
-        env:
-          JEKYLL_ENV: production
-        run: bundle exec jekyll build --destination "$RUNNER_TEMP/site/group33"
+      - name: Get built site
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: site
+          path: ${{ runner.temp }}/site
 
       - name: Serve site
         run: |
