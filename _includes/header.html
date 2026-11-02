@@ -4,10 +4,19 @@
     in _config.yml; a page can set a shorter `nav_title` in its front matter.
     Keyboard: the pill is one Tab stop; arrows, Home and End move between links,
     and number keys 1-9 open a link, only while focus is in the pill (WCAG 2.1.4).
+    Under 760px it becomes a top bar, in the same order as the HTML: a Menu button that
+    drops the same links down as a list (assets/js/site.js), the exhibition name, zoom.
+    Without JavaScript the links stay as the sideways-scrolling pill.
   {%- endcomment %}
   {%- assign key_count = site.header_pages.size | at_most: 9 %}
   <nav class="site-nav" aria-label="Primary">
-    <ul>
+    {%- comment -%} Lucide menu and x icons (see NOTICE.md) {%- endcomment %}
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" hidden>
+      {% include icon.html name="menu" class="icon-menu" size=20 %}
+      {% include icon.html name="x" class="icon-close" size=20 %}
+      Menu
+    </button>
+    <ul id="nav-links">
       {%- for path in site.header_pages %}
       {%- assign my_page = site.pages | where: "path", path | first %}
       <li><a href="{{ my_page.url | relative_url }}" aria-describedby="nav-hint"{% if forloop.index < 10 %} aria-keyshortcuts="{{ forloop.index }}"{% endif %}{% if my_page.url == page.url %} aria-current="page"{% endif %}>
@@ -24,6 +33,8 @@
       <span><kbd>Shift</kbd><kbd>↑</kbd> Back here from anywhere</span>
     </p>
   </nav>
+  {%- comment -%} phones only: the exhibition name in the top bar; the page's own heading names the page {%- endcomment %}
+  <p class="site-brand" aria-hidden="true">{{ site.title | split: ":" | first }}</p>
   {%- comment -%}
     Page zoom beside the pill: scales the whole page (CSS zoom), remembered across pages in
     localStorage and applied early in head.html. Icons: Lucide zoom-out and zoom-in (see NOTICE.md).

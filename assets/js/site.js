@@ -12,10 +12,35 @@ rove(start);
 // phones: the pill scrolls sideways, so bring the current page's link into view
 start.scrollIntoView({ block: 'nearest', inline: 'center' });
 
+// Phones (under 760px, set in _header.scss): the links fold into a list under the Menu
+// button. Esc, a click outside, or leaving the page closes it
+const toggle = nav.querySelector('.nav-toggle');
+toggle.hidden = false;
+nav.classList.add('has-menu');
+const openMenu = on => {
+  toggle.setAttribute('aria-expanded', on);
+  nav.classList.toggle('is-open', on);
+};
+const menuOpen = () => nav.classList.contains('is-open');
+toggle.addEventListener('click', () => openMenu(!menuOpen()));
+document.addEventListener('click', e => nav.contains(e.target) || openMenu(false));
+addEventListener('pageshow', () => openMenu(false));  // back button restores the page as it was left
+// Tab out of the open list closes it, so it never covers what has focus. relatedTarget is
+// null for clicks in Safari, which the click handler above covers
+nav.addEventListener('focusout', e => e.relatedTarget && !nav.contains(e.relatedTarget) && openMenu(false));
+// where focus goes for Shift+Up and back to top: the Menu button while the list is folded away
+const navFocus = () => (toggle.offsetParent && !menuOpen() ? toggle : nav.querySelector('a[tabindex="0"]'));
+
 nav.addEventListener('keydown', e => {
-  if (e.ctrlKey || e.metaKey || e.altKey) return;  // keep browser shortcuts
+  if (e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return;  // keep browser shortcuts and Shift+Up
+  if (e.key === 'Escape' && menuOpen()) {
+    openMenu(false);
+    toggle.focus();
+    return e.preventDefault();
+  }
   const i = links.indexOf(e.target), n = links.length;
-  const to = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: n - 1 }[e.key];
+  // left/right along the pill; up/down along the phone menu's list
+  const to = i < 0 ? undefined : { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: n - 1 }[e.key];
   const jump = nav.querySelector(`a[aria-keyshortcuts="${e.key}"]`);
   if (to !== undefined) {
     const a = links[(to + n) % n];  // wraps around at either end
@@ -30,7 +55,7 @@ nav.addEventListener('keydown', e => {
 document.addEventListener('keydown', e => {
   if (!e.shiftKey || e.key !== 'ArrowUp' || e.ctrlKey || e.metaKey || e.altKey) return;
   if (e.target.closest('input, textarea, select, [contenteditable]')) return;  // Shift+Up selects text there
-  nav.querySelector('a[tabindex="0"]').focus();
+  navFocus().focus();
   e.preventDefault();
 });
 
@@ -85,5 +110,5 @@ addEventListener('scroll', showBackToTop, { passive: true });
 showBackToTop();
 backToTop.addEventListener('click', () => {
   scrollTo({ top: 0, behavior: calm.matches ? 'auto' : 'smooth' });
-  nav.querySelector('a[tabindex="0"]').focus({ preventScroll: true });
+  navFocus().focus({ preventScroll: true });
 });
