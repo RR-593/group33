@@ -1,0 +1,19 @@
+{%- comment -%}
+  Section buttons, bottom right on every page: back to the top, previous section, next
+  section. Sections are the page's main headings and anything marked data-step, found by
+  assets/js/site.js, which also names each button after where it goes ("Next section:
+  About the exhibition") and shows that name beside it on hover or focus. Each step moves
+  focus to the section, so keyboard and screen reader users follow. Shift+Up also goes to
+  the top. At the end of the page so these are the last Tab stops; hidden without
+  JavaScript, or on a page with only one section.
+  Icons: Lucide arrow-up-to-line, chevron-up, chevron-down (see NOTICE.md).
+{%- endcomment %}
+<div class="steps" role="group" aria-label="Page sections" hidden>
+  <p class="steps__label" aria-hidden="true"></p>
+  <button type="button" class="steps__button steps__top" aria-label="Back to top" aria-keyshortcuts="Shift+ArrowUp">
+    {%- include icon.html name="arrow-up-to-line" -%}
+    <span class="steps__keys" aria-hidden="true"><kbd>Shift</kbd><kbd>↑</kbd></span>
+  </button>
+  <button type="button" class="steps__button steps__prev" aria-label="Previous section">{% include icon.html name="chevron-up" %}</button>
+  <button type="button" class="steps__button steps__next" aria-label="Next section">{% include icon.html name="chevron-down" %}</button>
+</div>

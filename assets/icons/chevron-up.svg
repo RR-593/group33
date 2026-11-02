@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <!-- Lucide "chevron-up" icon, v0.469.0 (see NOTICE.md). The symbol is what pages use, via
+       _includes/icon.html; the <use> below only draws it when this file is opened on its own. -->
+  <symbol id="icon" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol>
+  <use href="#icon" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
