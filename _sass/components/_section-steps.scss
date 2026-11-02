@@ -1,0 +1,80 @@
+@use "settings" as *;
+
+// Section buttons (_includes/section-steps.html): a slim vertical bar at the bottom
+// right of every page with top, previous and next. Where each one goes shows beside the
+// bar on hover or keyboard focus.
+
+.steps {
+  position: fixed;
+  right: $spacing * 0.5;
+  bottom: $spacing * 0.5;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 0.25rem;
+  background: $card;
+  border: 1px solid $grey-light;
+  border-radius: $radius;
+  box-shadow: 0 0.25rem 1rem rgba(31, 26, 23, 0.1);
+
+  &[hidden] { display: none; }
+}
+
+.steps__button {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;  // 44px target
+  height: 2.75rem;
+  padding: 0;
+  color: $text;
+  background: none;
+  border: 0;
+  border-radius: $radius-small;
+  cursor: pointer;
+
+  svg { width: 1.4rem; height: 1.4rem; }
+  &:hover { background: $surface; }
+  &:focus-visible { outline-offset: -3px; box-shadow: none; }
+
+  // at the first or last section: still focusable, but greyed and does nothing
+  &[aria-disabled="true"] { color: $grey; cursor: default; background: none; }
+}
+
+// back to top: only once the page is scrolled down about a screen
+.steps__top {
+  &:not(.is-shown) { display: none; }
+  border-bottom: 1px solid $grey-light;
+  border-radius: $radius-small $radius-small 0 0;
+}
+
+.steps__keys { display: none; }
+
+// where there is a mouse or trackpad (so most likely a keyboard), the Shift+Up hint
+// sits under the top arrow
+@media (hover: hover) and (pointer: fine) {
+  .steps__top.is-shown {
+    gap: 0.15rem;
+    height: auto;
+    padding: 0.45rem 0 0.4rem;
+  }
+  .steps__keys { display: flex; gap: 0.1rem; }
+  .steps__keys kbd { min-width: 0; padding: 0 0.25em; font-size: 0.6rem; line-height: 1.4; }
+}
+
+// "Next: About the exhibition", beside the button it belongs to
+.steps__label {
+  position: absolute;
+  right: calc(100% + 0.5rem);
+  margin: 0;
+  padding: 0.35rem 0.75rem;
+  font-size: $small-font-size;
+  font-weight: $bold;
+  white-space: nowrap;
+  color: $on-band;
+  background: $black;
+  border-radius: $radius-small;
+  pointer-events: none;
+  transform: translateY(-50%);
+
+  &:empty { display: none; }
+}

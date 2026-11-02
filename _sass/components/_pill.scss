@@ -1,6 +1,7 @@
 @use "settings" as *;
 
-// Round link-button in the strong fill colour: "Scroll to continue", "Explore", "Scroll for next shelf".
+// Link-button in the strong fill colour: the home page's "Explore" links and the kiosk
+// warning's button. pill--quiet is the outlined second choice beside one.
 
 .pill,
 a.pill,
@@ -12,15 +13,36 @@ a.pill:active {
 }
 
 .pill {
-  display: inline-block;
-  padding: 0.7rem 1.25rem;
-  background: $black;
-  border: 0;
-  border-radius: $pill;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-sizing: border-box;
+  min-height: 2.75rem;  // 44px target, padding and border included
+  padding: 0.6rem 1.25rem;
   font: inherit;
-  font-size: 0.9rem;
-  text-align: center;
+  font-size: 0.95rem;
+  font-weight: $bold;
+  background: $black;
+  border: 2px solid $black;
+  border-radius: $pill;
   cursor: pointer;
+  transition: background-color 0.15s;
 
   &:hover { background: color-mix(in srgb, #{$black} 80%, #000); }
+  svg { flex: none; }
+
+  @media (prefers-reduced-motion: reduce) { transition: none; }
+}
+
+.pill--quiet,
+a.pill--quiet,
+a.pill--quiet:visited,
+a.pill--quiet:hover,
+a.pill--quiet:active { color: $text; }
+
+.pill--quiet {
+  background: transparent;
+
+  &:hover { background: $surface; }
 }

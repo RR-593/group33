@@ -1,5 +1,5 @@
 // Runs on every page (a module, linked in _includes/head.html): the nav pill, page zoom and
-// back to top button. Their markup is in _includes/header.html and back-to-top.html.
+// section buttons. Their markup is in _includes/header.html and section-steps.html.
 
 // Nav pill: one Tab stop; arrows, Home and End move between links, and number keys
 // open a link, only while focus is in the pill (WCAG 2.1.4)
@@ -102,16 +102,85 @@ const sync = () => { level = stored(); show(); };
 document.addEventListener('prerenderingchange', sync);
 addEventListener('pageshow', e => e.persisted && sync());
 
-// Back to top: shown once the page is scrolled down about a screen. Scrolls up and moves
-// focus to the nav pill, so keyboard and screen reader users land there too
-const backToTop = document.querySelector('.back-to-top');
+// Section buttons: top, previous section and next section, bottom right. The sections are
+// the page's main headings plus anything marked data-step (a heading inside one of those
+// doesn't count twice). Each button is named after where it goes, and that name shows
+// beside it on hover or focus. Stepping moves focus to the section, so screen readers and
+// the next Tab continue from there
+const stepBar = document.querySelector('.steps');
+const [topButton, prevButton, nextButton] = ['.steps__top', '.steps__prev', '.steps__next'].map(s => stepBar.querySelector(s));
+const stepLabel = stepBar.querySelector('.steps__label');
 const calm = matchMedia('(prefers-reduced-motion: reduce)');
-const showBackToTop = () => backToTop.classList.toggle('is-shown', scrollY > innerHeight * 0.75);
-addEventListener('scroll', showBackToTop, { passive: true });
-showBackToTop();
-backToTop.addEventListener('click', goToTop);
+const sections = [...document.querySelectorAll('main h1, main h2, main [data-step]')]
+  .filter(el => !el.closest('dialog') && (el.matches('[data-step]') || !el.parentElement.closest('[data-step]')));
+
+// a section's name: its heading, without hidden parts such as the "01" section numbers
+const nameOf = el => {
+  const heading = el.matches('h1, h2, h3') ? el : el.querySelector('h1, h2, h3');
+  const copy = heading.cloneNode(true);
+  copy.querySelectorAll('[aria-hidden="true"], .visually-hidden').forEach(n => n.remove());
+  return copy.textContent.trim().replace(/\s+/g, ' ');
+};
+
+// where a section lands after scrolling to it: just below the sticky header
+const landing = () => parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 80;
+const atEnd = () => scrollY + innerHeight >= document.documentElement.scrollHeight - 2;
+const previous = () => sections.findLast(el => el.getBoundingClientRect().top < landing() - 8);
+// at the very top, a section already in the top part of the screen (the page title) is
+// where you are, not where Next should go
+const next = () => {
+  if (atEnd()) return null;
+  const after = Math.max(landing() + 8, scrollY < 1 ? innerHeight * 0.4 : 0);
+  return sections.find(el => el.getBoundingClientRect().top > after);
+};
+
+const label = (button, prefix, target) => {
+  button.setAttribute('aria-disabled', !target);
+  button.setAttribute('aria-label', target ? `${prefix} section: ${nameOf(target)}` : `No ${prefix.toLowerCase()} section`);
+  button.dataset.hint = target ? `${prefix}: ${nameOf(target)}` : '';
+};
+const updateSteps = () => {
+  topButton.classList.toggle('is-shown', scrollY > innerHeight * 0.75);
+  label(prevButton, 'Previous', previous());
+  label(nextButton, 'Next', next());
+};
+
+const goTo = el => {
+  el.scrollIntoView({ block: 'start', behavior: calm.matches ? 'auto' : 'smooth' });
+  if (!el.matches('a, button, [tabindex]')) el.tabIndex = -1;
+  el.focus({ preventScroll: true });
+};
 
 function goToTop() {
   scrollTo({ top: 0, behavior: calm.matches ? 'auto' : 'smooth' });
   navFocus().focus({ preventScroll: true });
+}
+
+if (sections.length > 1) {
+  stepBar.hidden = false;
+  let queued = false;
+  addEventListener('scroll', () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; updateSteps(); });
+  }, { passive: true });
+  addEventListener('resize', updateSteps);
+  updateSteps();
+
+  topButton.addEventListener('click', goToTop);
+  prevButton.addEventListener('click', () => { const el = previous(); if (el) goTo(el); });
+  nextButton.addEventListener('click', () => { const el = next(); if (el) goTo(el); });
+
+  // the destination beside the button under the pointer or keyboard focus
+  const hint = e => {
+    const button = e.target.closest('.steps__button');
+    stepLabel.textContent = button?.dataset.hint ?? '';
+    if (button) stepLabel.style.top = `${button.offsetTop + button.offsetHeight / 2}px`;
+  };
+  const unhint = () => { if (!stepBar.matches(':hover, :focus-within')) stepLabel.textContent = ''; };
+  stepBar.addEventListener('pointerover', hint);
+  stepBar.addEventListener('focusin', hint);
+  stepBar.addEventListener('pointerleave', unhint);
+  stepBar.addEventListener('focusout', () => requestAnimationFrame(unhint));
+  addEventListener('scroll', () => { if (stepLabel.textContent) stepLabel.textContent = ''; }, { passive: true });
 }

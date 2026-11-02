@@ -1,110 +1,54 @@
 @use "settings" as *;
 
-// One shelf on the home page (_includes/shelf-card.html), stacked on phones and
-// image beside text from 900px, alternating sides.
-
-.shelves {
-  display: grid;
-  gap: 1.25rem;
-  align-items: start;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
-}
+// One shelf on the home page (_includes/shelf-card.html), as a catalogue entry: photo and
+// text side by side from 800px, alternating sides, divided by thin rules.
 
 .shelf {
-  display: flex;
-  flex-direction: column;
-  padding: 1.25rem;
-  background: $card;
-  border: 1px solid $grey-light;
-  border-radius: $radius;
+  display: grid;
+  gap: 1.5rem 3.5rem;
+  align-items: center;
+  padding: 2.5rem 0;
+  border-top: 1px solid $grey-light;
+
+  &:first-child { padding-top: 0; border-top: 0; }
+
+  @media (min-width: 800px) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    &:nth-child(even) .shelf__figure { order: 2; }
+  }
 }
 
-.shelf__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
-.shelf__title { margin: 0; font-size: 1.1rem; font-weight: $bold; }
-.shelf__count { margin: 0; @include label; }
-
-.shelf__figure { margin: 1rem 0; }
+.shelf__figure { margin: 0; }
 
 .shelf__image {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 4 / 3;
-  object-fit: contain;
-  background: $card;
+  object-fit: cover;
+  background-size: cover;  // blur placeholder while the photo downloads
   border-radius: $radius;
 }
 
-.shelf__caption { margin-top: 0.6rem; font-size: 0.8rem; line-height: 1.5; }
-.shelf__intro { margin: 0 0 1rem; font-size: 0.9rem; line-height: 1.5; }
-
-.shelf__actions { display: flex; gap: 0.6rem; margin-bottom: 0.75rem; }
-.shelf__explore,
-.shelf__next {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 3rem;
-  padding-right: 3rem;
-  text-align: center;
-}
-.shelf__explore { flex: 1; }
-.shelf__chevron,
-.shelf__icon {
-  position: absolute;
-  top: 50%;
-  right: 1.25rem;
-  width: 1.25rem;
-  height: 1.25rem;
-  transform: translateY(-50%);
+.shelf__caption {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  color: $muted-text;
 }
 
-@media (min-width: 1000px) {
-  .shelf__next { display: none; }
+.shelf__count {
+  margin-bottom: 0.5rem;
+  @include label;
+  color: $accent;
 }
 
-@media (min-width: 900px) {
-  .shelves {
-    grid-template-columns: 1fr;
-    gap: 1.75rem;
-  }
+.shelf__title {
+  margin-bottom: 1rem;
+  font-size: clamp(1.75rem, 1.25rem + 1.5vw, 2.25rem);
+}
 
-  .shelf {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-    grid-template-rows: 1fr auto auto auto auto 1fr;
-    grid-template-areas:
-      ". fig"
-      "head fig"
-      "intro fig"
-      "actions fig"
-      "next fig"
-      ". fig";
-    column-gap: 2rem;
-    align-items: start;
-    padding: 1.5rem;
-
-    &:nth-child(even) {
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-      grid-template-areas:
-        "fig ."
-        "fig head"
-        "fig intro"
-        "fig actions"
-        "fig next"
-        "fig .";
-    }
-  }
-
-  .shelf__header { grid-area: head; margin-bottom: 1rem; }
-  .shelf__figure { grid-area: fig; margin: 0; }
-  .shelf__intro { grid-area: intro; }
-  .shelf__actions { grid-area: actions; }
-
-  .shelf__next { grid-area: next; display: flex; justify-self: stretch; }
+.shelf__intro {
+  max-width: 55ch;
+  margin-bottom: 1.5rem;
+  line-height: 1.65;
 }

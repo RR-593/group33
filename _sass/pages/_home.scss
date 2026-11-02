@@ -1,228 +1,165 @@
 @use "settings" as *;
 
-// Home page (_layouts/home.html): hero, Auslan video, overview and the dark shelf band.
+// Home page (_layouts/home.html), laid out like an exhibition catalogue: a hero with the
+// title and display photo, then numbered sections divided by heavy rules.
 
-// the home page runs edge to edge: its page column is made full width rather than the
-// exhibit breaking out of a narrow one. Breaking out left text lines straddling the
-// column's edge, which stops contrast checkers from measuring them
-body:has(.exhibit) {
+$home-width: 1120px;
+
+// the home page runs edge to edge; each section keeps its own centred column
+body:has(.home) {
   .page-content { padding: 0; }
   .page-content > .wrapper { max-width: none; padding: 0; }
 }
 
-.exhibit {
-  --curve: clamp(90px, 12vw, 180px);
-  color: $text;
-  background: $background;
-}
-
-.exhibit__inner {
-  max-width: 1100px;
+.home__inner {
+  max-width: $home-width;
   margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
+// Hero: text and photo side by side from 900px, stacked below that
 .hero {
-  --h: clamp(340px, 55vh, 520px);
-  --s: calc(var(--h) * 0.1);
-  position: relative;
-  min-height: var(--h);
-  display: flex;
-  flex-direction: column;
+  padding: clamp(2rem, 5vw, 4.5rem) 0 clamp(2.5rem, 6vw, 5rem);
+}
+
+.hero__inner {
+  display: grid;
+  gap: 2rem 4rem;
   align-items: center;
-  justify-content: center;
-  gap: 1.75rem;
-  padding: 2rem calc(var(--s) + 1.5rem);
-  background: $background;
-  overflow: hidden;
 
-  // the two black side lenses: real (empty, aria-hidden) elements rather than ::before and
-  // ::after, so contrast checkers can see they never sit behind the title
-  .hero__lens {
-    position: absolute;
-    top: -40.5%;
-    height: 181%;
-    width: calc(var(--s) * 12);
-    background: $black;
-    border-radius: 50%;
-  }
-  .hero__lens--start { left: calc(var(--s) * -11); }
-  .hero__lens--end { right: calc(var(--s) * -11); }
+  @media (min-width: 900px) { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+}
 
-  @media (min-width: 900px) {
-    --s: calc(var(--h) * 0.16);
-  }
+.hero__eyebrow {
+  margin-bottom: 1rem;
+  @include label;
+  color: $accent;
 }
 
 .hero__title {
-  margin: 0;
-  font-size: clamp(1.75rem, 1.2rem + 3vw, 2.5rem);
-  text-align: center;
+  max-width: 13ch;
+  margin-bottom: 1.25rem;
+  font-size: clamp(2.5rem, 1.25rem + 4.5vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
 }
 
-// "Scroll to continue" with its chevron icon beside the text
-.hero__scroll { display: inline-flex; align-items: center; gap: 0.35rem; }
-
-// display photo: under the title up to 900px, beside it from 900px. Never behind the
-// text, so the title sits on a solid background contrast checkers can measure
-.hero__figure {
-  position: relative;
-  z-index: 1;  // above the black side lenses
-  width: min(100%, 320px);
-  margin: 0;
+.hero__subtitle {
+  max-width: 40ch;
+  font-size: 1.25rem;
 }
+
+.hero__visit {
+  margin-bottom: 2rem;
+  padding-left: 1rem;
+  color: $muted-text;
+  border-left: 3px solid $accent;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.hero__figure { margin: 0; }
 
 .hero__image {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
   background-size: cover;  // blur placeholder while the photo downloads
   border-radius: $radius;
+
+  @media (min-width: 900px) { aspect-ratio: 4 / 4.4; }
 }
 
-.hero__caption { margin-top: 0.5rem; font-size: 0.8rem; line-height: 1.5; text-align: center; }
-
-.hero__subtitle {
-  margin: 0;
-  max-width: 40ch;
-  font-size: clamp(1rem, 2.4vw, 1.25rem);
-  font-weight: $bold;
-  line-height: 1.4;
-  text-align: center;
+.hero__caption {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  color: $muted-text;
 }
 
-.video {
-  padding: 0 1.5rem 2.5rem;
-  background: $background;
+// Numbered sections: a heavy rule, a small accent number, then the heading
+.home-section {
+  padding-bottom: clamp(2.5rem, 6vw, 5rem);
 }
 
-.video__inner {
-  max-width: 760px;
-  margin: 0 auto;
+.home-section__title {
+  margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
+  padding-top: 1.25rem;
+  border-top: 3px solid $text;
+  font-size: clamp(1.75rem, 1.2rem + 2vw, 2.75rem);
 }
 
-.video__frame {
-  aspect-ratio: 16 / 9;
+.home-section__index {
+  display: block;
+  margin-bottom: 0.5rem;
+  @include label;
+  color: $accent;
+}
+
+// About the exhibition: the overview beside the Auslan video from 900px
+.about {
+  display: grid;
+  gap: 2.5rem 4rem;
+  align-items: start;
+
+  @media (min-width: 900px) { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+}
+
+.about__text {
+  p { max-width: 62ch; margin-bottom: 1.1rem; font-size: 1.0625rem; line-height: 1.65; }
+  // the opening line reads as a standfirst
+  p:first-child { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); line-height: 1.4; }
+}
+
+.auslan {
+  padding: 1.25rem;
+  background: $card;
+  border: 1px solid $grey-light;
   border-radius: $radius;
+}
+
+.auslan__title {
+  margin-bottom: 0.75rem;
+  @include label;
+  color: $muted-text;
+}
+
+.auslan__frame {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
-  border: 2px solid $text;
-  background: $background;
+  background: $surface;
+  border-radius: $radius-small;
 
   video {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: contain;
-    background: #000;  // letterbox behind the video, in every look
+    background: #000;  // letterbox behind the video
   }
 }
 
-.video__empty {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.auslan__empty {
+  margin: 0;
   padding: 1rem;
+  color: $muted-text;
   text-align: center;
-  font-size: 0.95rem;
-
-  p { margin: 0; }
 }
 
-.video__transcript {
+.auslan__transcript {
   margin-top: 0.75rem;
-  font-size: 0.9rem;
 
   summary {
-    cursor: pointer;
-    font-weight: $bold;
     padding: 0.4rem 0;
+    font-weight: $bold;
+    cursor: pointer;
   }
-  p { line-height: 1.6; }
-}
-
-.overview {
-  position: relative;
-  z-index: 1;
-  padding: 1rem 1.5rem calc(var(--curve) + 2rem);
-  background: $background;
-  text-align: center;
-  font-size: clamp(0.95rem, 2vw, 1.15rem);
-  border-bottom-right-radius: 100% var(--curve);
-
-  p { max-width: 60ch; margin: 0 auto 1rem; }
-}
-
-.exhibit__dark {
-  position: relative;
-  margin-top: calc(var(--curve) * -1);
-  padding: calc(var(--curve) + 1.25rem) 1rem 3rem;
-  background: $black;
-}
-
-.exhibit__heading {
-  margin: 2rem 0.25rem;
-  color: $on-band;
-}
-
-@media (min-width: 500px) {
-  .hero {
-    --h: clamp(300px, 45vh, 440px);
-    align-items: flex-start;
-    justify-content: center;
-    gap: 1.5rem;
-    padding: 3rem clamp(1.5rem, 5vw, 4rem);
-    background: $black;
-    color: $on-band;
-
-    .hero__lens { display: none; }
-  }
-
-  .hero__figure { width: min(100%, 28rem); }
-  .hero__image { aspect-ratio: 4 / 3; object-position: center 40%; }
-  .hero__caption { text-align: left; }
-
-  .hero__title {
-    max-width: 14ch;
-    font-size: clamp(2.25rem, 1rem + 4vw, 3.75rem);
-    line-height: 1.1;
-    text-align: left;
-  }
-
-  .hero__subtitle { text-align: left; }
-
-  .video { padding-top: 2rem; }
-
-  @media (min-width: 900px) {
-    .hero { padding-right: calc(50% + 2rem); }
-    .hero__figure {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 50%;
-      display: flex;
-      flex-direction: column;
-    }
-    .hero__image { flex: 1; min-height: 0; height: auto; aspect-ratio: auto; border-radius: 0; }
-    .hero__caption {
-      margin: 0;
-      padding: 0.5rem 1rem;
-      text-align: right;
-      background: $black;  // solid strip under the photo
-    }
-  }
-
-  .hero .pill,
-  .hero a.pill,
-  .hero a.pill:visited,
-  .hero a.pill:hover,
-  .hero a.pill:active { color: $black; }
-
-  .hero .pill {
-    background: $on-band;
-
-    &:hover { text-decoration: underline; }
-  }
+  p { margin: 0.5rem 0 0; line-height: 1.6; }
 }

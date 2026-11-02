@@ -1,25 +1,22 @@
-{% assign s = include.shelf %}
-<section class="shelf" id="shelf-{{ include.number }}" aria-labelledby="shelf-{{ include.number }}-title">
-  <header class="shelf__header">
-    <h3 class="shelf__title" id="shelf-{{ include.number }}-title">{{ s.title | escape }}</h3>
-    <p class="shelf__count"><span class="visually-hidden">Shelf </span>{{ include.number }}/{{ include.total }}</p>
-  </header>
-
+{%- comment -%}
+  One shelf on the home page, as a catalogue entry: photo, "Shelf 1 of 3", name, the
+  curator's introduction and a link to its page. data-step makes it a stop for the
+  section buttons (_includes/section-steps.html).
+  Usage: include shelf-card.html shelf=shelf number=forloop.index total=forloop.length url=shelf_url
+{%- endcomment -%}
+{%- assign s = include.shelf %}
+<article class="shelf" id="shelf-{{ include.number }}" aria-labelledby="shelf-{{ include.number }}-title" data-step>
   <figure class="shelf__figure">
-    <img class="shelf__image" src="{{ s.image.url | relative_url | replace: ' ', '%20' }}" alt="{{ s.image.altText | escape }}" loading="lazy">
+    {% include responsive-image.html src=s.image.url alt=s.image.altText class="shelf__image" sizes="(min-width: 800px) 50vw, 100vw" %}
     <figcaption class="shelf__caption">{{ s.image.caption | escape }}</figcaption>
   </figure>
 
-  {% unless s.description == "TBC" %}
+  <div class="shelf__body">
+    <p class="shelf__count">Shelf {{ include.number }} of {{ include.total }}</p>
+    <h3 class="shelf__title" id="shelf-{{ include.number }}-title">{{ s.title | escape }}</h3>
+    {%- unless s.description == "TBC" %}
     <p class="shelf__intro">{{ s.description | escape }}</p>
-  {% endunless %}
-
-  <div class="shelf__actions">
-    <a class="pill shelf__explore" href="{{ include.url | relative_url }}">Explore<span class="visually-hidden"> {{ s.title | escape }}</span> <svg class="shelf__icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    {%- endunless %}
+    <a class="pill" href="{{ include.url | relative_url }}">Explore<span class="visually-hidden"> the {{ s.title | downcase | escape }}</span> {% include icon.html name="chevron-right" size=18 %}</a>
   </div>
-
-  {% if include.number < include.total %}
-    {% assign next = include.number | plus: 1 %}
-    <a class="pill shelf__next" href="#shelf-{{ next }}">Scroll for next shelf <svg class="shelf__chevron" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M5 9l7 7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-  {% endif %}
-</section>
+</article>
