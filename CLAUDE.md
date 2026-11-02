@@ -23,9 +23,4 @@ serves the repository as a project site under `/group33`.
 
 ## Conventions and boundaries
 
-Read `AGENTS.md` before changing content. Keep archaeological claims tied to
-evidence and keep rights records with media. Preserve `baseurl: "/group33"`,
-Ruby and dependency locks, action pins, licensing, native navigation controls,
-and keyboard-visible focus.
-Commits to `main` become public automatically; Lighthouse reports regressions
-but does not block the independent Pages deployment..
+Read `AGENTS.md` before changing content.

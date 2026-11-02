@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Disability Throughout Time
+title: "Disability Heritage: Archaeology with Difference"
 nav_title: Home
 permalink: /
 subtitle: ""
@@ -21,7 +21,7 @@ video:
   <section class="hero" aria-labelledby="hero-title">
     <span class="hero__lens hero__lens--start" aria-hidden="true"></span>
     <span class="hero__lens hero__lens--end" aria-hidden="true"></span>
-    <h1 class="hero__title" id="hero-title">Disability Throughout Time</h1>
+    <h1 class="hero__title" id="hero-title">{{ page.title }}</h1>
     {% if page.subtitle and page.subtitle != "" %}<p class="hero__subtitle">{{ page.subtitle | escape }}</p>{% endif %}
     <a class="pill hero__scroll" href="#video">Scroll to continue {% include icon.html name="chevron-down" size=18 %}</a>
     {% assign d = page.display_image %}
