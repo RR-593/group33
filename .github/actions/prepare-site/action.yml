@@ -1,7 +1,8 @@
 name: Prepare site
 description: >-
-  Install Ruby (version from .ruby-version) with cached gems and ImageMagick, then
-  make the resized photos and blur placeholders the build needs. Run after checkout.
+  Install Ruby (version from .ruby-version) with cached gems, then restore the resized
+  photos and blur placeholders from the Actions cache, or make them with ImageMagick
+  when a photo, the Rakefile or image_sizes has changed. Run after checkout.
 
 runs:
   using: composite
@@ -11,12 +12,27 @@ runs:
       with:
         bundler-cache: true
 
+    # Resized copies from earlier runs, kept by GitHub Actions (not in the repo; unused
+    # entries expire after 7 days). Saved automatically at the end of a job that missed.
+    # On a hit the steps below are skipped: rake would remake everything anyway, since a
+    # fresh checkout makes every original look newer than its copies.
+    - name: Restore resized photos
+      id: photos
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: |
+          assets/resized
+          _data/lqip.json
+        key: photos-${{ hashFiles('assets/images/**', 'Rakefile', '_config.yml') }}
+
     - name: Install ImageMagick
+      if: steps.photos.outputs.cache-hit != 'true'
       shell: bash
       run: |
         sudo apt-get update
         sudo apt-get install -y imagemagick
 
     - name: Make resized photos and placeholders
+      if: steps.photos.outputs.cache-hit != 'true'
       shell: bash
       run: bundle exec rake images

@@ -147,7 +147,7 @@ Add `obj3D: { url: <nira link>, altText: <object name> }` to object. Button appe
 | `rebase-check.yml` | PR | branch behind `main` or has merges → fail | red = rebase |
 | `lighthouse.yml` | PR + push | every page, desktop + mobile: 100 accessibility, best practices, SEO; performance ≥95 desktop, ≥80 mobile. Score table + audits that cost points (`_scripts/lighthouse-report.mjs`). axe-core WCAG 2.2 A/AA by criterion, component, page. Both in job summary + one PR comment. Reports saved as artifact | no. Read report anyway |
 
-`pages.yml` + `lighthouse.yml` share `.github/actions/prepare-site/`: Ruby (version from `.ruby-version`), ImageMagick, `rake images`. Change Ruby → edit `.ruby-version` only.
+`pages.yml` + `lighthouse.yml` share `.github/actions/prepare-site/`: Ruby (version from `.ruby-version`), then resized photos restored from the Actions cache, or ImageMagick + `rake images` when a photo, `Rakefile` or `_config.yml` changed. Change Ruby → edit `.ruby-version` only.
 
 Automated checks miss much; do PR template's manual checks too.
 
