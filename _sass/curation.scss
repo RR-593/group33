@@ -58,26 +58,41 @@
   background: var(--curation-placeholder);
 }
 
-/* --- Funding bodies: centred logos --- */
+/* --- Funding bodies: one card per funder, name then programme --- */
 .curation__funders {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
 }
 .curation__funder {
+  flex: 1 1 16rem;
+  max-width: 22rem;
   margin: 0;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: center;
+  border: 1px solid var(--curation-rule);
+  border-radius: 16px;
 }
-.curation__funder img {
-  display: block;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: contain;
-  background: var(--curation-placeholder);
+.curation__funder-name {
+  font-weight: 600;
+}
+.curation__funder-program {
+  color: var(--curation-muted);
+}
+.curation__funding-note {
+  margin: 1.5rem 0 0;
+  text-align: center;
+}
+
+.curation__bio-text p + p {
+  margin-top: 1rem;
 }
 
 /* --- Team: role / name pairs --- */
