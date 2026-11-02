@@ -12,6 +12,7 @@ before merge.
 | `pages/index.md` | Home. Text = exhibition overview. `display_image` in front matter (`url`, `altText`, `caption`) = photo beside title. Layout `_layouts/home.html`. |
 | `pages/shelves/*.md` | Front matter only. `shelf: top` → picks `_data/shelves/top.yml`. |
 | `_data/shelves/*.yml` | Shelf content. Objects, images, alt text, audio, 3D. One file per shelf. |
+| `_data/bio_pic.yml` | Curator portrait on Curation page: `url`, `altText`, `caption`. Photo in `assets/images/curator/`. |
 | `_data/licenses/*.yml` | Curation page licence tables. One file per row. `used_for: website` (sent to visitors) or `building` (team tools). |
 | `_data/schemas/*.schema.yml` | Rules for shelf + licence YAML (JSON Schema, in YAML). CI checks every file against them. |
 | `_data/lqip.json` | Tiny blur placeholders. Generated. Gitignored. |
@@ -25,7 +26,7 @@ before merge.
 | `assets/images/objects/<shelf>/<object>/` | Original object photos. Folder names lower-case with hyphens; file names as the curator supplied them. |
 | `assets/audio/` | Audio-visual description recordings (`.m4a`), one per object. |
 | `assets/resized/` | Generated photo sizes. Gitignored. |
-| `assets/images/placeholders/` | Stand-in photos until final ones land: home display photo, shelf headers, curator portrait. |
+| `assets/images/placeholders/` | Stand-in photos until final ones land: home display photo, shelf headers. |
 | `assets/fonts/` | Fonts, licence beside. |
 | `assets/icons/` | Lucide icons, one `.svg` per icon. Use in HTML: `{% include icon.html name="x" %}`. New icon → copy a file, swap drawing, list in `NOTICE.md`. |
 | `Rakefile` | `serve`, `build`, `images` tasks. `images` makes `assets/resized/` + `_data/lqip.json`. |

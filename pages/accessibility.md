@@ -6,7 +6,8 @@ description: How accessibility was incorporated into the website.
 ---
 
 {%- comment -%}
-Accessibility page (first draft), built from the Figma design.
+Accessibility page, built from the Figma design. The website section is copied word
+for word from docs/HannasMasterDoc.md (About page > Visitor information); change it there first.
 Styles live in _sass/pages/_accessibility.scss, scoped to .accessibility.
 The on-campus visitor details (location, hours) are marked to be confirmed.
 {%- endcomment -%}
@@ -15,31 +16,27 @@ The on-campus visitor details (location, hours) are marked to be confirmed.
 
   <section class="accessibility__section" aria-labelledby="web-heading">
     <h2 id="web-heading" class="accessibility__heading">Accessibility &ndash; Website</h2>
-    <p><em>Disability Heritage: Archaeology with Difference</em> is not only about
-    disability &mdash; it is for the disability community, and accessibility is
-    treated as part of the exhibition&rsquo;s heritage rather than an afterthought.
-    This website has been built so that everyone can explore the display, whatever
-    device, browser or assistive technology they use, and it aims to meet the Web
-    Content Accessibility Guidelines (WCAG) 2.2 at Level AA.</p>
+    <p>This website has considered accessibility throughout its development.
+    Targeted testing has ensured access to this exhibition site with a range of
+    devices, browsers and assistive technologies. It aims to meet the Web Content
+    Accessibility Guidelines (WCAG) 2.2 at Level AA.</p>
 
-    <p>Several deliberate choices support this. The site uses the Atkinson
-    Hyperlegible typeface &mdash; created by the Braille Institute to be easier to
-    read for people with low vision &mdash; and keeps to a simple, high-contrast
-    colour scheme of dark text on a light background with a single clear link
-    colour, so nothing relies on colour alone. The layout is clean and consistent
-    from page to page, with a logical heading structure and a single, predictable
-    reading order that reflows to fit desktop, tablet and mobile screens without
+    <p>Several features support accessibility, including the Atkinson Hyperlegible
+    typeface, created by the Braille Institute to be easier to read for people with
+    low vision. It includes a simple, high-contrast colour scheme of dark text on a
+    light background with a single clear link colour and sans-serif typefaces. The
+    layout is consistent across pages with a scaled heading structure and a single
+    reading order that reflows to fit desktop, tablet and mobile screens, without
     text breaking or overlapping.</p>
 
-    <p>Every link, menu and the 3D object viewer can be operated with a keyboard
-    alone, with a visible highlight showing where you are, and the site works with
-    screen readers through ordered headings, landmarks and meaningful descriptions
-    on every image and model. Audio is paired with captions and a full transcript,
-    3D artefacts can be rotated and zoomed from the keyboard and fall back to a
-    still image and description if a model cannot load, and the site respects your
-    device&rsquo;s reduced-motion and high-contrast settings. If you encounter a
-    barrier or need information in another format, please contact us and we will
-    do our best to help and to fix it.</p>
+    <p>All links, the Menu, and the 3D object viewers can be operated via the
+    keyboard with a visible highlight on selected sections. Testing and use by
+    screen readers have been enabled through ordered headings, landmarks and
+    meaningful descriptions on all assets. Other features include audio-visual
+    descriptions paired with captions and a full transcript, 3D models of the
+    objects can be rotated and zoomed from the keyboard. In case a model fails to
+    load a still image and description is available. The site will also respect your
+    device’s reduced-motion and high-contrast settings.</p>
   </section>
 
   <section class="accessibility__section" aria-labelledby="campus-heading">

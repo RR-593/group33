@@ -1,0 +1,11 @@
+# Rules for _data/bio_pic.yml, the curator portrait (JSON Schema, written in YAML).
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: bio_pic.schema.yml
+title: Curator portrait
+type: object
+required: [url, altText, caption]
+additionalProperties: false
+properties:
+  url: { type: string, pattern: "^assets/.+\\.jpe?g$" }   # repo path, no leading slash; JPEG so `rake images` resizes it
+  altText: { type: string, minLength: 1 }
+  caption: { type: string, minLength: 1 }   # carries the © credit

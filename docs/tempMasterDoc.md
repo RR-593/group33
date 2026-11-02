@@ -73,11 +73,9 @@ About Page
 
 Visitor Information and Accessibility  
 
-Website. still need to add   
+Website: 
 
-(students draft accessibility features developed for website)  
-
- 
+This website has considered accessibility throughout its development. Targeted testing has ensured access to this exhibition site with a range of devices, browsers and assistive technologies. It aims to meet the Web Content Accessibility Guidelines (WCAG) 2.2 at Level AA. Several features support accessibility, including the Atkinson Hyperlegible typeface, created by the Braille Institute to be easier to read for people with low vision. It includes a simple, high-contrast colour scheme of dark text on a light background with a single clear link colour and sans-serif typefaces. The layout is consistent across pages with a scaled heading structure and a single reading order that reflows to fit desktop, tablet and mobile screens, without text breaking or overlapping. All links, the Menu, and the 3D object viewers can be operated via the keyboard with a visible highlight on selected sections. Testing and use by screen readers have been enabled through ordered headings, landmarks and meaningful descriptions on all assets. Other features include audio-visual descriptions paired with captions and a full transcript, 3D models of the objects can be rotated and zoomed from the keyboard. In case a model fails to load a still image and description is available. The site will also respect your device’s reduced-motion and high-contrast settings.  
 
  
 
@@ -575,7 +573,7 @@ Material: Ceramic
 
 Dimensions: H: 200mm W: 95mm D: 47mm 
 
-Details: Mesopotamia, Greek seated figurine, c.3000 B.C.E. Purchased in 2003.  
+Details: Seated statuette Greek, c. 5th century BCE or Mesopotamia, c.3000 B.C.E. MU3735 Purchase, 2003  
 
  
 
