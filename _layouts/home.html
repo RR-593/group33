@@ -1,0 +1,67 @@
+---
+layout: default
+---
+{%- comment -%}
+  Home page: title and display photo, Auslan video, the page's own text as the
+  overview, then one card per shelf. Photo and video come from the page's front matter.
+{%- endcomment -%}
+<div class="exhibit">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <span class="hero__lens hero__lens--start" aria-hidden="true"></span>
+    <span class="hero__lens hero__lens--end" aria-hidden="true"></span>
+    <h1 class="hero__title" id="hero-title">{{ page.title }}</h1>
+    {%- if page.subtitle and page.subtitle != "" %}
+    <p class="hero__subtitle">{{ page.subtitle | escape }}</p>
+    {%- endif %}
+    <a class="pill hero__scroll" href="#video">Scroll to continue {% include icon.html name="chevron-down" size=18 %}</a>
+    {%- assign photo = page.display_image %}
+    {%- if photo.url %}
+    <figure class="hero__figure">
+      {% include responsive-image.html src=photo.url alt=photo.altText class="hero__image" sizes="(min-width: 500px) 100vw, 80vw" eager=true priority=true %}
+      <figcaption class="hero__caption">{{ photo.caption | escape }}</figcaption>
+    </figure>
+    {%- endif %}
+  </section>
+
+  {%- assign video = page.video %}
+  <section class="video" id="video" aria-label="Auslan video introduction">
+    <div class="video__inner">
+      <div class="video__frame">
+        {%- if video.src and video.src != "" %}
+        <video controls preload="metadata"{% if video.poster and video.poster != "" %} poster="{{ video.poster | relative_url }}"{% endif %}>
+          <source src="{{ video.src | relative_url }}" type="video/mp4">
+          {%- if video.captions and video.captions != "" %}
+          <track kind="captions" src="{{ video.captions | relative_url }}" srclang="en-AU" label="English captions" default>
+          {%- endif %}
+          Your browser cannot play this video. Please read the transcript below.
+        </video>
+        {%- else %}
+        <div class="video__empty"><p>Auslan video to be added.</p></div>
+        {%- endif %}
+      </div>
+      <details class="video__transcript">
+        <summary>Transcript</summary>
+        <p>{{ video.transcript }}</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="overview" id="overview" aria-label="Exhibition overview">
+    {{ content }}
+  </section>
+
+  <div class="exhibit__dark">
+    <div class="exhibit__inner">
+      <h2 class="exhibit__heading" id="display">Disability Throughout Time</h2>
+      <div class="shelves">
+        {%- for key in site.shelves %}
+        {%- assign shelf = site.data.shelves[key] %}
+        {%- assign shelf_url = '/shelves/' | append: key | append: '/' %}
+        {% include shelf-card.html shelf=shelf number=forloop.index total=forloop.length url=shelf_url %}
+        {%- endfor %}
+      </div>
+    </div>
+  </div>
+
+</div>

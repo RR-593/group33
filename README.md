@@ -9,14 +9,15 @@ before merge.
 | Path | What |
 |---|---|
 | `pages/` | Markdown pages. Home, about, curation, team, shelves. Students edit here. |
-| `pages/index.md` | Home. `display_image` in front matter (`url`, `altText`, `caption`) = photo behind title. |
+| `pages/index.md` | Home. Text = exhibition overview. `display_image` in front matter (`url`, `altText`, `caption`) = photo beside title. Layout `_layouts/home.html`. |
 | `pages/shelves/*.md` | Front matter only. `shelf: top` → picks `_data/shelves/top.json`. |
 | `_data/shelves/*.json` | Shelf content. Objects, images, alt text, audio, 3D. One file per shelf. |
 | `_data/schemas/shelf.schema.json` | Rules for shelf JSON. CI checks every shelf file against it. |
 | `_data/lqip.json` | Tiny blur placeholders. Generated. Gitignored. |
-| `_layouts/shelf.html` | One template → all shelf pages. Hero, card loop, 3D pop-up, card script. |
+| `_layouts/shelf.html` | One template → all shelf pages. Hero, card loop, 3D pop-up. |
 | `_includes/artifact-card.html` | One object card: carousel, key hints, audio player, captions, 3D button, details. |
-| `_layouts/`, `_includes/` | Shared HTML. Nav pill + zoom buttons (`header.html`), head, footer. |
+| `_layouts/`, `_includes/` | Shared HTML. Nav pill + zoom buttons (`header.html`), head, footer, `shelf-card.html` (home), `responsive-image.html` (resized photo + blur placeholder). |
+| `assets/js/` | `site.js` every page: nav keys, zoom, back to top. `shelf.js` shelf pages: carousel, audio player, 3D pop-up, card keys. |
 | `assets/css/main.scss` | Stylesheet entry. Lists every partial in load order. |
 | `_sass/` | Styles. `_settings.scss` colours/type/spacing; `base/` fonts + HTML elements; `layout/` header, page, footer; `components/` pills, cards, audio player, 3D pop-up; `pages/` one-page styles. |
 | `assets/exhibitionShelfs/<Shelf>/<Object>/` | Original object photos. |
@@ -29,7 +30,7 @@ before merge.
 | `_scripts/axe-report.mjs` | WCAG check run by Lighthouse workflow. |
 | `docs/HannasMasterDoc.md` | Curator master doc, tidied. Source of truth for exhibition text. |
 | `docs/tempMasterDoc.md` | Curator master doc, raw copy. Not published. |
-| `_config.yml` | Site title, `baseurl: "/group33"`, nav order (`header_pages`), `image_sizes`. |
+| `_config.yml` | Site title, `baseurl: "/group33"`, nav order (`header_pages`), shelf order (`shelves`), `image_sizes`. |
 | `CITATION.cff`, `pages/team.md` | Contributor names. Use names people give, no guessing from accounts. |
 
 ## Master doc layout
