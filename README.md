@@ -9,21 +9,23 @@ before merge.
 | Path | What |
 |---|---|
 | `pages/` | Markdown pages. Home, about, curation, team, shelves. Students edit here. |
+| `pages/index.md` | Home. `display_image` in front matter (`url`, `altText`, `caption`) = photo behind title. |
 | `pages/shelves/*.md` | Front matter only. `shelf: top` → picks `_data/shelves/top.json`. |
 | `_data/shelves/*.json` | Shelf content. Objects, images, alt text, audio, 3D. One file per shelf. |
 | `_data/schemas/shelf.schema.json` | Rules for shelf JSON. CI checks every shelf file against it. |
 | `_data/lqip.json` | Tiny blur placeholders. Generated. Gitignored. |
 | `_layouts/shelf.html` | One template → all shelf pages. Cards, carousel, audio, transcript, 3D pop-up. |
-| `_layouts/`, `_includes/` | Shared HTML. Nav, head, footer. |
+| `_layouts/`, `_includes/` | Shared HTML. Nav pill + zoom buttons (`header.html`), head, footer. |
 | `_sass/`, `assets/main.scss` | Styles. Vendored Minima (`_sass/minima/`) + `shelves.scss`, `curation.scss`, accessibility changes. |
 | `assets/exhibitionShelfs/<Shelf>/<Object>/` | Original object photos. |
 | `assets/audio/` | Audio-visual description recordings (`.m4a`), one per object. |
 | `assets/resized/` | Generated photo sizes. Gitignored. |
-| `assets/placeholders/` | Shelf headers + stand-in images until final photos land. |
+| `assets/placeholders/` | Stand-in photos until final ones land: home display photo, shelf headers. |
 | `assets/fonts/` | Fonts, licence beside. |
 | `Rakefile` | `serve`, `build`, `images` tasks. `images` makes `assets/resized/` + `_data/lqip.json`. |
 | `_scripts/axe-report.mjs` | WCAG check run by Lighthouse workflow. |
 | `docs/HannasMasterDoc.md` | Curator master doc, tidied. Source of truth for exhibition text. |
+| `docs/tempMasterDoc.md` | Curator master doc, raw copy. Not published. |
 | `_config.yml` | Site title, `baseurl: "/group33"`, nav order (`header_pages`), `image_sizes`. |
 | `CITATION.cff`, `pages/team.md` | Contributor names. Use names people give, no guessing from accounts. |
 
@@ -77,17 +79,20 @@ permitted use + required credit recorded: credit in caption, terms in
 
 ### Add object photo
 
-1. Drop `.jpg` in `assets/exhibitionShelfs/<Shelf>/<Object>/`.
+1. Drop `.jpg` in `assets/exhibitionShelfs/<Shelf>/<Object>/`. Stand-in photo → `assets/placeholders/`.
 2. Add `{ url, altText, caption }` to object `images` in shelf JSON. `altText` = what photo shows, for its purpose here. Caption carries © credit, e.g. `© Gale History Museum`.
 3. Run `bundle exec rake images` (or restart `rake serve`). Else photo 404 local.
 
-`rake images` makes 400, 800, 1600px copies (`image_sizes` in `_config.yml`)
+`rake images` covers both folders. Makes 400, 800, 1600px copies (`image_sizes` in `_config.yml`)
 in `assets/resized/` + blur placeholder in `_data/lqip.json`; up-to-date copies
 skipped. Both gitignored, rebuilt on deploy, never commit. Replace photo =
 overwrite same file name; newer original → copies remade. Old copy still
 showing (copied file kept old date) → delete its files in `assets/resized/`,
-run again. Rename or move photo → update `url` in shelf JSON too, else broken
-image.
+run again. Rename or move photo → update `url` in shelf JSON (home photo: `display_image`
+in `pages/index.md`) too, else broken image.
+
+`docs/` never published. Keep drafts + raw docs there, not repo root: root
+files without front matter get copied to live site as-is.
 
 ### Add audio
 
@@ -145,6 +150,7 @@ Check by hand on each shelf page:
 - Tab moves card to card. Focus ring visible.
 - In card: ←/→ images, Enter audio, T transcript, D 3D model, Esc close 3D.
 - Every image has alt text. Audio plays. Dimensions show `n/a` for 0.
+- Nav pill: one Tab stop, ←/→ move, 1–9 jump while focused. Zoom buttons beside it: page scales, level kept on next page.
 - Phone width: no side scroll.
 
 Bundler error `cannot load such file ... bundler-X/exe/bundle` → broken Bundler install. Run `gem install bundler -v X` (X from `BUNDLED WITH` in `Gemfile.lock`), or `bundle _<installed version>_ exec rake serve`.
