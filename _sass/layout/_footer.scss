@@ -5,7 +5,7 @@
 .site-footer {
   padding: $spacing 0;
   font-size: $small-font-size;
-  background: #f6f6f6;
+  background: $surface;
   border-top: 1px solid $grey-light;
 
   ul { margin: 0; list-style: none; }
@@ -20,8 +20,7 @@
 
 .footer-heading {
   margin-bottom: 0.5rem;
-  font-size: $font-size;
-  font-weight: $bold;
+  @include label;
 }
 
 .footer-acknowledgement,

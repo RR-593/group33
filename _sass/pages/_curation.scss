@@ -2,9 +2,6 @@
 
 // Curation & Acknowledgements page (pages/curation.md), scoped to .curation.
 
-$rule: #cfcfcf;          // section dividers (decorative)
-$placeholder: #e2e2e2;   // portrait fill until the photo loads (decorative)
-
 .curation {
   max-width: 48rem;
 }
@@ -13,7 +10,7 @@ $placeholder: #e2e2e2;   // portrait fill until the photo loads (decorative)
 .curation__section {
   margin: 2.5rem 0;
   padding-top: 2rem;
-  border-top: 1px solid $rule;
+  border-top: 1px solid $grey-light;
 }
 .curation__section:first-child {
   margin-top: 1rem;
@@ -56,7 +53,7 @@ $placeholder: #e2e2e2;   // portrait fill until the photo loads (decorative)
   aspect-ratio: 11 / 12;
   border-radius: $radius;
   object-fit: cover;
-  background: $placeholder center / cover no-repeat;
+  background: $surface center / cover no-repeat;
 }
 .curation__portrait-caption {
   margin-top: 0.5rem;
@@ -81,7 +78,7 @@ $placeholder: #e2e2e2;   // portrait fill until the photo loads (decorative)
   flex-direction: column;
   gap: 0.35rem;
   text-align: center;
-  border: 1px solid $rule;
+  border: 1px solid $grey-light;
   border-radius: $radius;
 }
 .curation__funder-name {
@@ -132,7 +129,7 @@ $placeholder: #e2e2e2;   // portrait fill until the photo loads (decorative)
   text-align: left;
   vertical-align: top;
   padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid $rule;
+  border-bottom: 1px solid $grey-light;
 }
 .curation__licenses th {
   font-weight: $bold;

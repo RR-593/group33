@@ -1,13 +1,13 @@
 @use "settings" as *;
 
-// Round black link-button: "Scroll to continue", "Explore", "Scroll for next shelf".
+// Round link-button in the strong fill colour: "Scroll to continue", "Explore", "Scroll for next shelf".
 
 .pill,
 a.pill,
 a.pill:visited,
 a.pill:hover,
 a.pill:active {
-  color: $white;
+  color: $on-band;
   text-decoration: none;
 }
 
@@ -16,11 +16,11 @@ a.pill:active {
   padding: 0.7rem 1.25rem;
   background: $black;
   border: 0;
-  border-radius: 999px;
+  border-radius: $pill;
   font: inherit;
   font-size: 0.9rem;
   text-align: center;
   cursor: pointer;
 
-  &:hover { background: #000; }
+  &:hover { background: color-mix(in srgb, #{$black} 80%, #000); }
 }
