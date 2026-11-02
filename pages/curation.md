@@ -10,7 +10,8 @@ Curation & Acknowledgements page (first draft).
 Styles live in _sass/curation.scss, scoped to .curation.
 Bio and funding text are copied word for word from docs/HannasMasterDoc.md
 (About page > Curator, Funding); change them there first. Replace the placeholder
-portrait and licence links where marked. Keep the heading order (page h1 ->
+portrait where marked. Licences: add a row when the site gains a font, library,
+icon set or tool; NOTICE.md holds the full terms for what ships. Keep the heading order (page h1 ->
 section h2) and the image alt text.
 {%- endcomment -%}
 
@@ -109,19 +110,129 @@ section h2) and the image alt text.
         </thead>
         <tbody>
           <tr>
-            <td>Atkinson Hyperlegible</td>
-            <td>Braille Institute</td>
-            <td>SIL Open Font License</td>
-            <!-- Add the licence and author links for this font. -->
-            <td class="curation__todo">Link to be added</td>
-            <td class="curation__todo">Link to be added</td>
+            <th scope="colgroup" colspan="5" class="curation__group">On the website</th>
           </tr>
           <tr>
-            <td>Minima (site template)</td>
+            <td>Atkinson Hyperlegible (site font)</td>
+            <td>Braille Institute of America, files from Fontsource v5.3.0</td>
+            <td>SIL Open Font License 1.1</td>
+            <td><a href="https://openfontlicense.org/open-font-license-official-text/">openfontlicense.org</a></td>
+            <td><a href="https://www.brailleinstitute.org/freefont/">brailleinstitute.org/freefont</a></td>
+          </tr>
+          <tr>
+            <td>Minima 2.5.2 (site template)</td>
             <td>Joel Glovier &amp; contributors</td>
             <td>MIT License</td>
-            <td><a href="https://github.com/jekyll/minima/tree/v2.5.2">github.com/jekyll/minima</a></td>
-            <td class="curation__todo">Link to be added</td>
+            <td><a href="https://github.com/jekyll/minima/blob/v2.5.2/LICENSE.txt">Minima LICENSE.txt</a></td>
+            <td><a href="https://github.com/jekyll/minima">github.com/jekyll/minima</a></td>
+          </tr>
+          <tr>
+            <td>Lucide 0.469.0 icons (3D, close, audio player, zoom)</td>
+            <td>Lucide Contributors; portions Cole Bemis (Feather)</td>
+            <td>ISC License</td>
+            <td><a href="https://lucide.dev/license">lucide.dev/license</a></td>
+            <td><a href="https://lucide.dev">lucide.dev</a></td>
+          </tr>
+          <tr>
+            <td>Swiper 11.2.10 (image carousels)</td>
+            <td>Vladimir Kharlampidi</td>
+            <td>MIT License</td>
+            <td><a href="https://github.com/nolimits4web/swiper/blob/master/LICENSE">Swiper LICENSE</a></td>
+            <td><a href="https://swiperjs.com">swiperjs.com</a></td>
+          </tr>
+          <tr>
+            <th scope="colgroup" colspan="5" class="curation__group">Building and checking the site (not sent to visitors)</th>
+          </tr>
+          <tr>
+            <td>Jekyll 4.4.1 (site builder)</td>
+            <td>Jekyll contributors</td>
+            <td>MIT License</td>
+            <td><a href="https://github.com/jekyll/jekyll/blob/master/LICENSE">Jekyll LICENSE</a></td>
+            <td><a href="https://jekyllrb.com">jekyllrb.com</a></td>
+          </tr>
+          <tr>
+            <td>jekyll-feed 0.17 (news feed)</td>
+            <td>Jekyll contributors</td>
+            <td>MIT License</td>
+            <td><a href="https://github.com/jekyll/jekyll-feed/blob/master/LICENSE.txt">jekyll-feed LICENSE.txt</a></td>
+            <td><a href="https://github.com/jekyll/jekyll-feed">github.com/jekyll/jekyll-feed</a></td>
+          </tr>
+          <tr>
+            <td>jekyll-seo-tag 2.9 (page metadata)</td>
+            <td>Jekyll contributors</td>
+            <td>MIT License</td>
+            <td><a href="https://github.com/jekyll/jekyll-seo-tag/blob/master/LICENSE.txt">jekyll-seo-tag LICENSE.txt</a></td>
+            <td><a href="https://github.com/jekyll/jekyll-seo-tag">github.com/jekyll/jekyll-seo-tag</a></td>
+          </tr>
+          <tr>
+            <td>Rake 13 (project tasks)</td>
+            <td>Jim Weirich &amp; Ruby contributors</td>
+            <td>MIT License</td>
+            <td><a href="https://github.com/ruby/rake/blob/master/MIT-LICENSE">Rake MIT-LICENSE</a></td>
+            <td><a href="https://github.com/ruby/rake">github.com/ruby/rake</a></td>
+          </tr>
+          <tr>
+            <td>ImageMagick (resized photos)</td>
+            <td>ImageMagick Studio LLC</td>
+            <td>ImageMagick License</td>
+            <td><a href="https://imagemagick.org/license/">imagemagick.org/license</a></td>
+            <td><a href="https://imagemagick.org">imagemagick.org</a></td>
+          </tr>
+          <tr>
+            <td>axe-core 4.14.0 (WCAG check)</td>
+            <td>Deque Systems</td>
+            <td>Mozilla Public License 2.0</td>
+            <td><a href="https://github.com/dequelabs/axe-core/blob/develop/LICENSE">axe-core LICENSE</a></td>
+            <td><a href="https://www.deque.com/axe/">deque.com/axe</a></td>
+          </tr>
+          <tr>
+            <td>Puppeteer 25.13.0 (browser for the WCAG check)</td>
+            <td>Google LLC</td>
+            <td>Apache License 2.0</td>
+            <td><a href="https://github.com/puppeteer/puppeteer/blob/main/LICENSE">Puppeteer LICENSE</a></td>
+            <td><a href="https://pptr.dev">pptr.dev</a></td>
+          </tr>
+          <tr>
+            <td>Lighthouse (site audits)</td>
+            <td>Google LLC</td>
+            <td>Apache License 2.0</td>
+            <td><a href="https://github.com/GoogleChrome/lighthouse/blob/main/LICENSE">Lighthouse LICENSE</a></td>
+            <td><a href="https://github.com/GoogleChrome/lighthouse">github.com/GoogleChrome/lighthouse</a></td>
+          </tr>
+          <tr>
+            <td>lighthouse-check-action 12.0.1 (runs Lighthouse)</td>
+            <td>Foo (foo-software)</td>
+            <td>MIT License</td>
+            <td><a href="https://github.com/foo-software/lighthouse-check-action/blob/master/LICENSE">lighthouse-check-action LICENSE</a></td>
+            <td><a href="https://github.com/foo-software/lighthouse-check-action">github.com/foo-software/lighthouse-check-action</a></td>
+          </tr>
+          <tr>
+            <td>lighthouse-check-status-action 3.0.1 (Lighthouse pass marks)</td>
+            <td>Foo (foo-software)</td>
+            <td>ISC License (stated in package.json; no licence file)</td>
+            <td><a href="https://github.com/foo-software/lighthouse-check-status-action/blob/master/package.json">package.json</a></td>
+            <td><a href="https://github.com/foo-software/lighthouse-check-status-action">github.com/foo-software/lighthouse-check-status-action</a></td>
+          </tr>
+          <tr>
+            <td>check-jsonschema 0.38.2 (shelf data check)</td>
+            <td>Stephen Rosen</td>
+            <td>Apache License 2.0</td>
+            <td><a href="https://github.com/python-jsonschema/check-jsonschema/blob/main/LICENSE">check-jsonschema LICENSE</a></td>
+            <td><a href="https://github.com/python-jsonschema/check-jsonschema">github.com/python-jsonschema/check-jsonschema</a></td>
+          </tr>
+          <tr>
+            <td>GitHub Actions: checkout, setup-node, upload-artifact, configure-pages, upload-pages-artifact, deploy-pages</td>
+            <td>GitHub, Inc.</td>
+            <td>MIT License</td>
+            <td><a href="https://github.com/actions/checkout/blob/main/LICENSE">checkout LICENSE (same for each)</a></td>
+            <td><a href="https://github.com/actions">github.com/actions</a></td>
+          </tr>
+          <tr>
+            <td>setup-ruby (GitHub Action)</td>
+            <td>Ruby contributors</td>
+            <td>MIT License</td>
+            <td><a href="https://github.com/ruby/setup-ruby/blob/master/LICENSE">setup-ruby LICENSE</a></td>
+            <td><a href="https://github.com/ruby/setup-ruby">github.com/ruby/setup-ruby</a></td>
           </tr>
         </tbody>
       </table>
