@@ -14,7 +14,8 @@ before merge.
 | `_data/shelves/*.json` | Shelf content. Objects, images, alt text, audio, 3D. One file per shelf. |
 | `_data/schemas/shelf.schema.json` | Rules for shelf JSON. CI checks every shelf file against it. |
 | `_data/lqip.json` | Tiny blur placeholders. Generated. Gitignored. |
-| `_layouts/shelf.html` | One template → all shelf pages. Cards, carousel, audio, transcript, 3D pop-up. |
+| `_layouts/shelf.html` | One template → all shelf pages. Hero, card loop, 3D pop-up, card script. |
+| `_includes/artifact-card.html` | One object card: carousel, key hints, audio player, captions, 3D button, details. |
 | `_layouts/`, `_includes/` | Shared HTML. Nav pill + zoom buttons (`header.html`), head, footer. |
 | `_sass/`, `assets/main.scss` | Styles. Vendored Minima (`_sass/minima/`) + `shelves.scss`, `curation.scss`, accessibility changes. |
 | `assets/exhibitionShelfs/<Shelf>/<Object>/` | Original object photos. |
