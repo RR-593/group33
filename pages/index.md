@@ -4,6 +4,11 @@ title: Disability Throughout Time
 nav_title: Home
 permalink: /
 subtitle: ""
+# display photo behind the title; wording from docs/HannasMasterDoc.md, Home page > Display image
+display_image:
+  url: "assets/placeholders/Placeholder1_HomePageFullDisplay.jpeg"
+  altText: "A photograph of the Disability Heritage: Archaeology with Difference display. There is a tall glass cabinet with three shelves and a panel to the left. The panel features the overview text, an iPad with this website, a QR code to this website and several tactile models of the objects in the glass case."
+  caption: "Photograph (Placeholder) of the display at the Gale History Museum © Hannah Vogel and Gale History Museum"
 video:
   src: ""
   poster: ""
@@ -17,6 +22,21 @@ video:
     <h1 class="hero__title" id="hero-title">Disability Throughout Time</h1>
     {% if page.subtitle and page.subtitle != "" %}<p class="hero__subtitle">{{ page.subtitle | escape }}</p>{% endif %}
     <a class="pill" href="#video">Scroll to continue <span aria-hidden="true">&#8964;</span></a>
+    {% assign d = page.display_image %}
+    {% if d.url %}
+      {% comment %} resized copies and blur placeholder from `rake images`, as on shelf pages {% endcomment %}
+      {% assign ext = d.url | split: "." | last %}
+      {% assign base_len = d.url.size | minus: ext.size | minus: 1 %}
+      {% assign base = d.url | slice: 0, base_len | replace_first: "assets/", "assets/resized/" | relative_url | replace: " ", "%20" %}
+      <figure class="hero__figure">
+        <img class="hero__image" src="{{ base }}-{{ site.image_sizes | last }}.jpg"
+             srcset="{% for w in site.image_sizes %}{{ base }}-{{ w }}.jpg {{ w }}w{% unless forloop.last %}, {% endunless %}{% endfor %}"
+             sizes="(min-width: 500px) 100vw, 80vw"
+             style="background-image: url('{{ site.data.lqip[d.url] }}')"
+             alt="{{ d.altText | escape }}" fetchpriority="high">
+        <figcaption class="hero__caption">{{ d.caption | escape }}</figcaption>
+      </figure>
+    {% endif %}
   </section>
 
   {% assign v = page.video %}
