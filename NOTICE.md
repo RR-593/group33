@@ -15,7 +15,8 @@ was removed.
 Icons from [Lucide](https://lucide.dev) v0.469.0 are kept one per file in
 `assets/icons/` and drawn by `_includes/icon.html`: `rotate-3d` (View in 3D), `x`
 (close buttons), the audio description player's `play`, `pause`, `volume-2`,
-`volume-x` and `captions`, and the page zoom buttons' `zoom-out` and `zoom-in`.
+`volume-x` and `captions`, the page zoom buttons' `zoom-out` and `zoom-in`, and the back to top button's
+`arrow-up`.
 Lucide is distributed under the ISC License:
 
 > Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2022 as part

@@ -192,7 +192,7 @@ layout: default
 
       // shortcuts work only while the card itself has focus (WCAG 2.1.4)
       card.addEventListener('keydown', e => {
-        if (e.target !== card || e.ctrlKey || e.metaKey || e.altKey) return;  // keep browser shortcuts
+        if (e.target !== card || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return;  // keep browser shortcuts and Shift+Up (to the nav)
         const key = e.key.toLowerCase();
         if (key === 'arrowleft') swiper.slidePrev();
         else if (key === 'arrowright') swiper.slideNext();

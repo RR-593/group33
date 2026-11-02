@@ -1,0 +1,20 @@
+{%- comment -%}
+  Round "back to top" button, bottom right, shown once the page is scrolled down about a
+  screen. It scrolls to the top and moves focus to the nav pill, so keyboard and screen
+  reader users land there too. At the end of the page so it is the last Tab stop.
+  Icon: Lucide arrow-up (see NOTICE.md).
+{%- endcomment %}
+<button type="button" class="back-to-top" aria-label="Back to top">{% include icon.html name="arrow-up" %}</button>
+<script>
+  (() => {
+    const button = document.querySelector('.back-to-top');
+    const calm = matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => button.classList.toggle('is-shown', scrollY > innerHeight * 0.75);
+    addEventListener('scroll', update, { passive: true });
+    update();
+    button.addEventListener('click', () => {
+      scrollTo({ top: 0, behavior: calm.matches ? 'auto' : 'smooth' });
+      document.querySelector('.site-nav a[tabindex="0"]').focus({ preventScroll: true });
+    });
+  })();
+</script>
