@@ -19,7 +19,7 @@ layout: default
 
 <div class="artifacts-box">
   {%- for artifact in shelf.artifacts %}
-  {%- include artifact-card.html artifact=artifact %}
+  {%- include artifact-card.html artifact=artifact first=forloop.first %}
   {%- endfor %}
 </div>
 

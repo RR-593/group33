@@ -4,7 +4,7 @@
   Used by _layouts/shelf.html once per object in the shelf's JSON; assets/js/shelf.js
   wires up the carousel, player and keys.
 
-  Usage, inside a loop over shelf.artifacts: include artifact-card.html artifact=artifact
+  Usage, inside a loop over shelf.artifacts: include artifact-card.html artifact=artifact first=forloop.first
 {%- endcomment -%}
 {%- assign artifact = include.artifact %}
 {%- assign meta = artifact.metaDescription %}
@@ -24,8 +24,13 @@
     <div class="swiper-wrapper">
       {%- for image in artifact.images %}
       <figure class="swiper-slide">
-        {%- comment -%} the first slide is visible on load, so only later slides wait {%- endcomment %}
-        {% include responsive-image.html src=image.url alt=image.altText sizes="(max-width: 800px) 100vw, 400px" eager=forloop.first %}
+        {%- comment -%}
+          Only the first card's cover loads at once; every other photo waits until it is
+          near the screen, so it doesn't compete with the shelf header photo on slow phones
+        {%- endcomment %}
+        {%- assign eager = false %}
+        {%- if include.first and forloop.first %}{% assign eager = true %}{% endif %}
+        {% include responsive-image.html src=image.url alt=image.altText sizes="(max-width: 800px) 100vw, 400px" eager=eager %}
         <figcaption>{{ image.caption | escape }}</figcaption>
       </figure>
       {%- endfor %}

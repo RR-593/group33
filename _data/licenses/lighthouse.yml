@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=../schemas/license.schema.yml
-name: Lighthouse
+name: Lighthouse 13.5.0
 use: site audits
 used_for: building
 licence:
