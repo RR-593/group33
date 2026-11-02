@@ -8,8 +8,10 @@ permalink: /curation/
 {%- comment -%}
 Curation & Acknowledgements page (first draft).
 Styles live in _sass/curation.scss, scoped to .curation.
-Replace the placeholder bio text, portrait, funder logos and licence links where
-marked. Keep the heading order (page h1 -> section h2) and the image alt text.
+Bio and funding text are copied word for word from docs/HannasMasterDoc.md
+(About page > Curator, Funding); change them there first. Replace the placeholder
+portrait and licence links where marked. Keep the heading order (page h1 ->
+section h2) and the image alt text.
 {%- endcomment -%}
 
 <div class="curation">
@@ -18,8 +20,19 @@ marked. Keep the heading order (page h1 -> section h2) and the image alt text.
     <h2 id="bio-heading" class="curation__heading curation__heading--start">Curator Bio</h2>
     <div class="curation__bio">
       <div class="curation__bio-text">
-        <p>Placeholder biography. Replace this with the curator's bio — who they
-        are, their background, and their role in the exhibition.</p>
+        <p>Hannah Vogel is an archaeologist, teaching academic, and PhD candidate researcher
+        in the School of Humanities, Macquarie University (Sydney, Australia). As a leading
+        researcher on ableism and disability, she combines archaeological scholarship with
+        advocacy and experience in museums, public outreach, accessibility, and inclusive
+        pedagogies. Her work has helped shape the emerging field of archaeological
+        disability studies.</p>
+        <p>Her recent books include <cite>Disability in Ancient Egypt and Egyptology</cite>
+        (Routledge, 2024) and <cite>Disability Activism in and Out of the Academy</cite> (2026).
+        She has been recognised an emerging research leader of the inaugural National
+        Disability Leadership Program by the National Disability Research Partnership.</p>
+        <p>Check out her <a href="https://researchers.mq.edu.au/en/persons/hannah-vogel/">Macquaire
+        University Profile</a> or <a href="https://hvogel.org/">Website (hvogel.org)</a> for
+        more information about her projects, research, outreach and advocacy.</p>
       </div>
       <figure class="curation__bio-figure">
         <!-- Replace src with the curator's photo. Then write alt text describing
@@ -36,19 +49,18 @@ marked. Keep the heading order (page h1 -> section h2) and the image alt text.
     <h2 id="funding-heading" class="curation__heading">Funding Bodies</h2>
     <ul class="curation__funders" role="list">
       <li class="curation__funder">
-        <!-- Replace src with the funder's logo and set alt to the funder's name. -->
-        <img src="{{ '/assets/placeholders/placeholder-logo.svg' | relative_url }}"
-             alt="Funding body logo (placeholder)" width="120" height="120">
+        <a class="curation__funder-name" href="https://www.ndrp.org.au/">National Disability Research Partnership</a>
+        <span class="curation__funder-program">Disability Research Leadership Program (2026)</span>
       </li>
       <li class="curation__funder">
-        <img src="{{ '/assets/placeholders/placeholder-logo.svg' | relative_url }}"
-             alt="Funding body logo (placeholder)" width="120" height="120">
-      </li>
-      <li class="curation__funder">
-        <img src="{{ '/assets/placeholders/placeholder-logo.svg' | relative_url }}"
-             alt="Funding body logo (placeholder)" width="120" height="120">
+        <span class="curation__funder-name">Australian Government</span>
+        <span class="curation__funder-program">Research Training Program Scholarship</span>
       </li>
     </ul>
+    <p class="curation__funding-note">This exhibition is funded by the National Disability Research
+    Partnership's Disability Research Leadership Program (2026). It is part of Hannah Vogel's PhD
+    project supported by the Commonwealth through an Australian Government Research Training
+    Program Scholarship DOI: <a href="https://doi.org/10.82133/C42F-K220">https://doi.org/10.82133/C42F-K220</a>.</p>
   </section>
 
   <section class="curation__section" aria-labelledby="team-heading">
