@@ -144,25 +144,11 @@ section h2) and the image alt text.
             <th scope="colgroup" colspan="5" class="curation__group">Building and checking the site (not sent to visitors)</th>
           </tr>
           <tr>
-            <td>Jekyll 4.4.1 (site builder)</td>
+            <td>Jekyll 4.4.1 with jekyll-feed and jekyll-seo-tag (site builder, news feed, page metadata)</td>
             <td>Jekyll contributors</td>
             <td>MIT License</td>
-            <td><a href="https://github.com/jekyll/jekyll/blob/master/LICENSE">Jekyll LICENSE</a></td>
+            <td><a href="https://github.com/jekyll/jekyll/blob/master/LICENSE">Jekyll LICENSE</a> (same for both plugins)</td>
             <td><a href="https://jekyllrb.com">jekyllrb.com</a></td>
-          </tr>
-          <tr>
-            <td>jekyll-feed 0.17 (news feed)</td>
-            <td>Jekyll contributors</td>
-            <td>MIT License</td>
-            <td><a href="https://github.com/jekyll/jekyll-feed/blob/master/LICENSE.txt">jekyll-feed LICENSE.txt</a></td>
-            <td><a href="https://github.com/jekyll/jekyll-feed">github.com/jekyll/jekyll-feed</a></td>
-          </tr>
-          <tr>
-            <td>jekyll-seo-tag 2.9 (page metadata)</td>
-            <td>Jekyll contributors</td>
-            <td>MIT License</td>
-            <td><a href="https://github.com/jekyll/jekyll-seo-tag/blob/master/LICENSE.txt">jekyll-seo-tag LICENSE.txt</a></td>
-            <td><a href="https://github.com/jekyll/jekyll-seo-tag">github.com/jekyll/jekyll-seo-tag</a></td>
           </tr>
           <tr>
             <td>Rake 13 (project tasks)</td>
