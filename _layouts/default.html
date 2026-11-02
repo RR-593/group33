@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+<html lang="{{ page.lang | default: site.lang | default: "en" }}" data-home="{{ '/' | relative_url }}" data-kiosk-idle="{{ site.kiosk.idle_seconds }}" data-kiosk-warning="{{ site.kiosk.warning_seconds }}">
 
   {%- include head.html -%}
 

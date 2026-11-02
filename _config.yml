@@ -26,6 +26,13 @@ header_pages:
 # Shelf order on the home page and /shelves/; each key matches _data/shelves/<key>.yml
 shelves: [top, middle, bottom]
 
+# Gallery tablet mode (assets/js/kiosk.js): off until a device opens the site with
+# ?kiosk=on and confirms. Then, after idle_seconds with no touch or key, a warning
+# gives warning_seconds to stay before the site goes back to the home page.
+kiosk:
+  idle_seconds: 120
+  warning_seconds: 20
+
 # Widths (px) of the resized photo copies used by shelf pages. Read by
 # the Rakefile (`rake images`) and _layouts/shelf.html; the largest is the fallback src.
 # After changing, restart `bundle exec rake serve` (it makes the new sizes first).

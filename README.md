@@ -192,6 +192,32 @@ Adding or replacing a photo or audio file works the same way: open its folder un
 shelf file. Record who owns it and how it may be used in the caption first (see
 [Workflows](#workflows)).
 
+## Gallery tablet mode
+
+For the tablet beside the display case. In this mode, when nobody has touched the tablet
+for 2 minutes, a message asks "Are you still there?" and counts down 20 seconds. Tapping
+**I'm still here** keeps the page; otherwise the site goes back to the home page, at the
+top, with zoom reset, ready for the next visitor. A playing audio description counts as
+someone using it.
+
+It is off on every device until you turn it on, so visitors can't switch it on by
+accident:
+
+1. On the tablet, open <https://rr-593.github.io/group33/?kiosk=on>.
+2. A message asks whether to turn on gallery tablet mode. Tap **OK**.
+3. The address goes back to normal and the mode stays on for that browser, even after
+   restarting it. Other devices are not affected.
+
+To turn it off, open <https://rr-593.github.io/group33/?kiosk=off> on that tablet.
+Clearing the browser's website data also turns it off.
+
+Change the timings under `kiosk:` in `_config.yml` (`idle_seconds`, `warning_seconds`).
+Keep the warning at 20 seconds or more, so people have time to respond (WCAG 2.2.1). The
+code is `assets/js/kiosk.js`.
+
+Touches inside the 3D model viewer happen in Nira's own frame, which the site can't
+see, so someone turning a model for 2 minutes gets the warning; one tap keeps the page.
+
 ## Master doc layout
 
 `docs/HannasMasterDoc.md`. Exhibition text copied word for word from curator. `TBC` = curator not supplied yet.
