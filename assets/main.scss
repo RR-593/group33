@@ -302,9 +302,12 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
     }
     .artifact-play:hover .artifact-play-icon { transform: scale(1.06); }
 
-    .player-seek, .player-time, .player-volume, .player-close { display: none; }
+    .player-seek, .player-time, .player-volume, .player-captions, .player-close { display: none; }
     .icon-pause, .icon-muted { display: none; }
-    .player-volume-btn svg, .player-close svg { width: 1.25rem; height: 1.25rem; }
+    .player-volume-btn svg, .player-captions svg, .player-close svg { width: 1.25rem; height: 1.25rem; }
+    // captions on: icon flips to blue on a white disc, so "on" isn't shown by colour alone
+    .player-captions[aria-pressed="true"],
+    .player-captions[aria-pressed="true"]:hover { color: #005fcc; background: #fff; }
 
     // volume: a white card dropping down under the speaker, with an upright slider
     .player-volume { position: relative; }
@@ -378,7 +381,7 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
     .artifact-play-label { display: none; }
     .player-time { display: block; }
     .player-seek { display: block; }
-    .player-volume, .player-close { display: inline-flex; }
+    .player-volume, .player-captions, .player-close { display: inline-flex; }
   }
   .artifact-play.is-playing .icon-play, .player-volume-btn.is-muted .icon-volume { display: none; }
   .artifact-play.is-playing .icon-pause, .player-volume-btn.is-muted .icon-muted { display: block; }
