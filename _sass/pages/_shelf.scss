@@ -14,7 +14,7 @@
     height: 30vh;
     min-height: 240px;
     object-fit: cover;
-    background: #333;  // dark frame while the photo downloads
+    background: #333 center / cover no-repeat;  // dark frame, then the blur placeholder, while the photo downloads
   }
 
   h1 {
