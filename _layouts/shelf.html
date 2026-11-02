@@ -96,7 +96,7 @@ layout: default
           so without JavaScript nobody loses them; the script swaps them on start.
           The blue "Audio description" button grows into the player bar in place: its play icon
           becomes the bar's play/pause, then seek, time and mute follow.
-          Icons: Lucide play, pause, volume-2, volume-x (ISC, see NOTICE.md).
+          Icons: Lucide play, pause, volume-2, volume-x, x (ISC, see NOTICE.md).
         {%- endcomment %}
         <div class="artifact-actions">
           {%- if has_audio %}
@@ -110,9 +110,19 @@ layout: default
             </button>
             <input class="player-seek" type="range" min="0" max="0" step="any" value="0" aria-label="Position" tabindex="-1">
             <span class="player-time" aria-hidden="true">0:00 / 0:00</span>
-            <button type="button" class="player-mute" aria-label="Mute" aria-pressed="false" tabindex="-1">
+            {%- comment -%} speaker opens a volume slider below it; shows the muted speaker at zero {%- endcomment %}
+            <span class="player-volume">
+              <button type="button" class="player-volume-btn" aria-label="Volume" aria-expanded="false"
+                      aria-controls="volume-{{ slug }}" tabindex="-1">
               <svg class="icon-volume" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg>
               <svg class="icon-muted" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><line x1="22" x2="16" y1="9" y2="15"/><line x1="16" x2="22" y1="9" y2="15"/></svg>
+              </button>
+              <span class="player-volume-pop" id="volume-{{ slug }}" hidden>
+                <input class="player-volume-slider" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume" tabindex="-1">
+              </span>
+            </span>
+            <button type="button" class="player-close" aria-label="Close player" tabindex="-1">
+              <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
           </div>
           {%- endif %}
@@ -207,7 +217,9 @@ layout: default
       const play = bar.querySelector('.artifact-play');
       const keyList = card.querySelector('.artifact-audio-keys');
       const seek = bar.querySelector('.player-seek');
-      const mute = bar.querySelector('.player-mute');
+      const volumeBtn = bar.querySelector('.player-volume-btn');
+      const volumePop = bar.querySelector('.player-volume-pop');
+      const volume = bar.querySelector('.player-volume-slider');
       const time = bar.querySelector('.player-time');
       audio.controls = false;
       audio.hidden = true;
@@ -218,23 +230,34 @@ layout: default
       // the pill slides out sideways from the button's width to the full row (and back);
       // with reduced motion it just switches
       const calm = matchMedia('(prefers-reduced-motion: reduce)');
+      const showVolume = on => {
+        volumePop.hidden = !on;
+        volumeBtn.setAttribute('aria-expanded', on);
+      };
       const open = on => {
-        if (!on) audio.pause();
+        if (!on) { audio.pause(); showVolume(false); }
         if (isOpen() === on) return;
         const from = `${bar.offsetWidth}px`;
         bar.classList.toggle('is-open', on);
         keyList.hidden = !on;
         if (calm.matches) return;
-        // open: to the row's full width; close: to the button's own width
+        // open: to the row's full width; close: to the button's own width. Controls are
+        // clipped only while it moves, so the volume pop-up can hang below the bar after
         const to = on ? '100%' : `${bar.offsetWidth}px`;
-        bar.animate({ width: [from, to] }, { duration: 350, easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)' });
+        bar.style.overflow = 'hidden';
+        bar.animate({ width: [from, to] }, { duration: 350, easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)' })
+          .finished.finally(() => bar.style.overflow = '');
       };
       const playPause = () => {
         open(true);
         audio.paused ? audio.play() : audio.pause();
       };
       const skip = s => audio.currentTime = Math.min(Math.max(audio.currentTime + s, 0), audio.duration || 0);
-      const louder = v => audio.volume = Math.min(Math.max(Math.round((audio.volume + v) * 10) / 10, 0), 1);
+      const setVolume = v => {
+        audio.volume = Math.min(Math.max(v, 0), 1);
+        audio.muted = false;
+      };
+      const louder = v => setVolume(Math.round(((audio.muted ? 0 : audio.volume) + v) * 10) / 10);
 
       const showTime = () => {
         seek.max = audio.duration || 0;
@@ -251,17 +274,24 @@ layout: default
       audio.addEventListener('loadedmetadata', showTime);
       audio.addEventListener('play', showPlaying);
       audio.addEventListener('pause', showPlaying);
+      // muted, or turned all the way down, both show the muted speaker
       audio.addEventListener('volumechange', () => {
-        mute.setAttribute('aria-pressed', audio.muted);
-        mute.setAttribute('aria-label', audio.muted ? 'Unmute' : 'Mute');
+        const level = audio.muted ? 0 : audio.volume;
+        volume.value = level;
+        volume.style.setProperty('--p', `${level * 100}%`);
+        volumeBtn.classList.toggle('is-muted', level === 0);
+        volumeBtn.setAttribute('aria-label', `Volume ${level === 0 ? 'muted' : `${Math.round(level * 100)}%`}`);
       });
       seek.addEventListener('input', () => audio.currentTime = seek.value);
+      volume.addEventListener('input', () => setVolume(Number(volume.value)));
       play.addEventListener('click', playPause);
-      mute.addEventListener('click', () => audio.muted = !audio.muted);
+      volumeBtn.addEventListener('click', () => showVolume(volumePop.hidden));
+      bar.querySelector('.player-close').addEventListener('click', () => open(false));
+      document.addEventListener('click', e => volumePop.hidden || volumeBtn.parentElement.contains(e.target) || showVolume(false));
 
       return {
         playPause, isOpen,
-        keys: { arrowup: () => louder(0.1), arrowdown: () => louder(-0.1), j: () => skip(-10), l: () => skip(10), m: () => mute.click(), escape: () => open(false) },
+        keys: { arrowup: () => louder(0.1), arrowdown: () => louder(-0.1), j: () => skip(-10), l: () => skip(10), m: () => audio.muted = !audio.muted, escape: () => open(false) },
       };
     };
 

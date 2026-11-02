@@ -14,7 +14,7 @@ was removed.
 
 The "View in 3D" button on shelf pages uses the `rotate-3d` icon, and the 3D pop-up's close button the `x` icon, from
 [Lucide](https://lucide.dev) v0.469.0, inlined in `_layouts/shelf.html`, as are the
-audio description player's `play`, `pause`, `volume-2` and `volume-x` icons. The page zoom
+audio description player's `play`, `pause`, `volume-2`, `volume-x` and `x` icons. The page zoom
 buttons beside the navigation bar use Lucide's `zoom-out` and `zoom-in` icons,
 inlined in `_includes/header.html`.
 Lucide is distributed under the ISC License:
