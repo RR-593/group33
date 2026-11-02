@@ -40,7 +40,7 @@ section h2) and the image alt text.
              the person for its purpose here, e.g. alt="Dr Jane Doe, curator".
              Leave alt="" only while this remains a decorative placeholder. -->
         <img class="curation__portrait"
-             src="{{ '/assets/placeholders/placeholder-portrait.svg' | relative_url }}"
+             src="{{ '/assets/images/placeholders/placeholder-portrait.svg' | relative_url }}"
              alt="" width="240" height="240">
       </figure>
     </div>
