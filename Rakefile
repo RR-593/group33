@@ -7,8 +7,8 @@ require "json"
 require "tmpdir"
 require "yaml"
 
-# object photos, and the placeholder photos (home page display photo, shelf headers)
-PHOTOS = %w[assets/exhibitionShelfs assets/placeholders]
+# object photos and the placeholder photos (home page display photo, shelf headers)
+PHOTOS = %w[assets/images]
 
 task default: :serve
 

@@ -7,7 +7,7 @@ permalink: /
 subtitle: ""
 # display photo beside the title; wording from docs/HannasMasterDoc.md, Home page > Display image
 display_image:
-  url: "assets/placeholders/Placeholder1_HomePageFullDisplay.jpeg"
+  url: "assets/images/placeholders/Placeholder1_HomePageFullDisplay.jpeg"
   altText: "A photograph of the Disability Heritage: Archaeology with Difference display. There is a tall glass cabinet with three shelves and a panel to the left. The panel features the overview text, an iPad with this website, a QR code to this website and several tactile models of the objects in the glass case."
   caption: "Photograph (Placeholder) of the display at the Gale History Museum © Hannah Vogel and Gale History Museum"
 video:

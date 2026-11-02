@@ -20,10 +20,10 @@ before merge.
 | `assets/js/` | `site.js` every page: nav keys, zoom, back to top. `shelf.js` shelf pages: carousel, audio player, 3D pop-up, card keys. |
 | `assets/css/main.scss` | Stylesheet entry. Lists every partial in load order. |
 | `_sass/` | Styles. `_settings.scss` colours/type/spacing; `base/` fonts + HTML elements; `layout/` header, page, footer; `components/` pills, cards, audio player, 3D pop-up; `pages/` one-page styles. |
-| `assets/exhibitionShelfs/<Shelf>/<Object>/` | Original object photos. |
+| `assets/images/objects/<shelf>/<object>/` | Original object photos. Folder names lower-case with hyphens; file names as the curator supplied them. |
 | `assets/audio/` | Audio-visual description recordings (`.m4a`), one per object. |
 | `assets/resized/` | Generated photo sizes. Gitignored. |
-| `assets/placeholders/` | Stand-in photos until final ones land: home display photo, shelf headers. |
+| `assets/images/placeholders/` | Stand-in photos until final ones land: home display photo, shelf headers, curator portrait. |
 | `assets/fonts/` | Fonts, licence beside. |
 | `assets/icons/` | Lucide icons, one `.svg` per icon. Use in HTML: `{% include icon.html name="x" %}`. New icon → copy a file, swap drawing, list in `NOTICE.md`. |
 | `Rakefile` | `serve`, `build`, `images` tasks. `images` makes `assets/resized/` + `_data/lqip.json`. |
@@ -83,7 +83,7 @@ permitted use + required credit recorded: credit in caption, terms in
 
 ### Add object photo
 
-1. Drop `.jpg` in `assets/exhibitionShelfs/<Shelf>/<Object>/`. Stand-in photo → `assets/placeholders/`.
+1. Drop `.jpg` in `assets/images/objects/<shelf>/<object>/`. Stand-in photo → `assets/images/placeholders/`.
 2. Add `{ url, altText, caption }` to object `images` in shelf JSON. `altText` = what photo shows, for its purpose here. Caption carries © credit, e.g. `© Gale History Museum`.
 3. Run `bundle exec rake images` (or restart `rake serve`). Else photo 404 local.
 
