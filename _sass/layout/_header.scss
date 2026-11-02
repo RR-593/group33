@@ -1,6 +1,7 @@
 @use "settings" as *;
 
-// Sticky nav pill and the page zoom pill beside it (_includes/header.html).
+// Sticky nav pill and the page zoom pill beside it (_includes/header.html). On phones,
+// once site.js has run (.has-menu), they become a solid top bar with a Menu button.
 
 .site-header {
   position: sticky;
@@ -162,4 +163,101 @@
   text-align: center;
 
   @media (max-width: 599px) { display: none; }  // phones: room for the nav; buttons are enough
+}
+
+// phone-only parts, hidden on wider screens
+.site-brand,
+.nav-toggle { display: none; }
+
+// Phones: a solid bar across the top (Menu button, exhibition name, zoom), with the page
+// links dropping down under it as a list. Only with JavaScript (.has-menu); without it
+// the sideways-scrolling pill above stays
+@media (max-width: $nav-collapse) {
+  .site-header:has(.has-menu) {
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: $background;
+    border-bottom: 1px solid $grey-light;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    pointer-events: auto;
+
+    .site-brand {
+      display: block;
+      flex: 1;
+      min-width: 0;
+      margin: 0;
+      overflow: hidden;
+      font-weight: 700;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .zoom { padding: 0; border: 0; box-shadow: none; }
+  }
+
+  .site-nav.has-menu {
+    position: static;  // the list below lines up with the whole bar, not the button
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+
+    .nav-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      height: 2.75rem;  // 44px target
+      padding: 0 0.9rem 0 0.75rem;
+      font: inherit;
+      font-weight: 600;
+      color: $text;
+      background: none;
+      border: 1px solid $grey-light;
+      border-radius: 999px;
+      cursor: pointer;
+
+      &:hover { background: $grey-light; }
+      &[aria-expanded="true"] { background: $grey-light; }
+    }
+    // the icon shows what the button will do: open (menu) or close (x)
+    .icon-close,
+    .nav-toggle[aria-expanded="true"] .icon-menu { display: none; }
+    .nav-toggle[aria-expanded="true"] .icon-close { display: block; }
+
+    ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding: 0.5rem 1rem 1rem;
+      overflow: visible;
+      background: $background;
+      border-bottom: 1px solid $grey-light;
+      border-radius: 0;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12);
+      mask-image: none;
+      animation: none;
+    }
+    &.is-open ul { display: flex; }
+
+    a {
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      font-size: 1.05rem;
+    }
+
+    .nav-hint { display: none; }  // key hints are for the desktop pill
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .site-nav.is-open ul { animation: menu-drop 0.15s ease-out; }
+  }
+}
+
+@keyframes menu-drop {
+  from { opacity: 0; transform: translateY(-0.25rem); }
 }
