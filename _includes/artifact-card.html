@@ -1,0 +1,154 @@
+{%- comment -%}
+  One artifact card: photo carousel and its key hints on one side; name, description,
+  audio description player, View in 3D and details on the other. Stacks on narrow screens.
+  Used by _layouts/shelf.html once per object in the shelf's JSON; the script there
+  wires up the carousel, player and keys.
+
+  Usage, inside a loop over shelf.artifacts: include artifact-card.html artifact=artifact
+{%- endcomment -%}
+{%- assign artifact = include.artifact %}
+{%- assign meta = artifact.metaDescription %}
+{%- assign slug = meta.name | slugify %}
+{%- assign has_audio = false %}
+{%- if artifact.audioDescription.url != "TBC" %}{% assign has_audio = true %}{% endif %}
+{%- comment -%}
+  The card is the only Tab stop. Controls inside are skipped by Tab (tabindex="-1")
+  but stay usable by mouse, screen reader and the card's shortcut keys.
+{%- endcomment %}
+
+<article class="artifact" id="art-{{ slug }}" tabindex="0"
+         aria-labelledby="name-{{ slug }}" aria-describedby="keys-{{ slug }}{% if has_audio %} audio-keys-{{ slug }}{% endif %}">
+  <div class="artifact-media">
+  <div class="artifact-images swiper" role="group" aria-roledescription="carousel"
+       aria-label="Images of {{ meta.name | escape }}">
+    <div class="swiper-wrapper">
+      {%- for image in artifact.images %}
+      <figure class="swiper-slide">
+        {%- comment -%}
+          Resized copies come from `rake images` (Rakefile): assets/resized/<photo>-<width>.jpg for
+          each width in site.image_sizes, and a tiny placeholder from _data/lqip.json written
+          straight into the page, so it shows before any download. Spaces are encoded because
+          srcset splits on them. The first slide is visible on load, so only later slides wait.
+        {%- endcomment %}
+        {%- assign ext = image.url | split: "." | last %}
+        {%- assign base_len = image.url.size | minus: ext.size | minus: 1 %}
+        {%- assign base = image.url | slice: 0, base_len | replace_first: "assets/", "assets/resized/" | relative_url | replace: " ", "%20" %}
+        {%- capture srcset %}{% for w in site.image_sizes %}{{ base }}-{{ w }}.jpg {{ w }}w{% unless forloop.last %}, {% endunless %}{% endfor %}{% endcapture %}
+        <img src="{{ base }}-{{ site.image_sizes | last }}.jpg"
+             srcset="{{ srcset }}"
+             sizes="(max-width: 800px) 100vw, 400px"
+             style="background-image: url('{{ site.data.lqip[image.url] }}')"
+             alt="{{ image.altText | escape }}"{% unless forloop.first %} loading="lazy"{% endunless %}>
+        <figcaption>{{ image.caption | escape }}</figcaption>
+      </figure>
+      {%- endfor %}
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+  {%- comment -%}
+    Shortcut keys, shown under the photo while the card has keyboard focus.
+    Screen readers hear it through the card's aria-describedby.
+  {%- endcomment %}
+  <ul class="artifact-keys" id="keys-{{ slug }}">
+    <li><kbd>←</kbd><kbd>→</kbd> Images</li>
+    {%- if has_audio %}
+    <li><kbd>Enter</kbd> Play audio description</li>
+    {%- endif %}
+    <li><kbd>T</kbd> Captions (description text)</li>
+    {%- if artifact.obj3D %}
+    <li><kbd>D</kbd> 3D model</li>
+    {%- endif %}
+  </ul>
+  {%- if has_audio %}
+  {%- comment -%} player keys, under the photo while the player is open {%- endcomment %}
+  <ul class="artifact-keys artifact-audio-keys" id="audio-keys-{{ slug }}" hidden>
+    <li><kbd>Enter</kbd> Play / pause</li>
+    <li><kbd>↑</kbd><kbd>↓</kbd> Volume</li>
+    <li><kbd>J</kbd><kbd>L</kbd> Back / forward 10s</li>
+    <li><kbd>M</kbd> Mute</li>
+    <li><kbd>Esc</kbd> Close player</li>
+  </ul>
+  {%- endif %}
+  </div>
+
+  <div class="description">
+    <h2 id="name-{{ slug }}">{{ meta.name | escape }}</h2>
+    {%- unless artifact.description == "TBC" %}
+    <p>{{ artifact.description | escape }}</p>
+    {%- endunless %}
+
+    {%- comment -%}
+      Buttons skip Tab like everything inside the card (Enter, T and D are the keyboard route).
+      The audio control and text toggle start hidden and the text and native player visible,
+      so without JavaScript nobody loses them; the script swaps them on start.
+      The blue "Audio description" button grows into the player bar in place: its play icon
+      becomes the bar's play/pause, then seek, time and mute follow.
+      Icons: Lucide play, pause, volume-2, volume-x, captions, x (ISC, see NOTICE.md).
+    {%- endcomment %}
+    <div class="artifact-actions">
+      {%- if has_audio %}
+      <div class="artifact-audio" id="player-{{ slug }}" role="group" aria-label="Audio description player" hidden>
+        <button type="button" class="artifact-play" aria-label="Play audio description" tabindex="-1">
+          <span class="artifact-play-label" aria-hidden="true">Audio description</span>
+          <span class="artifact-play-icon" aria-hidden="true">
+          <svg class="icon-play" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+          <svg class="icon-pause" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg>
+          </span>
+        </button>
+        <input class="player-seek" type="range" min="0" max="0" step="any" value="0" aria-label="Position" tabindex="-1">
+        <span class="player-time" aria-hidden="true">0:00 / 0:00</span>
+        {%- comment -%} speaker opens a volume slider below it; shows the muted speaker at zero {%- endcomment %}
+        <span class="player-volume">
+          <button type="button" class="player-volume-btn" aria-label="Volume" aria-expanded="false"
+                  aria-controls="volume-{{ slug }}" tabindex="-1">
+          <svg class="icon-volume" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg>
+          <svg class="icon-muted" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><line x1="22" x2="16" y1="9" y2="15"/><line x1="16" x2="22" y1="9" y2="15"/></svg>
+          </button>
+          <span class="player-volume-pop" id="volume-{{ slug }}" hidden>
+            <input class="player-volume-slider" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume" tabindex="-1">
+          </span>
+        </span>
+        {%- comment -%} captions: swaps the details list for the description text (key T) {%- endcomment %}
+        <button type="button" class="artifact-transcript-toggle player-captions" aria-label="Captions" aria-pressed="false"
+                aria-controls="meta-{{ slug }} transcript-{{ slug }}" tabindex="-1" hidden>
+          <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="14" x="3" y="5" rx="2" ry="2"/><path d="M7 15h4M15 15h2M7 11h2M13 11h4"/></svg>
+        </button>
+        <button type="button" class="player-close" aria-label="Close player" tabindex="-1">
+          <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      {%- else %}
+      {%- comment -%} no recording, so no player: the text toggle stands on its own {%- endcomment %}
+      <button type="button" class="artifact-transcript-toggle" aria-pressed="false"
+              aria-controls="meta-{{ slug }} transcript-{{ slug }}" tabindex="-1" hidden>Read description</button>
+      {%- endif %}
+      {%- if artifact.obj3D %}
+      <button type="button" class="artifact-3d" tabindex="-1"
+              data-src="{{ artifact.obj3D.url }}" data-title="{{ artifact.obj3D.altText | escape }}">
+        {%- comment -%} Lucide "rotate-3d" icon, ISC licence (see NOTICE.md) {%- endcomment %}
+        <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.466 7.5C15.643 4.237 13.952 2 12 2 9.239 2 7 6.477 7 12s2.239 10 5 10c.342 0 .677-.069 1-.2"/><path d="m15.194 13.707 3.814 1.86-1.86 3.814"/><path d="M19 15.57c-1.804.885-4.274 1.43-7 1.43-5.523 0-10-2.239-10-5s4.477-5 10-5c4.838 0 8.873 1.718 9.8 4"/></svg>
+        View in 3D
+      </button>
+      {%- endif %}
+    </div>
+
+    <dl id="meta-{{ slug }}">
+      <dt>Accession number</dt><dd>{{ meta.accNo | escape }}</dd>
+      <dt>Material</dt><dd>{{ meta.material | escape }}</dd>
+      {%- comment -%} dimension is [H, W, D] in mm; 0 means not measured {%- endcomment %}
+      <dt>Dimensions</dt><dd>{% for d in meta.dimension %}{{ "HWD" | slice: forloop.index0 }}: {% if d == 0 %}n/a{% else %}{{ d }}mm{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}</dd>
+      <dt>Details</dt><dd>{{ meta.details | escape }}</dd>
+    </dl>
+
+    <div class="artifact-transcript" id="transcript-{{ slug }}">
+      <h3>Audio description</h3>
+      {%- if has_audio %}
+      <audio controls preload="none" tabindex="-1" src="{{ artifact.audioDescription.url | relative_url }}"></audio>
+      {%- endif %}
+      <p>{{ artifact.audioDescription.transcript | escape }}</p>
+    </div>
+
+  </div>
+</article>

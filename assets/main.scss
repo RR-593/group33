@@ -158,11 +158,12 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
 
 .shelf-credit { font-size: $small-font-size; margin-top: $spacing-unit * 0.25; }
 
-// artifact cards stacked top to bottom, 1rem apart
+// artifact cards (_includes/artifact-card.html) stacked top to bottom
 .artifacts-box {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
+  margin-top: $spacing-unit;
 }
 
 .artifact {
@@ -186,11 +187,19 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
   .artifact-keys li { margin: 0; }
   .artifact-keys kbd + kbd { margin-left: 0.2rem; }
 
-  // carousel beside the description; stacks on narrow screens
+  // the card: white panel, soft edge and shadow; carousel beside the description,
+  // stacking on narrow screens
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+
+  h2 { margin-top: 0; }
 
   .artifact-media, .description { flex: 1 1 300px; }
   // the open player bar must not decide the column's width, or the card stacks when it opens
@@ -200,8 +209,10 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
   // narrow screens: stack, with the name above the carousel.
   // display: contents lets the description's children join the card's flex row,
   // so the h2 can be moved first with order. The HTML order is unchanged.
-  // 700px is where the two 300px columns no longer fit side by side.
-  @media screen and (max-width: 700px) {
+  // 760px is where the two 300px columns plus the card's padding no longer fit side by side.
+  @media screen and (max-width: 760px) {
+    padding: 1rem;
+    gap: 1rem;
     .artifact-media { flex-basis: 100%; }
     .description { display: contents; }
     .description > * { flex-basis: 100%; margin-top: 0; margin-bottom: 0; }  // card's gap spaces them
@@ -219,6 +230,7 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
   // grey shows if even that hasn't arrived
   .swiper-slide img {
     aspect-ratio: 3 / 2;
+    border-radius: 12px;
     object-fit: contain;
     background-color: #eee;
     background-size: contain;
