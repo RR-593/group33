@@ -1,8 +1,14 @@
 ---
 layout: default
 ---
+{%- comment -%}
+  A content page: a small label (`eyebrow` in the page's front matter, or the exhibition
+  name), the large title, then the page's own text. Its h2 headings become numbered
+  sections (_sass/layout/_page.scss).
+{%- endcomment -%}
 <article>
   <header class="page-header">
+    <p class="eyebrow">{{ page.eyebrow | default: site.title | split: ":" | first | escape }}</p>
     <h1 class="page-title">{{ page.title | escape }}</h1>
   </header>
 

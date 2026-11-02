@@ -1,5 +1,6 @@
 ---
 layout: page
+eyebrow: About the exhibition  # small label above the title
 title: Curation & Acknowledgements
 nav_title: Curation
 permalink: /curation/

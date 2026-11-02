@@ -11,9 +11,9 @@ layout: default
 <div class="home">
 
   <section class="hero" aria-labelledby="hero-title">
-    <div class="home__inner hero__inner">
+    <div class="wrapper hero__inner">
       <div class="hero__text">
-        <p class="hero__eyebrow">Curated by Hannah Vogel</p>
+        <p class="eyebrow">Curated by Hannah Vogel</p>
         <h1 class="hero__title" id="hero-title">{{ page.title }}</h1>
         {%- if page.subtitle and page.subtitle != "" %}
         <p class="hero__subtitle">{{ page.subtitle | escape }}</p>
@@ -35,7 +35,7 @@ layout: default
   </section>
 
   <section class="home-section" id="about" aria-labelledby="about-title">
-    <div class="home__inner">
+    <div class="wrapper">
       <h2 class="home-section__title" id="about-title"><span class="home-section__index" aria-hidden="true">01</span>About the exhibition</h2>
       <div class="about">
         <div class="about__text">
@@ -68,7 +68,7 @@ layout: default
   </section>
 
   <section class="home-section" id="shelves" aria-labelledby="shelves-title">
-    <div class="home__inner">
+    <div class="wrapper">
       <h2 class="home-section__title" id="shelves-title"><span class="home-section__index" aria-hidden="true">02</span>Disability Throughout Time</h2>
       <div class="shelves">
         {%- for key in site.shelves %}

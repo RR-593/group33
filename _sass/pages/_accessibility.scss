@@ -1,23 +1,13 @@
-// Accessibility page (pages/accessibility.md), scoped to .accessibility.
-
-.accessibility {
-  max-width: 44rem;
-}
+// Accessibility page (pages/accessibility.md), scoped to .accessibility. Sections are
+// numbered and ruled by .page-body h2 (_sass/layout/_page.scss).
 
 .accessibility__section {
-  margin: 2.5rem 0;
-}
-.accessibility__section:first-child {
-  margin-top: 1rem;
-}
-
-.accessibility__heading {
-  margin: 0 0 1rem;
+  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
 }
 
 .accessibility p {
   margin: 0 0 1rem;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 .accessibility p:last-child {
   margin-bottom: 0;

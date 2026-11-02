@@ -41,8 +41,7 @@ $bold: 700;
 
 // layout
 $spacing: 30px;
-$content-width: 800px;
-$on-laptop: 800px;       // below this, narrower page padding and headings
+$content-width: 1120px;  // the page column on every page, gutters included
 $nav-collapse: 759px;    // at or below this, the nav pill becomes the phone top bar and menu
 
 // The one focus ring: an outline in the focus colour with a thin halo in the page colour
@@ -62,4 +61,27 @@ $nav-collapse: 759px;    // at or below this, the nav pill becomes the phone top
   font-weight: $bold;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+// The large title at the top of every page: the home hero, page headers, shelf headers
+@mixin display-title {
+  font-size: clamp(2.5rem, 1.25rem + 4vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+// A section heading, as in the catalogue: a heavy rule above, then the heading
+@mixin section-title {
+  margin: 0 0 clamp(1.25rem, 3vw, 2rem);
+  padding-top: 1.25rem;
+  border-top: 3px solid $text;
+  font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+}
+
+// The small accent label above a title or section heading: "01", "Shelf 1 of 3"
+@mixin section-index {
+  display: block;
+  margin-bottom: 0.75rem;
+  @include label;
+  color: $accent;
 }

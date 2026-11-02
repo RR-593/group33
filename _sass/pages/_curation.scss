@@ -2,24 +2,9 @@
 
 // Curation & Acknowledgements page (pages/curation.md), scoped to .curation.
 
-.curation {
-  max-width: 48rem;
-}
-
-// Sections divided by a thin rule, like the mockup
+// sections are numbered and ruled by .page-body h2 (_sass/layout/_page.scss)
 .curation__section {
-  margin: 2.5rem 0;
-  padding-top: 2rem;
-  border-top: 1px solid $grey-light;
-}
-.curation__section:first-child {
-  margin-top: 1rem;
-  padding-top: 0;
-  border-top: 0;
-}
-
-.curation__heading {
-  margin: 0 0 1.5rem;
+  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
 }
 
 // Curator bio: text beside portrait, stacking on small screens
@@ -92,16 +77,6 @@
   text-align: left;
   color: $muted-text;
   margin-bottom: 0.75rem;
-}
-.curation__licenses th,
-.curation__licenses td {
-  text-align: left;
-  vertical-align: top;
-  padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid $grey-light;
-}
-.curation__licenses th {
-  font-weight: $bold;
 }
 // long link texts break inside the cell instead of pushing the table sideways
 .curation__licenses a {
