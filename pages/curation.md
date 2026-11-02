@@ -96,133 +96,105 @@ section h2) and the image alt text.
 
   <section class="curation__section" aria-labelledby="licenses-heading">
     <h2 id="licenses-heading" class="curation__heading">Software &amp; Asset Licenses &amp; Acknowledgements</h2>
-    <div class="curation__table-wrap">
-      <table class="curation__licenses">
-        <caption class="curation__caption">Licences and credits for software and assets used on this site.</caption>
-        <thead>
-          <tr>
-            <th scope="col">Asset</th>
-            <th scope="col">Source</th>
-            <th scope="col">Licence</th>
-            <th scope="col">Licence URL</th>
-            <th scope="col">Author / URL</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="colgroup" colspan="5" class="curation__group">On the website</th>
-          </tr>
-          <tr>
-            <td>Atkinson Hyperlegible (site font)</td>
-            <td>Braille Institute of America, files from Fontsource v5.3.0</td>
-            <td>SIL Open Font License 1.1</td>
-            <td><a href="https://openfontlicense.org/open-font-license-official-text/">openfontlicense.org</a></td>
-            <td><a href="https://www.brailleinstitute.org/freefont/">brailleinstitute.org/freefont</a></td>
-          </tr>
-          <tr>
-            <td>Minima 2.5.2 (site template)</td>
-            <td>Joel Glovier &amp; contributors</td>
-            <td>MIT License</td>
-            <td><a href="https://github.com/jekyll/minima/blob/v2.5.2/LICENSE.txt">Minima LICENSE.txt</a></td>
-            <td><a href="https://github.com/jekyll/minima">github.com/jekyll/minima</a></td>
-          </tr>
-          <tr>
-            <td>Lucide 0.469.0 icons (3D, close, audio player, zoom)</td>
-            <td>Lucide Contributors; portions Cole Bemis (Feather)</td>
-            <td>ISC License</td>
-            <td><a href="https://lucide.dev/license">lucide.dev/license</a></td>
-            <td><a href="https://lucide.dev">lucide.dev</a></td>
-          </tr>
-          <tr>
-            <td>Swiper 11.2.10 (image carousels)</td>
-            <td>Vladimir Kharlampidi</td>
-            <td>MIT License</td>
-            <td><a href="https://github.com/nolimits4web/swiper/blob/master/LICENSE">Swiper LICENSE</a></td>
-            <td><a href="https://swiperjs.com">swiperjs.com</a></td>
-          </tr>
-          <tr>
-            <th scope="colgroup" colspan="5" class="curation__group">Building and checking the site (not sent to visitors)</th>
-          </tr>
-          <tr>
-            <td>Jekyll 4.4.1 with jekyll-feed and jekyll-seo-tag (site builder, news feed, page metadata)</td>
-            <td>Jekyll contributors</td>
-            <td>MIT License</td>
-            <td><a href="https://github.com/jekyll/jekyll/blob/master/LICENSE">Jekyll LICENSE</a> (same for both plugins)</td>
-            <td><a href="https://jekyllrb.com">jekyllrb.com</a></td>
-          </tr>
-          <tr>
-            <td>Rake 13 (project tasks)</td>
-            <td>Jim Weirich &amp; Ruby contributors</td>
-            <td>MIT License</td>
-            <td><a href="https://github.com/ruby/rake/blob/master/MIT-LICENSE">Rake MIT-LICENSE</a></td>
-            <td><a href="https://github.com/ruby/rake">github.com/ruby/rake</a></td>
-          </tr>
-          <tr>
-            <td>ImageMagick (resized photos)</td>
-            <td>ImageMagick Studio LLC</td>
-            <td>ImageMagick License</td>
-            <td><a href="https://imagemagick.org/license/">imagemagick.org/license</a></td>
-            <td><a href="https://imagemagick.org">imagemagick.org</a></td>
-          </tr>
-          <tr>
-            <td>axe-core 4.14.0 (WCAG check)</td>
-            <td>Deque Systems</td>
-            <td>Mozilla Public License 2.0</td>
-            <td><a href="https://github.com/dequelabs/axe-core/blob/develop/LICENSE">axe-core LICENSE</a></td>
-            <td><a href="https://www.deque.com/axe/">deque.com/axe</a></td>
-          </tr>
-          <tr>
-            <td>Puppeteer 25.13.0 (browser for the WCAG check)</td>
-            <td>Google LLC</td>
-            <td>Apache License 2.0</td>
-            <td><a href="https://github.com/puppeteer/puppeteer/blob/main/LICENSE">Puppeteer LICENSE</a></td>
-            <td><a href="https://pptr.dev">pptr.dev</a></td>
-          </tr>
-          <tr>
-            <td>Lighthouse (site audits)</td>
-            <td>Google LLC</td>
-            <td>Apache License 2.0</td>
-            <td><a href="https://github.com/GoogleChrome/lighthouse/blob/main/LICENSE">Lighthouse LICENSE</a></td>
-            <td><a href="https://github.com/GoogleChrome/lighthouse">github.com/GoogleChrome/lighthouse</a></td>
-          </tr>
-          <tr>
-            <td>lighthouse-check-action 12.0.1 (runs Lighthouse)</td>
-            <td>Foo (foo-software)</td>
-            <td>MIT License</td>
-            <td><a href="https://github.com/foo-software/lighthouse-check-action/blob/master/LICENSE">lighthouse-check-action LICENSE</a></td>
-            <td><a href="https://github.com/foo-software/lighthouse-check-action">github.com/foo-software/lighthouse-check-action</a></td>
-          </tr>
-          <tr>
-            <td>lighthouse-check-status-action 3.0.1 (Lighthouse pass marks)</td>
-            <td>Foo (foo-software)</td>
-            <td>ISC License (stated in package.json; no licence file)</td>
-            <td><a href="https://github.com/foo-software/lighthouse-check-status-action/blob/master/package.json">package.json</a></td>
-            <td><a href="https://github.com/foo-software/lighthouse-check-status-action">github.com/foo-software/lighthouse-check-status-action</a></td>
-          </tr>
-          <tr>
-            <td>check-jsonschema 0.38.2 (shelf data check)</td>
-            <td>Stephen Rosen</td>
-            <td>Apache License 2.0</td>
-            <td><a href="https://github.com/python-jsonschema/check-jsonschema/blob/main/LICENSE">check-jsonschema LICENSE</a></td>
-            <td><a href="https://github.com/python-jsonschema/check-jsonschema">github.com/python-jsonschema/check-jsonschema</a></td>
-          </tr>
-          <tr>
-            <td>GitHub Actions: checkout, setup-node, upload-artifact, configure-pages, upload-pages-artifact, deploy-pages</td>
-            <td>GitHub, Inc.</td>
-            <td>MIT License</td>
-            <td><a href="https://github.com/actions/checkout/blob/main/LICENSE">checkout LICENSE (same for each)</a></td>
-            <td><a href="https://github.com/actions">github.com/actions</a></td>
-          </tr>
-          <tr>
-            <td>setup-ruby (GitHub Action)</td>
-            <td>Ruby contributors</td>
-            <td>MIT License</td>
-            <td><a href="https://github.com/ruby/setup-ruby/blob/master/LICENSE">setup-ruby LICENSE</a></td>
-            <td><a href="https://github.com/ruby/setup-ruby">github.com/ruby/setup-ruby</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <table class="curation__licenses">
+      <caption class="curation__caption">On the website: sent to every visitor.</caption>
+      <thead>
+        <tr>
+          <th scope="col">Asset</th>
+          <th scope="col">Licence</th>
+          <th scope="col">Author</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Atkinson Hyperlegible (site font)</td>
+          <td><a href="https://openfontlicense.org/open-font-license-official-text/">SIL Open Font License 1.1</a></td>
+          <td><a href="https://www.brailleinstitute.org/freefont/">Braille Institute of America, files from Fontsource v5.3.0</a></td>
+        </tr>
+        <tr>
+          <td>Minima 2.5.2 (site template)</td>
+          <td><a href="https://github.com/jekyll/minima/blob/v2.5.2/LICENSE.txt">MIT License</a></td>
+          <td><a href="https://github.com/jekyll/minima">Joel Glovier &amp; contributors</a></td>
+        </tr>
+        <tr>
+          <td>Lucide 0.469.0 icons (buttons and controls)</td>
+          <td><a href="https://lucide.dev/license">ISC License</a></td>
+          <td><a href="https://lucide.dev">Lucide Contributors; portions Cole Bemis (Feather)</a></td>
+        </tr>
+        <tr>
+          <td>Swiper 11.2.10 (image carousels)</td>
+          <td><a href="https://github.com/nolimits4web/swiper/blob/master/LICENSE">MIT License</a></td>
+          <td><a href="https://swiperjs.com">Vladimir Kharlampidi</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="curation__licenses">
+      <caption class="curation__caption">Building and checking the site: used by the team, not sent to visitors.</caption>
+      <thead>
+        <tr>
+          <th scope="col">Asset</th>
+          <th scope="col">Licence</th>
+          <th scope="col">Author</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Jekyll 4.4.1 with jekyll-feed and jekyll-seo-tag (site builder, news feed, page metadata)</td>
+          <td><a href="https://github.com/jekyll/jekyll/blob/master/LICENSE">MIT License</a> (same for both plugins)</td>
+          <td><a href="https://jekyllrb.com">Jekyll contributors</a></td>
+        </tr>
+        <tr>
+          <td>Rake 13 (project tasks)</td>
+          <td><a href="https://github.com/ruby/rake/blob/master/MIT-LICENSE">MIT License</a></td>
+          <td><a href="https://github.com/ruby/rake">Jim Weirich &amp; Ruby contributors</a></td>
+        </tr>
+        <tr>
+          <td>ImageMagick (resized photos)</td>
+          <td><a href="https://imagemagick.org/license/">ImageMagick License</a></td>
+          <td><a href="https://imagemagick.org">ImageMagick Studio LLC</a></td>
+        </tr>
+        <tr>
+          <td>axe-core 4.14.0 (WCAG check)</td>
+          <td><a href="https://github.com/dequelabs/axe-core/blob/develop/LICENSE">Mozilla Public License 2.0</a></td>
+          <td><a href="https://www.deque.com/axe/">Deque Systems</a></td>
+        </tr>
+        <tr>
+          <td>Puppeteer 25.13.0 (browser for the WCAG check)</td>
+          <td><a href="https://github.com/puppeteer/puppeteer/blob/main/LICENSE">Apache License 2.0</a></td>
+          <td><a href="https://pptr.dev">Google LLC</a></td>
+        </tr>
+        <tr>
+          <td>Lighthouse (site audits)</td>
+          <td><a href="https://github.com/GoogleChrome/lighthouse/blob/main/LICENSE">Apache License 2.0</a></td>
+          <td><a href="https://github.com/GoogleChrome/lighthouse">Google LLC</a></td>
+        </tr>
+        <tr>
+          <td>lighthouse-check-action 12.0.1 (runs Lighthouse)</td>
+          <td><a href="https://github.com/foo-software/lighthouse-check-action/blob/master/LICENSE">MIT License</a></td>
+          <td><a href="https://github.com/foo-software/lighthouse-check-action">Foo (foo-software)</a></td>
+        </tr>
+        <tr>
+          <td>lighthouse-check-status-action 3.0.1 (Lighthouse pass marks)</td>
+          <td><a href="https://github.com/foo-software/lighthouse-check-status-action/blob/master/package.json">ISC License</a> (stated in package.json; no licence file)</td>
+          <td><a href="https://github.com/foo-software/lighthouse-check-status-action">Foo (foo-software)</a></td>
+        </tr>
+        <tr>
+          <td>check-jsonschema 0.38.2 (shelf data check)</td>
+          <td><a href="https://github.com/python-jsonschema/check-jsonschema/blob/main/LICENSE">Apache License 2.0</a></td>
+          <td><a href="https://github.com/python-jsonschema/check-jsonschema">Stephen Rosen</a></td>
+        </tr>
+        <tr>
+          <td>GitHub Actions: checkout, setup-node, upload-artifact, configure-pages, upload-pages-artifact, deploy-pages</td>
+          <td><a href="https://github.com/actions/checkout/blob/main/LICENSE">MIT License</a></td>
+          <td><a href="https://github.com/actions">GitHub, Inc.</a></td>
+        </tr>
+        <tr>
+          <td>setup-ruby (GitHub Action)</td>
+          <td><a href="https://github.com/ruby/setup-ruby/blob/master/LICENSE">MIT License</a></td>
+          <td><a href="https://github.com/ruby/setup-ruby">Ruby contributors</a></td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
 </div>
