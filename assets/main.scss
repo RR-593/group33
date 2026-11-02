@@ -243,59 +243,61 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
   }
   .artifact-transcript h3 { font-size: $base-font-size * 1.125; }
 
-  // play button: icon only, play/pause swap
-  .artifact-actions .artifact-play { padding: 0.4rem 0.6rem; }
-  .artifact-play .icon-pause, .artifact-play.is-playing .icon-play { display: none; }
-  .artifact-play.is-playing .icon-pause { display: block; }
-
-  // player bar under the buttons; wipes open from the left, out of the play button
-  .artifact-player {
-    display: flex;
+  // audio description: one solid blue control. Closed it's a button ("Audio description" + play
+  // icon); open it grows (shelf.html script) into the player bar: play/pause, seek, time, mute.
+  // White on #005fcc is 5.6:1
+  .artifact-audio {
+    display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
-    margin-bottom: 1rem;
-    padding: 0.2rem 0.4rem;
-    color: #005fcc;
-    border: 2px solid #005fcc;
-    border-radius: 999px;
+    gap: 0.5rem;
+    padding: 0.25rem;
+    color: #fff;
+    background: #005fcc;
+    border-radius: 8px;
 
     &[hidden] { display: none; }
 
     button {
-      display: grid;
-      place-items: center;
-      flex: none;
-      width: 2.75rem;  // 44px targets
-      height: 2.75rem;
-      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      min-width: 2.75rem;  // 44px targets
+      min-height: 2.75rem;
+      padding: 0 0.6rem;
+      font: inherit;
       color: inherit;
       background: none;
       border: 0;
-      border-radius: 999px;
+      border-radius: 6px;
       cursor: pointer;
 
-      &:hover { background: #e8f0fb; }
+      &:hover { background: #004a9f; }
+      &:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
     }
+    .artifact-play { padding: 0 0.6rem 0 0.9rem; }
     svg { flex: none; }
-    input[type="range"] { accent-color: #005fcc; }
-    .player-seek { flex: 1; min-width: 3rem; }
-    .player-volume { width: 4.5rem; }
+
+    .player-seek, .player-time, .player-mute { display: none; }
+    .icon-pause, .icon-muted { display: none; }
+    .player-seek { flex: 1; min-width: 3rem; accent-color: #fff; }
     .player-time {
       font-size: $small-font-size;
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
-      color: $text-color;
-    }
-
-    // phones: no room, and phone volume buttons do the job (iOS ignores page volume anyway)
-    @media (max-width: 480px) {
-      .player-volume, .player-volume-icon { display: none; }
     }
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .artifact-player:not([hidden]) { animation: player-open 0.35s ease-out; }
+  .artifact-audio.is-open {
+    display: flex;
+    flex-basis: 100%;
+    .artifact-play { padding: 0 0.6rem; }
+    .artifact-play-label { display: none; }
+    .player-seek, .player-time, .player-mute { display: block; }
+    .player-mute { display: inline-flex; }
   }
+  .artifact-play.is-playing .icon-play, .player-mute[aria-pressed="true"] .icon-volume { display: none; }
+  .artifact-play.is-playing .icon-pause, .player-mute[aria-pressed="true"] .icon-muted { display: block; }
 
   // accession, material and details as a two-column table
   dl {
@@ -306,7 +308,5 @@ body { overflow-x: clip; }  // 100vw includes the scrollbar; stops a sideways sc
   dd { margin: 0; }
 }
 
-@keyframes player-open {
-  from { opacity: 0; clip-path: inset(0 100% 0 0 round 999px); }
-  to { opacity: 1; clip-path: inset(0 round 999px); }
-}
+// the blue button growing into the player bar (shelf.html script)
+::view-transition-group(audio-bar) { animation-duration: 0.35s; }
