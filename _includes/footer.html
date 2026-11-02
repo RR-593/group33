@@ -1,9 +1,48 @@
+{%- comment -%}
+  Site footer on every page. Visitor details and the acknowledgement are copied from
+  docs/HannasMasterDoc.md (About page): change them there first.
+  CHECK with the curator: the master doc has two wordings of the acknowledgement
+  ("Things to check" 2); this uses the About page one.
+  The year is the year the site was built, so it updates on the next deploy.
+{%- endcomment -%}
 <footer class="site-footer">
   <div class="wrapper">
-    <p><strong>{{ site.title | escape }}</strong></p>
-    <p>
-      Archaeology exhibition project ·
-      <a href="https://github.com/{{ site.repository }}">GitHub repository</a>
+    <div class="footer-columns">
+      <section aria-labelledby="footer-about">
+        <h2 class="footer-heading" id="footer-about">{{ site.title | escape }}</h2>
+        <p>Curated by Hannah Vogel. An exhibition at the Gale History Museum, Macquarie University.</p>
+      </section>
+
+      <section aria-labelledby="footer-visit">
+        <h2 class="footer-heading" id="footer-visit">Visit</h2>
+        <p>
+          Gale History Museum<br>
+          Ground floor, Arts Precinct, 25C Wally's Walk<br>
+          Macquarie University, North Ryde<br>
+          10 November 2026 to 1 March 2027<br>
+          10am to 4pm, Monday to Friday (closed on public holidays)
+        </p>
+      </section>
+
+      <nav aria-labelledby="footer-explore">
+        <h2 class="footer-heading" id="footer-explore">More</h2>
+        <ul>
+          <li><a href="{{ '/accessibility/' | relative_url }}">Accessibility</a></li>
+          <li><a href="{{ '/curation/' | relative_url }}">Curation &amp; Acknowledgements</a></li>
+          <li><a href="{{ '/curation/#licenses-heading' | relative_url }}">Licences</a></li>
+          <li><a href="https://github.com/{{ site.repository }}">Source code on GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <p class="footer-acknowledgement">This research was undertaken on the lands of the Wallumattagal
+    clan of the Dharug Nation, whose cultures and customs have nurtured and continue to nurture
+    this land, since the Dreaming. Their sovereignty was never ceded.</p>
+
+    <p class="footer-legal">
+      © {{ site.time | date: "%Y" }} Group 33 contributors. Website code under the
+      <a href="https://github.com/{{ site.repository }}/blob/main/LICENSE">MIT License</a>.
+      Object photographs, audio and exhibition text belong to their owners, credited beside each.
     </p>
   </div>
 </footer>
