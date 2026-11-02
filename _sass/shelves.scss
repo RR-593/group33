@@ -10,15 +10,17 @@ body { overflow-x: hidden; }
   html { scroll-behavior: smooth; }
 }
 
+// the home page runs edge to edge: its page column is made full width rather than the
+// exhibit breaking out of a narrow one. Breaking out left text lines straddling the
+// column's edge, which stops contrast checkers from measuring them
 body:has(.exhibit) {
   .page-content { padding: 0; }
+  .page-content > .wrapper { max-width: none; padding: 0; }
   .footer-heading { display: none; }
 }
 
 .exhibit {
   --curve: clamp(90px, 12vw, 180px);
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
   font-family: "Jost", "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
   color: $black;
   background: $white;
@@ -51,9 +53,9 @@ body:has(.exhibit) {
   background: $white;
   overflow: hidden;
 
-  &::before,
-  &::after {
-    content: "";
+  // the two black side lenses: real (empty, aria-hidden) elements rather than ::before and
+  // ::after, so contrast checkers can see they never sit behind the title
+  .hero__lens {
     position: absolute;
     top: -40.5%;
     height: 181%;
@@ -61,8 +63,8 @@ body:has(.exhibit) {
     background: $lens;
     border-radius: 50%;
   }
-  &::before { left: calc(var(--s) * -11); }
-  &::after { right: calc(var(--s) * -11); }
+  .hero__lens--start { left: calc(var(--s) * -11); }
+  .hero__lens--end { right: calc(var(--s) * -11); }
 
   @media (min-width: 900px) {
     --s: calc(var(--h) * 0.16);
@@ -77,7 +79,11 @@ body:has(.exhibit) {
   text-align: center;
 }
 
-// display photo: under the title on phones, behind it (dimmed) from 500px
+// "Scroll to continue" with its chevron icon beside the text
+.hero__scroll { display: inline-flex; align-items: center; gap: 0.35rem; }
+
+// display photo: under the title up to 900px, beside it from 900px. Never behind the
+// text, so the title sits on a solid background contrast checkers can measure
 .hero__figure {
   position: relative;
   z-index: 1;  // above the black side lenses
@@ -281,38 +287,13 @@ a.pill:active {
     padding: 3rem clamp(1.5rem, 5vw, 4rem);
     background: $hero-bg;
     color: $white;
-    isolation: isolate;  // keeps the photo behind the title but above the black background
 
-    &::before,
-    &::after { display: none; }
+    .hero__lens { display: none; }
   }
 
-  .hero__figure {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    width: auto;
-  }
-
-  .hero__image {
-    height: 100%;
-    aspect-ratio: auto;
-    object-position: center 40%;
-    border-radius: 0;
-    filter: brightness(0.4);  // dark enough for white text over the brightest part of the photo
-  }
-
-  .hero__caption {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    max-width: 40ch;
-    margin: 0;
-    padding: 0.4rem 0.75rem;
-    text-align: right;
-    background: rgba(0, 0, 0, 0.6);
-    border-top-left-radius: 10px;
-  }
+  .hero__figure { width: min(100%, 28rem); }
+  .hero__image { aspect-ratio: 4 / 3; object-position: center 40%; }
+  .hero__caption { text-align: left; }
 
   .hero__title {
     max-width: 15ch;
@@ -326,6 +307,26 @@ a.pill:active {
   .hero__subtitle { text-align: left; }
 
   .video { padding-top: 2rem; }
+
+  @media (min-width: 900px) {
+    .hero { padding-right: calc(50% + 2rem); }
+    .hero__figure {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+    }
+    .hero__image { flex: 1; min-height: 0; height: auto; aspect-ratio: auto; border-radius: 0; }
+    .hero__caption {
+      margin: 0;
+      padding: 0.5rem 1rem;
+      text-align: right;
+      background: $hero-bg;  // solid strip under the photo
+    }
+  }
 
   .hero .pill,
   .hero a.pill,
