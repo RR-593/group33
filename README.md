@@ -10,9 +10,10 @@ before merge.
 |---|---|
 | `pages/` | Markdown pages. Home, about, curation, team, shelves. Students edit here. |
 | `pages/index.md` | Home. Text = exhibition overview. `display_image` in front matter (`url`, `altText`, `caption`) = photo beside title. Layout `_layouts/home.html`. |
-| `pages/shelves/*.md` | Front matter only. `shelf: top` → picks `_data/shelves/top.json`. |
-| `_data/shelves/*.json` | Shelf content. Objects, images, alt text, audio, 3D. One file per shelf. |
-| `_data/schemas/shelf.schema.json` | Rules for shelf JSON. CI checks every shelf file against it. |
+| `pages/shelves/*.md` | Front matter only. `shelf: top` → picks `_data/shelves/top.yml`. |
+| `_data/shelves/*.yml` | Shelf content. Objects, images, alt text, audio, 3D. One file per shelf. |
+| `_data/licenses/*.yml` | Curation page licence tables. One file per row. `used_for: website` (sent to visitors) or `building` (team tools). |
+| `_data/schemas/*.schema.yml` | Rules for shelf + licence YAML (JSON Schema, in YAML). CI checks every file against them. |
 | `_data/lqip.json` | Tiny blur placeholders. Generated. Gitignored. |
 | `_layouts/shelf.html` | One template → all shelf pages. Hero, card loop, 3D pop-up. |
 | `_includes/artifact-card.html` | One object card: carousel, key hints, audio player, captions, 3D button, details. |
@@ -44,29 +45,51 @@ before merge.
 5. **Objects at a glance** — one row per object: shelf, acc. no., material, date, image count, 3D link.
 6. **Top / Middle / Bottom shelf** — per object: field table (acc. no., material, dimensions, details, 3D, audio file), overview, audio description, image table (file, caption, alt text).
 
-## Shelf JSON schema
+## Data files
 
-One shelf file:
+### Shelf (`_data/shelves/<shelf>.yml`)
 
-```text
-{
-  title, description,              text
-  image: { url, altText, caption },  shelf hero
-  artifacts: [ artifact, ... ]       min 1
-}
-
-artifact:
-  description        text. "TBC" → hidden on page
-  metaDescription:
-    name, accNo, material, details   text
-    dimension        [H, W, D] numbers, mm. Exactly 3. Missing → 0. Page shows 0 as "n/a"
-  images: [ { url, altText, caption } ]   min 1. First = card cover
-  obj3D: { url, altText }          optional. Present → "View in 3D" button + D key
-  audioDescription: { url, transcript }   url "TBC" → no player, transcript still shows
+```yaml
+title: Top shelf
+description: text                 # "TBC" → hidden on page
+image: { url, altText, caption }  # shelf hero
+artifacts:                        # min 1
+  - metaDescription:
+      name: Pelike
+      accNo: MU4759
+      material: Ceramic
+      dimension: [344, 200, 0]    # [H, W, D] mm. Exactly 3. Missing → 0, page shows "n/a"
+      details: text
+    images:                       # min 1. First = card cover
+      - url: assets/images/objects/top/pelike/1 Pelike_MU4759_front_Image1.jpg
+        altText: text
+        caption: text © credit
+    obj3D: { url, altText }       # optional. Present → "View in 3D" button + D key
+    audioDescription:
+      url: assets/audio/1. Pelike MU4759.m4a   # "TBC" → no player, transcript still shows
+      transcript: text
 ```
 
-Rules: no extra keys (`additionalProperties: false`). Every text field non-empty. Unknown → `"TBC"`, never `""`.
-Paths relative to repo root, no leading slash: `assets/audio/1. Pelike MU4759.m4a`. Layout adds `/group33`.
+### Licence (`_data/licenses/<name>.yml`)
+
+One file = one row of the Curation page licence tables. Rows sorted by `name`.
+
+```yaml
+name: Swiper 11.2.10
+use: image carousels              # optional, shown in brackets
+used_for: website                 # website = sent to visitors; building = team tools only
+licence:
+  name: MIT License
+  url: https://github.com/nolimits4web/swiper/blob/master/LICENSE
+  note: text                      # optional, shown in brackets
+author:
+  name: Vladimir Kharlampidi
+  url: https://swiperjs.com
+```
+
+Rules (`_data/schemas/*.schema.yml`): no extra keys. Every text field non-empty. Unknown → `TBC`, never empty.
+Paths relative to repo root, no leading slash. Layout adds `/group33`.
+Text containing `: ` (colon space) or starting with a quote → wrap the whole value in `"double quotes"`.
 
 ## Workflows
 
@@ -78,7 +101,7 @@ permitted use + required credit recorded: credit in caption, terms in
 
 1. Curator updates master doc.
 2. Copy change into `docs/HannasMasterDoc.md`. Word for word.
-3. Same change into matching `_data/shelves/<shelf>.json`.
+3. Same change into matching `_data/shelves/<shelf>.yml`.
 4. Test local (below). Commit.
 
 ### Add object photo
@@ -105,7 +128,7 @@ files without front matter get copied to live site as-is.
 
 ### Add 3D model
 
-Add `"obj3D": { "url": "<nira link>", "altText": "<object name>" }` to object. Button appears by itself.
+Add `obj3D: { url: <nira link>, altText: <object name> }` to object. Button appears by itself.
 
 ### Git
 
@@ -118,7 +141,7 @@ Add `"obj3D": { "url": "<nira link>", "altText": "<object name>" }` to object. B
 | Workflow | When | Does | Blocks? |
 |---|---|---|---|
 | `pages.yml` | push `main` | resize photos, build, deploy Pages | is deploy |
-| `validate-data.yml` | `_data/**` change | schema check shelf JSON | red = fix |
+| `validate-data.yml` | `_data/**` change | schema check shelf + licence YAML | red = fix |
 | `rebase-check.yml` | PR | branch behind `main` or has merges → fail | red = rebase |
 | `lighthouse.yml` | PR + push | every page, desktop + mobile: 100 accessibility, best practices, SEO; performance ≥95 desktop, ≥80 mobile. axe-core WCAG 2.2 A/AA, PR comment with failures by criterion, component, page. Reports saved as artifact | no. Read report anyway |
 
@@ -146,7 +169,8 @@ Before push:
 
 ```text
 bundle exec rake build
-pipx run --spec check-jsonschema==0.38.2 check-jsonschema --schemafile _data/schemas/shelf.schema.json _data/shelves/*.json
+pipx run --spec check-jsonschema==0.38.2 check-jsonschema --schemafile _data/schemas/shelf.schema.yml _data/shelves/*.yml
+pipx run --spec check-jsonschema==0.38.2 check-jsonschema --schemafile _data/schemas/license.schema.yml _data/licenses/*.yml
 ```
 
 Read output. Build error or schema fail → fix first.

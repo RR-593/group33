@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=../schemas/license.schema.yml
+name: Atkinson Hyperlegible
+use: site font
+used_for: website
+licence:
+  name: SIL Open Font License 1.1
+  url: https://openfontlicense.org/open-font-license-official-text/
+author:
+  name: Braille Institute of America, files from Fontsource v5.3.0
+  url: https://www.brailleinstitute.org/freefont/

@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=../schemas/license.schema.yml
+name: axe-core 4.14.0
+use: WCAG check
+used_for: building
+licence:
+  name: Mozilla Public License 2.0
+  url: https://github.com/dequelabs/axe-core/blob/develop/LICENSE
+author:
+  name: Deque Systems
+  url: https://www.deque.com/axe/

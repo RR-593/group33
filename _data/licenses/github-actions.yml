@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=../schemas/license.schema.yml
+name: "GitHub Actions: checkout, setup-node, upload-artifact, configure-pages, upload-pages-artifact, deploy-pages"
+used_for: building
+licence:
+  name: MIT License
+  url: https://github.com/actions/checkout/blob/main/LICENSE
+author:
+  name: GitHub, Inc.
+  url: https://github.com/actions

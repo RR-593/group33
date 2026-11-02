@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../schemas/license.schema.yml
+name: Jekyll 4.4.1 with jekyll-seo-tag
+use: site builder, page metadata
+used_for: building
+licence:
+  name: MIT License
+  url: https://github.com/jekyll/jekyll/blob/master/LICENSE
+  note: same for the plugin
+author:
+  name: Jekyll contributors
+  url: https://jekyllrb.com

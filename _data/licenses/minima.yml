@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=../schemas/license.schema.yml
+name: Minima 2.5.2
+use: site template
+used_for: website
+licence:
+  name: MIT License
+  url: https://github.com/jekyll/minima/blob/v2.5.2/LICENSE.txt
+author:
+  name: Joel Glovier & contributors
+  url: https://github.com/jekyll/minima

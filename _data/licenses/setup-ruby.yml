@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=../schemas/license.schema.yml
+name: setup-ruby
+use: GitHub Action
+used_for: building
+licence:
+  name: MIT License
+  url: https://github.com/ruby/setup-ruby/blob/master/LICENSE
+author:
+  name: Ruby contributors
+  url: https://github.com/ruby/setup-ruby

@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../schemas/license.schema.yml
+name: lighthouse-check-status-action 3.0.1
+use: Lighthouse pass marks
+used_for: building
+licence:
+  name: ISC License
+  url: https://github.com/foo-software/lighthouse-check-status-action/blob/master/package.json
+  note: "stated in package.json; no licence file"
+author:
+  name: Foo (foo-software)
+  url: https://github.com/foo-software/lighthouse-check-status-action

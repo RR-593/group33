@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=../schemas/license.schema.yml
+name: Lucide 0.469.0 icons
+use: buttons and controls
+used_for: website
+licence:
+  name: ISC License
+  url: https://lucide.dev/license
+author:
+  name: "Lucide Contributors; portions Cole Bemis (Feather)"
+  url: https://lucide.dev

@@ -1,0 +1,33 @@
+# Rules for one licence file in _data/licenses/ (JSON Schema, written in YAML).
+# Each file is one row of the licence tables on the Curation page.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: license.schema.yml
+title: Licence
+type: object
+required: [name, used_for, licence, author]
+additionalProperties: false
+properties:
+  name: { $ref: "#/$defs/text" }   # what it is, with version, e.g. "Swiper 11.2.10"
+  use: { $ref: "#/$defs/text" }    # optional, shown in brackets: what the site uses it for
+  used_for:
+    description: website = sent to every visitor; building = only used by the team to build and check
+    enum: [website, building]
+  licence:
+    type: object
+    required: [name, url]
+    additionalProperties: false
+    properties:
+      name: { $ref: "#/$defs/text" }
+      url: { $ref: "#/$defs/url" }
+      note: { $ref: "#/$defs/text" }   # optional, shown in brackets after the licence
+  author:
+    type: object
+    required: [name, url]
+    additionalProperties: false
+    properties:
+      name: { $ref: "#/$defs/text" }
+      url: { $ref: "#/$defs/url" }
+
+$defs:
+  text: { type: string, minLength: 1 }
+  url: { type: string, pattern: "^https://" }
