@@ -22,6 +22,15 @@
       <span><kbd>1</kbd>–<kbd>{{ key_count }}</kbd> Jump to page</span>
     </p>
   </nav>
+  {%- comment -%}
+    Page zoom beside the pill: scales the whole page (CSS zoom), remembered across pages in
+    localStorage and applied early in head.html. Icons: Lucide zoom-out and zoom-in (see NOTICE.md).
+  {%- endcomment %}
+  <div class="zoom" role="group" aria-label="Page zoom">
+    <button class="zoom-btn" type="button" data-step="-1" aria-label="Zoom out"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="8" x2="14" y1="11" y2="11"/></svg></button>
+    <output class="zoom-level">100%</output>
+    <button class="zoom-btn" type="button" data-step="1" aria-label="Zoom in"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></svg></button>
+  </div>
   <script>
     (() => {
       const nav = document.querySelector('.site-nav');
@@ -46,6 +55,33 @@
         else return;
         e.preventDefault();
       });
+
+      const zoom = document.querySelector('.zoom');
+      const steps = [0.8, 0.9, 1, 1.1, 1.25, 1.5, 1.75, 2];
+      const stored = () => {
+        let i = -1;
+        try { i = steps.indexOf(Number(localStorage.getItem('zoom'))); } catch {}
+        return i < 0 ? steps.indexOf(1) : i;
+      };
+      let level = stored();
+      const show = () => {
+        document.documentElement.style.zoom = steps[level] === 1 ? '' : steps[level];
+        zoom.querySelector('output').value = Math.round(steps[level] * 100) + '%';
+        // aria-disabled, not disabled, so focus stays on the button at either end
+        zoom.querySelectorAll('button').forEach(b => b.setAttribute('aria-disabled', !steps[level + Number(b.dataset.step)]));
+      };
+      show();
+      zoom.addEventListener('click', e => {
+        const b = e.target.closest('button');
+        if (!b || !steps[level + Number(b.dataset.step)]) return;
+        level += Number(b.dataset.step);
+        show();
+        try { localStorage.setItem('zoom', steps[level]); } catch {}
+      });
+      // prerendered or back/forward-cached pages may have been made before the last change
+      const sync = () => { level = stored(); show(); };
+      document.addEventListener('prerenderingchange', sync);
+      addEventListener('pageshow', e => e.persisted && sync());
     })();
   </script>
 </header>

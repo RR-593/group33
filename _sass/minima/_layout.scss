@@ -12,15 +12,18 @@ html { scroll-padding-top: 5rem; }  // in-page links land below the sticky pill
   position: sticky;
   top: 0;
   z-index: 100;
+  display: flex;  // nav pill and zoom pill side by side, centred
+  justify-content: center;
+  align-items: flex-start;
+  gap: $spacing-unit * 0.25;
   padding: $spacing-unit * 0.5;
   pointer-events: none;  // the clear strip around the pill doesn't block clicks on the page
 }
 
 // the pill: a solid white box, so contrast checkers can read the colour behind the links
 .site-nav {
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 auto;
+  position: relative;  // anchors the key hint
+  min-width: 0;  // narrow screens: shrinks and scrolls, leaving room for the zoom pill
   background: $background-color;
   border: 1px solid $grey-color-light;
   border-radius: 999px;
@@ -124,6 +127,47 @@ html { scroll-padding-top: 5rem; }  // in-page links land below the sticky pill
 .site-nav:has(:focus-visible) {
   .nav-key { display: block; }
   .nav-hint { display: flex; }
+}
+
+// page zoom pill beside the nav, same look
+.zoom {
+  display: flex;
+  flex: none;
+  align-items: center;
+  padding: 0.3rem;
+  background: $background-color;
+  border: 1px solid $grey-color-light;
+  border-radius: 999px;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
+  pointer-events: auto;
+  view-transition-name: site-zoom;
+}
+
+.zoom-btn {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;  // 44px target, as tall as the nav links
+  height: 2.75rem;
+  padding: 0;
+  color: $text-color;
+  background: none;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+
+  svg { width: 1.4rem; height: 1.4rem; }
+  &:hover { background: $grey-color-light; }
+  &:focus-visible { outline: 2px solid $text-color; outline-offset: -3px; }
+  &[aria-disabled="true"] { color: $grey-color; cursor: default; background: none; }
+}
+
+.zoom-level {
+  min-width: 3.5em;
+  font-size: $small-font-size;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+
+  @media (max-width: 599px) { display: none; }  // phones: room for the nav; buttons are enough
 }
 
 
