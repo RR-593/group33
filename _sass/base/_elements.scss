@@ -82,6 +82,12 @@ table {
   }
 }
 
+// selected text in the site's own colours instead of the browser's blue
+::selection {
+  color: $white;
+  background: $accent;  // white on it 7.3:1
+}
+
 // key caps for shortcut hints
 kbd {
   display: inline-block;

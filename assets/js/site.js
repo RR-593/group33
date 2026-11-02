@@ -51,11 +51,12 @@ nav.addEventListener('keydown', e => {
   e.preventDefault();
 });
 
-// Shift+Up from anywhere puts focus back on the nav pill (the current page's link)
+// Shift+Up from anywhere does what the back to top button does: top of the page, focus on
+// the nav pill (the current page's link)
 document.addEventListener('keydown', e => {
   if (!e.shiftKey || e.key !== 'ArrowUp' || e.ctrlKey || e.metaKey || e.altKey) return;
   if (e.target.closest('input, textarea, select, [contenteditable]')) return;  // Shift+Up selects text there
-  navFocus().focus();
+  goToTop();
   e.preventDefault();
 });
 
@@ -108,7 +109,9 @@ const calm = matchMedia('(prefers-reduced-motion: reduce)');
 const showBackToTop = () => backToTop.classList.toggle('is-shown', scrollY > innerHeight * 0.75);
 addEventListener('scroll', showBackToTop, { passive: true });
 showBackToTop();
-backToTop.addEventListener('click', () => {
+backToTop.addEventListener('click', goToTop);
+
+function goToTop() {
   scrollTo({ top: 0, behavior: calm.matches ? 'auto' : 'smooth' });
   navFocus().focus({ preventScroll: true });
-});
+}
