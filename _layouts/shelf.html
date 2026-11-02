@@ -8,7 +8,8 @@ layout: default
 {%- endcomment -%}
 {%- assign shelf = site.data.shelves[page.shelf] -%}
 <header class="shelf-hero">
-  <img src="{{ shelf.image.url | relative_url }}" alt="{{ shelf.image.altText | escape }}">
+  {%- comment -%} largest thing on screen at load, so fetched first, at a size that fits the screen {%- endcomment %}
+  {% include responsive-image.html src=shelf.image.url alt=shelf.image.altText sizes="100vw" eager=true priority=true %}
   <h1><span>{{ page.title | escape }}</span></h1>
 </header>
 <p class="shelf-credit">{{ shelf.image.caption | escape }}</p>

@@ -56,6 +56,13 @@ html { scroll-padding-top: 5rem; }  // in-page links land below the sticky nav p
   }
 }
 
+// a link on its own in a list item, like the /shelves/ list: at least 24px tall, so it
+// meets WCAG 2.5.8 target size (links inside sentences are exempt)
+.page-body li > a:only-child {
+  display: inline-block;
+  padding: 0.125rem 0;
+}
+
 // links inside running text are underlined, so they aren't shown by colour alone
 .page-body a,
 .site-footer a {

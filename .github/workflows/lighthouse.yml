@@ -1,6 +1,7 @@
-# Audits every built page on desktop and mobile: Lighthouse scores plus an axe-core
-# WCAG 2.2 A/AA check (_scripts/axe-report.mjs). Results show on the pull request and
-# in the job summary, and full reports are saved as run artifacts. Never blocks merging.
+# Audits every built page on desktop and mobile: Lighthouse scores against pass marks
+# (_scripts/lighthouse-report.mjs) plus an axe-core WCAG 2.2 A/AA check
+# (_scripts/axe-report.mjs). Both say which page and what failed, in the job summary and
+# one pull request comment; full reports are saved as run artifacts. Never blocks merging.
 name: Lighthouse
 
 on:
@@ -82,15 +83,19 @@ jobs:
           outputDirectory: ${{ runner.temp }}/reports
           urls: ${{ steps.pages.outputs.urls }}
 
-      - name: Check Lighthouse pass marks
+      # scores per page against the pass marks, and the audits that cost points
+      - name: Summarise Lighthouse scores
+        id: scores
         if: ${{ !cancelled() && steps.lighthouse.outcome == 'success' }}
-        uses: foo-software/lighthouse-check-status-action@2b9d5101f7a0de86ddb153a0d77ad7046aac1052 # v3.0.1
-        with:
-          lighthouseCheckResults: ${{ steps.lighthouse.outputs.lighthouseCheckResults }}
-          minAccessibilityScore: "100"
-          minBestPracticesScore: "100"
-          minPerformanceScore: ${{ matrix.min-performance }}
-          minSeoScore: "100"
+        env:
+          MIN_PERFORMANCE: ${{ matrix.min-performance }}
+        run: node _scripts/lighthouse-report.mjs "$RUNNER_TEMP/reports" ${{ matrix.device }}
+
+      - name: Fail on Lighthouse scores
+        if: ${{ !cancelled() && steps.scores.outcome == 'success' && steps.scores.outputs.failures != '0' }}
+        run: |
+          echo "::error::${{ steps.scores.outputs.failures }} Lighthouse score(s) below the pass mark on ${{ matrix.device }}. See the job summary for the page and the audits that cost points."
+          exit 1
 
       - name: Fail on WCAG failures
         if: ${{ !cancelled() && steps.axe.outcome == 'success' && steps.axe.outputs.failures != '0' }}
@@ -115,7 +120,7 @@ jobs:
       - name: Audit does not block merging
         run: echo "See the audit (desktop) and audit (mobile) checks for results."
 
-  # One comment per pull request with both devices' WCAG tables, updated on each run
+  # One comment per pull request with both devices' Lighthouse and WCAG tables, updated on each run
   comment:
     needs: audit-device
     if: ${{ !cancelled() && github.event_name == 'pull_request' }}
@@ -124,7 +129,7 @@ jobs:
       actions: read          # download this run's reports
       pull-requests: write   # post the comment
     steps:
-      - name: Post WCAG results on the pull request
+      - name: Post results on the pull request
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -133,12 +138,14 @@ jobs:
         run: |
           gh run download "$GITHUB_RUN_ID" --pattern 'lighthouse-reports-*' --dir reports || true
           for device in desktop mobile; do
-            report="reports/lighthouse-reports-$device/wcag-$device.md"
-            if [ -f "$report" ]; then
-              cat "$report"
-            else
-              printf '## WCAG check: %s\n\nNo report; the audit stopped before the check. See the run.\n\n' "$device"
-            fi
+            for check in lighthouse wcag; do
+              report="reports/lighthouse-reports-$device/$check-$device.md"
+              if [ -f "$report" ]; then
+                cat "$report"
+              else
+                printf '## %s check: %s\n\nNo report; the audit stopped before this check. See the run.\n\n' "$check" "$device"
+              fi
+            done
           done > comment.md
           printf 'Full Lighthouse reports: [this run](%s), under Artifacts.\n' "$RUN_URL" >> comment.md
 
