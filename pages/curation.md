@@ -3,6 +3,7 @@ layout: page
 title: Curation & Acknowledgements
 nav_title: Curation
 permalink: /curation/
+description: Who curated the exhibition, funded and developed it along with software license acknowledgements.
 ---
 
 {%- comment -%}

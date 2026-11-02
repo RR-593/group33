@@ -2,6 +2,7 @@
 layout: page
 title: Accessibility
 permalink: /accessibility/
+description: How accessibility was incorporated into the website.
 ---
 
 {%- comment -%}

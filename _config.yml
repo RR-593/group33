@@ -1,12 +1,20 @@
 title: 'Disability Heritage: Archaeology with Difference'
+# Search results and share previews (jekyll-seo-tag). `tagline` follows the title on the
+# home page tab; `description` is used by any page without its own. Both from the curator's
+# master doc (docs/HannasMasterDoc.md, Home page): CHECK wording with the curator.
+tagline: Curated by Hannah Vogel
 description: >-
-  A public student sandbox for an accessible archaeology exhibition website.
+  Disability is part of our history. However, archaeology is often ableist, overlooking,
+  or worse, devaluing disabled experiences. This display invites you to think differently.
 lang: en-AU
 url: "https://hannahvogelarchaeology.github.io"
 baseurl: "/group33"
 repository: HannahVogelArchaeology/group33
 
-author: Group 33
+# CHECK: who the group wants credited as author in search engine data
+author:
+  name: Group 33
+  type: Organization
 
 header_pages:
   - pages/index.md
