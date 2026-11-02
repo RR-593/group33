@@ -21,6 +21,7 @@
       <span><kbd>Enter</kbd> Open</span>
       <span><kbd>1</kbd>–<kbd>{{ key_count }}</kbd> Jump to page</span>
       <span><kbd>-</kbd><kbd>+</kbd> Zoom</span>
+      <span><kbd>Shift</kbd><kbd>↑</kbd> Back here from anywhere</span>
     </p>
   </nav>
   {%- comment -%}
@@ -83,6 +84,14 @@
         const b = e.target.closest('button');
         if (b) step(Number(b.dataset.step));
       });
+      // Shift+Up from anywhere puts focus back on the nav pill (the current page's link)
+      document.addEventListener('keydown', e => {
+        if (!e.shiftKey || e.key !== 'ArrowUp' || e.ctrlKey || e.metaKey || e.altKey) return;
+        if (e.target.closest('input, textarea, select, [contenteditable]')) return;  // Shift+Up selects text there
+        nav.querySelector('a[tabindex="0"]').focus();
+        e.preventDefault();
+      });
+
       // = is + without Shift. Anywhere on the page, but not while typing
       document.addEventListener('keydown', e => {
         if (e.ctrlKey || e.metaKey || e.altKey) return;  // keep the browser's own Ctrl/Cmd zoom

@@ -154,6 +154,7 @@ Check by hand on each shelf page:
 - Audio: Enter or blue "Audio description" button grows into player bar (play/pause, seek, time, speaker → volume slider drop-down, CC captions, × close) + plays. While open, keys under photo: Enter play/pause, ↑/↓ volume, J/L back/forward 10s, M mute, Esc close. Bar controls skip Tab.
 - Every image has alt text. Audio plays. Dimensions show `n/a` for 0.
 - Nav pill: one Tab stop, ←/→ move, 1–9 jump while focused. Zoom buttons beside it (or -/+ anywhere): page scales, level kept on next page.
+- Shift+↑ anywhere → focus back on nav pill. Scroll down → round ↑ button bottom right; click → top + focus on nav.
 - Phone width: no side scroll.
 
 Bundler error `cannot load such file ... bundler-X/exe/bundle` → broken Bundler install. Run `gem install bundler -v X` (X from `BUNDLED WITH` in `Gemfile.lock`), or `bundle _<installed version>_ exec rake serve`.
