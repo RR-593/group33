@@ -2,14 +2,33 @@
 
 // Page frame from _layouts/default.html and _layouts/page.html.
 
-html { scroll-padding-top: 5rem; }  // in-page links land below the sticky nav pill
-
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
   // page-to-page fade instead of a blank white flash; the pill stays put across it.
   // Chrome, Edge and Safari 18.2+; other browsers switch pages as before
   @view-transition { navigation: auto; }
 }
+
+// hidden until it has keyboard focus, then a solid pill over the header
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 200;  // above the sticky header
+  padding: 0.75rem 1.25rem;
+  font-weight: $bold;
+  color: $white;
+  background: $blue;
+  border-radius: 999px;
+  text-decoration: none;
+  transform: translateY(-200%);
+
+  &:visited, &:hover { color: $white; }
+  &:focus-visible { transform: none; @include focus-ring($blue, $white); }
+}
+
+// focus lands here from the skip link; the page itself needs no ring
+main:focus { outline: none; }
 
 .page-content {
   flex: 1;
@@ -34,27 +53,9 @@ html { scroll-padding-top: 5rem; }  // in-page links land below the sticky nav p
 // _layouts/page.html: a title, then the page's own text
 .page-header { margin-bottom: $spacing; }
 
-.page-title {
-  font-size: $font-size * 2.625;
-  letter-spacing: -1px;
-  line-height: 1;
+.page-title { margin: 0; }
 
-  @media screen and (max-width: $on-laptop) { font-size: $font-size * 2.25; }
-}
-
-.page-body {
-  margin-bottom: $spacing;
-
-  h2 { font-size: $font-size * 2; }
-  h3 { font-size: $font-size * 1.625; }
-  h4 { font-size: $font-size * 1.25; }
-
-  @media screen and (max-width: $on-laptop) {
-    h2 { font-size: $font-size * 1.75; }
-    h3 { font-size: $font-size * 1.375; }
-    h4 { font-size: $font-size * 1.125; }
-  }
-}
+.page-body { margin-bottom: $spacing; }
 
 // a link on its own in a list item, like the /shelves/ list: at least 24px tall, so it
 // meets WCAG 2.5.8 target size (links inside sentences are exempt)

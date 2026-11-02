@@ -15,7 +15,7 @@
   flex-direction: column;
   padding: 1.25rem;
   background: $white;
-  border-radius: 16px;
+  border-radius: $radius;
 }
 
 .shelf__header {
@@ -24,7 +24,7 @@
   align-items: baseline;
 }
 
-.shelf__title { margin: 0; font-size: 1.1rem; font-weight: 600; }
+.shelf__title { margin: 0; font-size: 1.1rem; font-weight: $bold; }
 .shelf__count { margin: 0; font-size: 0.9rem; }
 
 .shelf__figure { margin: 1rem 0; }
@@ -35,7 +35,7 @@
   aspect-ratio: 4 / 3;
   object-fit: contain;
   background: $white;
-  border-radius: 14px;
+  border-radius: $radius;
 }
 
 .shelf__caption { margin-top: 0.6rem; font-size: 0.8rem; line-height: 1.5; }

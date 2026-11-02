@@ -45,7 +45,7 @@ These are inconsistencies spotted in the source document. They have **not** been
 10. **Image file names** in the source document have no extension. The actual files are `.jpg`, except the placeholder, which is `.jpeg`.
 11. **Curator bio typos:** "Macquaire" should be "Macquarie", and "has been recognised an emerging research leader" is missing "as".
 12. **Objects 1, 9, 10 and 11 dimensions** give only height and width (no depth).
-13. **Website accessibility text** says the site "will also respect your device’s reduced-motion and high-contrast settings". Reduced motion is handled; the site has no styles for high-contrast (forced colours) mode yet, so that part is untested.
+13. **Website accessibility text** says the site "will also respect your device’s reduced-motion and high-contrast settings". Reduced motion is handled. High-contrast (forced colours) styles were added in November 2026 and checked in a browser emulation, not yet on a real Windows high-contrast setup.
 14. **Curator photo alt text** says "a caved false door". Probably "carved"; screen readers will read it as written.
 
 ## Home page

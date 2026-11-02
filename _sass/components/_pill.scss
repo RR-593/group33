@@ -23,5 +23,4 @@ a.pill:active {
   cursor: pointer;
 
   &:hover { background: #000; }
-  &:focus-visible { outline: 3px solid $black; outline-offset: 2px; }
 }

@@ -1,0 +1,29 @@
+// Windows high-contrast (forced colours) mode: the system replaces every colour and drops
+// backgrounds and shadows, so anything drawn only with a fill needs a border or a text
+// cue to stay visible. Transparent borders turn into real ones in this mode.
+
+@media (forced-colors: active) {
+  .pill,
+  .skip-link,
+  .nav-toggle,
+  .zoom,
+  .site-nav,
+  .back-to-top,
+  .artifact-audio,
+  .artifact-actions > button,
+  .page-turn__link,
+  .model-dialog-close {
+    border: 2px solid transparent;
+  }
+
+  // the filled "current page" link and pressed toggles lose their fill
+  .site-nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 0.2em; }
+  [aria-pressed="true"] { outline: 2px solid; }
+
+  // custom-drawn sliders use gradients the mode removes, so go back to the system ones
+  .player-seek,
+  .player-volume-slider { appearance: auto; }
+
+  // the blurred placeholder behind photos is decoration only
+  img { background-image: none !important; }
+}

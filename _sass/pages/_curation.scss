@@ -1,12 +1,12 @@
+@use "settings" as *;
+
 // Curation & Acknowledgements page (pages/curation.md), scoped to .curation.
 
 $rule: #cfcfcf;          // section dividers (decorative)
-$muted: #595959;         // secondary text, at least 4.5:1 on white
 $placeholder: #e2e2e2;   // portrait fill until the photo loads (decorative)
 
 .curation {
   max-width: 48rem;
-  margin: 0 auto;
 }
 
 // Sections divided by a thin rule, like the mockup
@@ -22,11 +22,7 @@ $placeholder: #e2e2e2;   // portrait fill until the photo loads (decorative)
 }
 
 .curation__heading {
-  text-align: center;
   margin: 0 0 1.5rem;
-}
-.curation__heading--start {
-  text-align: left;
 }
 
 // Curator bio: text beside portrait, stacking on small screens
@@ -58,13 +54,13 @@ $placeholder: #e2e2e2;   // portrait fill until the photo loads (decorative)
   width: 100%;
   height: auto;
   aspect-ratio: 11 / 12;
-  border-radius: 16px;
+  border-radius: $radius;
   object-fit: cover;
   background: $placeholder center / cover no-repeat;
 }
 .curation__portrait-caption {
   margin-top: 0.5rem;
-  color: $muted;
+  color: $muted-text;
 }
 
 // Funding bodies: one card per funder, name then programme
@@ -74,7 +70,6 @@ $placeholder: #e2e2e2;   // portrait fill until the photo loads (decorative)
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 1rem;
 }
 .curation__funder {
@@ -87,23 +82,21 @@ $placeholder: #e2e2e2;   // portrait fill until the photo loads (decorative)
   gap: 0.35rem;
   text-align: center;
   border: 1px solid $rule;
-  border-radius: 16px;
+  border-radius: $radius;
 }
 .curation__funder-name {
-  font-weight: 600;
+  font-weight: $bold;
 }
 .curation__funder-program {
-  color: $muted;
+  color: $muted-text;
 }
 .curation__funding-note {
   margin: 1.5rem 0 0;
-  text-align: center;
 }
 
 // Team: role / name pairs
 .curation__team {
   max-width: 34rem;
-  margin: 0 auto;
 }
 .curation__team-item {
   display: grid;
@@ -112,8 +105,7 @@ $placeholder: #e2e2e2;   // portrait fill until the photo loads (decorative)
   padding: 0.45rem 0;
 }
 .curation__team dt {
-  text-align: right;
-  font-weight: 600;
+  font-weight: $bold;
   margin: 0;
 }
 .curation__team dd {
@@ -132,7 +124,7 @@ $placeholder: #e2e2e2;   // portrait fill until the photo loads (decorative)
 }
 .curation__caption {
   text-align: left;
-  color: $muted;
+  color: $muted-text;
   margin-bottom: 0.75rem;
 }
 .curation__licenses th,
@@ -143,7 +135,7 @@ $placeholder: #e2e2e2;   // portrait fill until the photo loads (decorative)
   border-bottom: 1px solid $rule;
 }
 .curation__licenses th {
-  font-weight: 600;
+  font-weight: $bold;
 }
 // long link texts break inside the cell instead of pushing the table sideways
 .curation__licenses a {
@@ -165,10 +157,5 @@ $placeholder: #e2e2e2;   // portrait fill until the photo loads (decorative)
     grid-template-columns: 1fr;
     gap: 0;
     padding: 0.6rem 0;
-    text-align: center;
-  }
-  .curation__team dt,
-  .curation__team dd {
-    text-align: center;
   }
 }

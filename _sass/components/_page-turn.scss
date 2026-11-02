@@ -18,7 +18,7 @@
   color: $text;
   background: $white;
   border: 1px solid $grey-light;
-  border-radius: 16px;
+  border-radius: $radius;
   text-decoration: none;
   transition: border-color 0.15s, background-color 0.15s;
 
@@ -45,6 +45,6 @@
 
 .page-turn__title {
   font-size: $font-size * 1.125;
-  font-weight: 700;
+  font-weight: $bold;
   overflow-wrap: anywhere;
 }

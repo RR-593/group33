@@ -12,7 +12,6 @@ body:has(.exhibit) {
 
 .exhibit {
   --curve: clamp(90px, 12vw, 180px);
-  font-family: "Jost", "Futura", "Century Gothic", "Trebuchet MS", sans-serif;
   color: $black;
   background: $white;
 }
@@ -56,9 +55,7 @@ body:has(.exhibit) {
 
 .hero__title {
   margin: 0;
-  font-size: clamp(1.25rem, 4.2vw, 2.6rem);
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: clamp(1.75rem, 1.2rem + 3vw, 2.5rem);
   text-align: center;
 }
 
@@ -81,7 +78,7 @@ body:has(.exhibit) {
   aspect-ratio: 3 / 4;
   object-fit: cover;
   background-size: cover;  // blur placeholder while the photo downloads
-  border-radius: 14px;
+  border-radius: $radius;
 }
 
 .hero__caption { margin-top: 0.5rem; font-size: 0.8rem; line-height: 1.5; text-align: center; }
@@ -90,7 +87,7 @@ body:has(.exhibit) {
   margin: 0;
   max-width: 40ch;
   font-size: clamp(1rem, 2.4vw, 1.25rem);
-  font-weight: 600;
+  font-weight: $bold;
   line-height: 1.4;
   text-align: center;
 }
@@ -107,7 +104,7 @@ body:has(.exhibit) {
 
 .video__frame {
   aspect-ratio: 16 / 9;
-  border-radius: 14px;
+  border-radius: $radius;
   overflow: hidden;
   border: 2px solid $black;
   background: $white;
@@ -139,10 +136,9 @@ body:has(.exhibit) {
 
   summary {
     cursor: pointer;
-    font-weight: 600;
+    font-weight: $bold;
     padding: 0.4rem 0;
   }
-  summary:focus-visible { outline: 3px solid $black; outline-offset: 2px; }
   p { line-height: 1.6; }
 }
 
@@ -168,9 +164,6 @@ body:has(.exhibit) {
 .exhibit__heading {
   margin: 2rem 0.25rem;
   color: $white;
-  font-size: clamp(1rem, 2.5vw, 1.35rem);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 @media (min-width: 500px) {
@@ -191,12 +184,10 @@ body:has(.exhibit) {
   .hero__caption { text-align: left; }
 
   .hero__title {
-    max-width: 15ch;
-    font-size: clamp(2rem, 6.5vw, 4.25rem);
-    line-height: 1.05;
-    letter-spacing: 0.02em;
+    max-width: 14ch;
+    font-size: clamp(2.25rem, 1rem + 4vw, 3.75rem);
+    line-height: 1.1;
     text-align: left;
-    text-transform: uppercase;
   }
 
   .hero__subtitle { text-align: left; }
@@ -233,6 +224,5 @@ body:has(.exhibit) {
     background: $white;
 
     &:hover { text-decoration: underline; }
-    &:focus-visible { outline-color: $white; }
   }
 }

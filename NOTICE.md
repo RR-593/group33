@@ -10,7 +10,7 @@ named primary navigation landmark and visible keyboard focus. In October 2026
 the header and its mobile menu were replaced with a sticky pill-shaped
 navigation bar that is a single Tab stop, with arrow, Home and End keys to move
 between links and number keys to open them while it has focus; the skip link
-was removed. In November 2026 Minima's unused blog features (posts, comments,
+was removed. A skip link was added back in November 2026, as the first Tab stop. In November 2026 Minima's unused blog features (posts, comments,
 analytics, social links, syntax highlighting, news feed) were deleted and its
 remaining stylesheets were folded into the site's own partials in `_sass/`.
 

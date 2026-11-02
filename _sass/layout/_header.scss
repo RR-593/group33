@@ -72,13 +72,13 @@
 
   &, &:visited { color: $text; }
   &:hover { background: $grey-light; }
-  &:focus-visible { outline-offset: -3px; }  // inside the pill, which clips its overflow
+  &:focus-visible { outline-offset: -4px; box-shadow: none; }  // inside the pill, which clips its overflow
 
   // current page: filled and bold, so it isn't shown by colour alone
   &[aria-current="page"] {
     color: $background;
     background: $text;
-    font-weight: 700;
+    font-weight: $bold;
   }
 }
 
@@ -92,7 +92,7 @@
   min-width: 0;
   padding: 0 0.2em;
   font-size: 0.65rem;
-  font-weight: 700;
+  font-weight: $bold;
   line-height: 1.3;
 }
 
@@ -152,7 +152,7 @@
 
   svg { width: 1.4rem; height: 1.4rem; }
   &:hover { background: $grey-light; }
-  &:focus-visible { outline: 2px solid $text; outline-offset: -3px; }
+  &:focus-visible { outline-offset: -4px; box-shadow: none; }  // inside the zoom pill
   &[aria-disabled="true"] { color: $grey; cursor: default; background: none; }
 }
 
@@ -188,7 +188,7 @@
       min-width: 0;
       margin: 0;
       overflow: hidden;
-      font-weight: 700;
+      font-weight: $bold;
       white-space: nowrap;
       text-overflow: ellipsis;
     }
@@ -210,7 +210,7 @@
       height: 2.75rem;  // 44px target
       padding: 0 0.9rem 0 0.75rem;
       font: inherit;
-      font-weight: 600;
+      font-weight: $bold;
       color: $text;
       background: none;
       border: 1px solid $grey-light;
@@ -246,7 +246,7 @@
 
     a {
       padding: 0.6rem 1rem;
-      border-radius: 12px;
+      border-radius: $radius-small;
       font-size: 1.05rem;
     }
 
