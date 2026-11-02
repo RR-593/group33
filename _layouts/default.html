@@ -5,9 +5,13 @@
 
   <body>
 
+    {%- comment -%} first Tab stop on every page: jumps past the header to the page itself {%- endcomment %}
+    <a class="skip-link" href="#main">Skip to main content</a>
+
     {%- include header.html -%}
 
-    <main class="page-content" aria-label="Content">
+    {%- comment -%} tabindex -1: the skip link can move focus here, but Tab never stops on it {%- endcomment %}
+    <main class="page-content" id="main" tabindex="-1" aria-label="Content">
       <div class="wrapper">
         {{ content }}
       </div>

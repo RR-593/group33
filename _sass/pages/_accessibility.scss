@@ -1,20 +1,17 @@
 // Accessibility page (pages/accessibility.md), scoped to .accessibility.
-// Centred section headings as in the Figma design, left-aligned on small screens.
 
 .accessibility {
   max-width: 44rem;
-  margin: 0 auto;
 }
 
 .accessibility__section {
   margin: 2.5rem 0;
 }
 .accessibility__section:first-child {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 
 .accessibility__heading {
-  text-align: center;
   margin: 0 0 1rem;
 }
 
@@ -24,11 +21,4 @@
 }
 .accessibility p:last-child {
   margin-bottom: 0;
-}
-
-// Left-align the headings on small screens, matching the mobile design
-@media screen and (max-width: 600px) {
-  .accessibility__heading {
-    text-align: left;
-  }
 }

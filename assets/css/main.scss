@@ -3,7 +3,7 @@
 ---
 
 // Site stylesheet. Partials live in _sass/, grouped by what they style:
-//   base/        fonts and plain HTML elements
+//   base/        fonts, plain HTML elements, high-contrast mode, utilities
 //   layout/      the page frame: header, page column, footer
 //   components/  reusable pieces: pills, cards, the audio player, the 3D pop-up
 //   pages/       styles used by one page only
@@ -29,4 +29,5 @@
 @use "pages/curation";
 @use "pages/accessibility";
 
+@use "base/high-contrast";
 @use "base/utilities";

@@ -20,7 +20,7 @@ section h2) and the image alt text.
 <div class="curation">
 
   <section class="curation__section" aria-labelledby="bio-heading">
-    <h2 id="bio-heading" class="curation__heading curation__heading--start">Curator Bio</h2>
+    <h2 id="bio-heading" class="curation__heading">Curator Bio</h2>
     <div class="curation__bio">
       <div class="curation__bio-text">
         <p>Hannah Vogel is an archaeologist, teaching academic, and PhD candidate researcher
