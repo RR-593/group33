@@ -30,12 +30,14 @@
         {%- endcomment %}
         {%- assign eager = false %}
         {%- if include.first and forloop.first %}{% assign eager = true %}{% endif %}
-        {% include responsive-image.html src=image.url alt=image.altText sizes="(max-width: 800px) 100vw, 400px" eager=eager %}
+        {% include responsive-image.html src=image.url alt=image.altText sizes="(max-width: 800px) 100vw, 400px" eager=eager full=true %}
         <figcaption>{{ image.caption | escape }}</figcaption>
       </figure>
       {%- endfor %}
     </div>
     <div class="swiper-pagination"></div>
+    {%- comment -%} opens the photo viewer on the photo showing (assets/js/shelf.js); so does tapping the photo or key Z {%- endcomment %}
+    <button type="button" class="artifact-enlarge" aria-label="Enlarge photo" tabindex="-1">{% include icon.html name="maximize-2" size=20 %}</button>
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
   </div>
@@ -49,6 +51,7 @@
     {%- if has_audio %}
     <li><kbd>Enter</kbd> Play audio description</li>
     {%- endif %}
+    <li><kbd>Z</kbd> Enlarge photo</li>
     <li><kbd>T</kbd> Captions (description text)</li>
     {%- if artifact.obj3D %}
     <li><kbd>D</kbd> 3D model</li>

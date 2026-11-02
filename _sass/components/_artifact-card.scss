@@ -60,6 +60,28 @@
     padding-bottom: 2rem;    // room for the dots below the caption
   }
   .swiper-pagination { bottom: 0; }
+  .swiper-slide img { cursor: zoom-in; }
+
+  // Enlarge, over the top right corner of the photo
+  .artifact-images { position: relative; }
+  .artifact-enlarge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 2;  // above Swiper's slides
+    display: grid;
+    place-items: center;
+    width: 2.75rem;  // 44px target
+    height: 2.75rem;
+    padding: 0;
+    color: $text;
+    background: color-mix(in srgb, #{$card} 88%, transparent);
+    border: 1px solid $grey-light;
+    border-radius: $radius-small;
+    cursor: pointer;
+
+    &:hover { background: $card; }
+  }
   figure { margin: 0; }
   img { width: 100%; height: auto; }
   // same frame for every slide; portrait shots fit inside without cropping
