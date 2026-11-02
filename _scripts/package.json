@@ -1,9 +1,10 @@
 {
   "private": true,
-  "description": "WCAG checker for the Lighthouse workflow (axe-report.mjs)",
+  "description": "Audit tools for the Lighthouse workflow: axe-report.mjs, lighthouse-report.mjs, serve.mjs",
   "type": "module",
   "dependencies": {
     "axe-core": "4.14.0",
+    "lighthouse": "13.5.0",
     "puppeteer-core": "25.13.0"
   }
 }

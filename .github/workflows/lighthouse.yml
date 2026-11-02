@@ -65,10 +65,21 @@ jobs:
           name: site
           path: ${{ runner.temp }}/site
 
+      - name: Set up Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: _scripts/package-lock.json
+
+      - name: Install audit tools  # axe-core, Puppeteer and Lighthouse, versions in _scripts/package.json
+        run: npm ci --prefix _scripts
+
+      # gzips text files like GitHub Pages, so scores reflect what visitors download
       - name: Serve site
         run: |
           mkdir -p "$RUNNER_TEMP/reports"
-          python3 -m http.server 4173 --directory "$RUNNER_TEMP/site" > /dev/null 2>&1 &
+          node _scripts/serve.mjs "$RUNNER_TEMP/site" 4173 &
           curl --fail --silent --show-error --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:4173/group33/ > /dev/null
 
       # every built page, so new pages are audited without editing this file
@@ -79,17 +90,6 @@ jobs:
           paths=$(find group33 -name index.html | sed 's|index\.html$||' | sort)
           echo "Auditing:" $paths
           echo "paths=$(echo $paths)" >> "$GITHUB_OUTPUT"
-          echo "urls=$(printf 'http://127.0.0.1:4173/%s,' $paths | sed 's/,$//')" >> "$GITHUB_OUTPUT"
-
-      - name: Set up Node
-        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with:
-          node-version: "24"
-          cache: npm
-          cache-dependency-path: _scripts/package-lock.json
-
-      - name: Install WCAG checker
-        run: npm ci --prefix _scripts
 
       - name: Check WCAG 2.2 A/AA (axe-core)
         id: axe
@@ -97,13 +97,21 @@ jobs:
           AXE_OUT: ${{ runner.temp }}/reports
         run: CHROME="$(command -v google-chrome)" node _scripts/axe-report.mjs http://127.0.0.1:4173 ${{ matrix.device }} ${{ steps.pages.outputs.paths }}
 
+      # one HTML report (to read) and one JSON report (for the summary) per page. A page
+      # Lighthouse itself crashes on is skipped with a warning, so the others still report
       - name: Run Lighthouse
         id: lighthouse
-        uses: foo-software/lighthouse-check-action@a80267da2e0244b8a2e457a8575fc47590615852 # v12.0.1
-        with:
-          device: ${{ matrix.device }}
-          outputDirectory: ${{ runner.temp }}/reports
-          urls: ${{ steps.pages.outputs.urls }}
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+          PRESET: ${{ matrix.device == 'desktop' && '--preset=desktop' || '' }}
+        run: |
+          for page in ${{ steps.pages.outputs.paths }}; do
+            name=$(echo "$page" | tr '/' '-' | sed 's/-$//')
+            _scripts/node_modules/.bin/lighthouse "http://127.0.0.1:4173/$page" $PRESET --quiet \
+              --chrome-flags="--headless=new --no-sandbox" \
+              --output=html --output=json --output-path="$RUNNER_TEMP/reports/$name" \
+              || echo "::warning::Lighthouse could not audit /$page on ${{ matrix.device }}; re-run the job."
+          done
 
       # scores per page against the pass marks, and the audits that cost points
       - name: Summarise Lighthouse scores
