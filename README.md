@@ -23,6 +23,7 @@ before merge.
 | `assets/resized/` | Generated photo sizes. Gitignored. |
 | `assets/placeholders/` | Stand-in photos until final ones land: home display photo, shelf headers. |
 | `assets/fonts/` | Fonts, licence beside. |
+| `assets/icons/` | Lucide icons, one `.svg` per icon. Use in HTML: `{% include icon.html name="x" %}`. New icon → copy a file, swap drawing, list in `NOTICE.md`. |
 | `Rakefile` | `serve`, `build`, `images` tasks. `images` makes `assets/resized/` + `_data/lqip.json`. |
 | `_scripts/axe-report.mjs` | WCAG check run by Lighthouse workflow. |
 | `docs/HannasMasterDoc.md` | Curator master doc, tidied. Source of truth for exhibition text. |

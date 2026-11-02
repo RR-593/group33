@@ -1,0 +1,10 @@
+{%- comment -%}
+  One Lucide icon from assets/icons/<name>.svg, drawn with <use> so it takes the text
+  colour (currentColor) like inline SVG. Decorative: the button around it gives the name.
+
+  Usage: include icon.html name="x"   optional: class="icon-play"  size=20 (default 24)
+  New icon: copy an existing file in assets/icons/, swap in the Lucide drawing, and list
+  it in NOTICE.md.
+{%- endcomment -%}
+{%- assign size = include.size | default: 24 -%}
+<svg{% if include.class %} class="{{ include.class }}"{% endif %} aria-hidden="true" focusable="false" width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="{{ '/assets/icons/' | append: include.name | append: '.svg#icon' | relative_url }}"/></svg>
