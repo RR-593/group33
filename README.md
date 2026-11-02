@@ -4,37 +4,193 @@ Group 33 Jekyll site. Public repo. Push to `main` → auto build + publish →
 <https://rr-593.github.io/group33/>. Public at once, so check
 before merge.
 
+## Run it on your computer
+
+The quickest way to see the site. You need [Ruby 4.0.6](https://www.ruby-lang.org/en/downloads/)
+(the version in `.ruby-version`; `rbenv install 4.0.6` if you use rbenv) and nothing else.
+
+```text
+bundle install              # first time only, and after Gemfile.lock changes
+bundle exec jekyll serve    # builds the site and rebuilds it whenever you save a file
+```
+
+Open <http://127.0.0.1:4000/group33/> (the slash at the end matters). Edits to pages,
+styles and data show when you refresh; after editing `_config.yml`, stop with Ctrl+C
+and run the second command again.
+
+This skips the photo resizing script, so photos show at full size: everything works,
+pages just load more slowly. To see the site exactly as visitors get it, use
+`bundle exec rake serve` instead (needs ImageMagick, see [Photo resizing](#photo-resizing)).
+
 ## Repo map
 
-| Path | What |
-|---|---|
-| `pages/` | Markdown pages. Home, about, curation, team, shelves. Students edit here. |
-| `pages/index.md` | Home. Text = exhibition overview. `display_image` in front matter (`url`, `altText`, `caption`) = photo beside title. Layout `_layouts/home.html`. |
-| `pages/shelves/*.md` | Front matter only. `shelf: top` → picks `_data/shelves/top.yml`. |
-| `_data/shelves/*.yml` | Shelf content. Objects, images, alt text, audio, 3D. One file per shelf. |
-| `_data/bio_pic.yml` | Curator portrait on Curation page: `url`, `altText`, `caption`. Photo in `assets/images/curator/`. |
-| `_data/licenses/*.yml` | Curation page licence tables. One file per row. `used_for: website` (sent to visitors) or `building` (team tools). |
-| `_data/schemas/*.schema.yml` | Rules for shelf + licence YAML (JSON Schema, in YAML). CI checks every file against them. |
-| `_data/lqip.json` | Tiny blur placeholders. Generated. Gitignored. |
-| `_layouts/shelf.html` | One template → all shelf pages. Hero, card loop, 3D pop-up. |
-| `_includes/artifact-card.html` | One object card: carousel, key hints, audio player, captions, 3D button, details. |
-| `_layouts/`, `_includes/` | Shared HTML. Nav pill + zoom buttons (`header.html`), head, footer, `shelf-card.html` (home), `responsive-image.html` (resized photo + blur placeholder), `page-turn.html` (previous/next links, nav order), `footer.html` (visit details, acknowledgement, © year). |
-| `_plugins/seo_defaults.rb` | Search/share tags: shelf pages reuse shelf `description`; every page shares home display photo. Page front matter `description:` / `image:` overrides. |
-| `assets/js/` | `site.js` every page: nav keys, zoom, back to top. `shelf.js` shelf pages: carousel, audio player, 3D pop-up, card keys. |
-| `assets/css/main.scss` | Stylesheet entry. Lists every partial in load order. |
-| `_sass/` | Styles. `_settings.scss` colours/type/spacing; `base/` fonts + HTML elements; `layout/` header, page, footer; `components/` pills, cards, audio player, 3D pop-up; `pages/` one-page styles. |
-| `assets/images/objects/<shelf>/<object>/` | Original object photos. Folder names lower-case with hyphens; file names as the curator supplied them. |
-| `assets/audio/` | Audio-visual description recordings (`.m4a`), one per object. |
-| `assets/resized/` | Generated photo sizes. Gitignored. |
-| `assets/images/placeholders/` | Stand-in photos until final ones land: home display photo, shelf headers. |
-| `assets/fonts/` | Fonts, licence beside. |
-| `assets/icons/` | Lucide icons, one `.svg` per icon. Use in HTML: `{% include icon.html name="x" %}`. New icon → copy a file, swap drawing, list in `NOTICE.md`. |
-| `Rakefile` | `serve`, `build`, `images` tasks. `images` makes `assets/resized/` + `_data/lqip.json`. |
-| `_scripts/` | Lighthouse workflow tools: `axe-report.mjs` (WCAG check), `lighthouse-report.mjs` (score summary), `serve.mjs` (local server, gzips like Pages). Versions in `package.json`. |
-| `docs/HannasMasterDoc.md` | Curator master doc, tidied. Source of truth for exhibition text. |
-| `docs/tempMasterDoc.md` | Curator master doc, raw copy. Not published. |
-| `_config.yml` | Site title, `baseurl: "/group33"`, nav order (`header_pages`), shelf order (`shelves`), `image_sizes`. |
-| `CITATION.cff`, `pages/team.md` | Contributor names. Use names people give, no guessing from accounts. |
+```mermaid
+flowchart TB
+  docs["<b>docs/HannasMasterDoc.md</b><br>curator's text, the source of truth"]
+  schemas["<b>_data/schemas/</b><br>rules for every YAML data file"]
+
+  subgraph content["Content: what you edit"]
+    direction LR
+    pages["<b>pages/</b><br>index · curation · accessibility<br>shelves/top · middle · bottom"]
+    shelfdata["<b>_data/shelves/*.yml</b><br>objects, photos, alt text,<br>captions, audio, 3D links"]
+    otherdata["<b>_data/bio_pic.yml</b><br><b>_data/licenses/*.yml</b><br>portrait, licence rows"]
+    config["<b>_config.yml</b><br>title, nav and shelf order,<br>photo sizes"]
+  end
+
+  subgraph media["Media"]
+    direction LR
+    images["<b>assets/images/</b><br>objects/&lt;shelf&gt;/&lt;object&gt;/<br>placeholders/ · curator/"]
+    audio["<b>assets/audio/</b><br>audio descriptions"]
+  end
+
+  subgraph generated["Generated, not committed"]
+    direction LR
+    resized["<b>assets/resized/</b><br>400 · 800 · 1600px copies"]
+    lqip["<b>_data/lqip.json</b><br>blur placeholders"]
+  end
+
+  subgraph code["Templates, styles, scripts"]
+    direction LR
+    layouts["<b>_layouts/</b><br>default · page<br>home · shelf"]
+    includes["<b>_includes/</b><br>header · footer · cards<br>images · icons"]
+    styles["<b>_sass/</b><br>settings · base · layout<br>components · pages"]
+    js["<b>assets/js/</b><br>site.js · shelf.js"]
+    plugin["<b>_plugins/</b><br>seo_defaults.rb"]
+  end
+
+  build(["<b>jekyll build</b>"])
+  site["<b>_site/</b><br>the built website"]
+  live(["<b>rr-593.github.io/group33</b>"])
+  workflows["<b>.github/workflows/</b><br>deploy · Lighthouse + WCAG audit<br>data check · rebase check"]
+
+  docs -. "copied word for word" .-> content
+  schemas -. "checked on every pull request" .-> content
+  media -- "rake images" --> generated
+  content & media & generated & code --> build
+  build --> site
+  workflows -. "on merge to main" .-> live
+  site --> live
+
+  classDef edit fill:#e8f0fb,stroke:#005fcc,color:#111
+  classDef gen fill:#f6f6f6,stroke:#999,color:#555,stroke-dasharray:4 3
+  classDef step fill:#111,stroke:#111,color:#fff
+  class pages,shelfdata,otherdata,config edit
+  class resized,lqip,site gen
+  class build,live step
+```
+
+Blue boxes are what you edit to change the exhibition; grey dashed boxes are made for
+you and are gitignored. Other files at the top level: `Rakefile` (project tasks),
+`Gemfile`/`Gemfile.lock` (Ruby gems, versions locked), `_scripts/` (audit tools used by
+the Lighthouse workflow), `NOTICE.md` and `LICENSE` (licences), `CITATION.cff` (how to
+credit contributors: use the names people give, never guesses from accounts).
+
+## Photo resizing
+
+Original photos are large (often 1–4 MB). Sending them to every phone would make the
+site slow, so `bundle exec rake images` (in `Rakefile`) makes smaller copies:
+
+- **Resized copies:** every JPEG under `assets/images/` gets a copy at each width in
+  `image_sizes` in `_config.yml` (now 400, 800 and 1600px), saved under
+  `assets/resized/` with the same folder structure. Browsers pick the smallest copy
+  that looks sharp on their screen.
+- **Blur placeholders:** a 20px-wide version of each photo, stored in `_data/lqip.json`
+  and written straight into the page, so a blurry preview shows while the real photo
+  downloads.
+- **Originals are never changed.** Both outputs are gitignored and rebuilt by GitHub
+  when the site deploys, so never commit them.
+- **Only what changed is redone.** A copy is remade when its original is newer, so a
+  second run takes seconds.
+
+You need [ImageMagick](https://imagemagick.org) for it: `brew install imagemagick`
+(macOS), `winget install ImageMagick.ImageMagick` (Windows) or
+`sudo apt install imagemagick` (Linux). `bundle exec rake serve` and
+`bundle exec rake build` run it for you first.
+
+On GitHub, the deploy and audit workflows keep the copies in the Actions cache and only
+run the script again when a photo, the `Rakefile` or `_config.yml` changes.
+
+Troubleshooting:
+
+- **A replaced photo still shows the old picture:** the copied file kept its old date.
+  Delete its files in `assets/resized/` and run `bundle exec rake images` again.
+- **`ImageMagick not found`:** install it (above), then open a new terminal.
+- **`magick: ParseError missing >`:** harmless. The museum photos carry broken
+  embedded metadata, which the copies leave out.
+
+## Update descriptions on the GitHub website
+
+Use this to change alt text, captions, audio description transcripts or object details
+without installing anything. Every change goes through a pull request, so it is
+checked before it goes live.
+
+Where each piece of text lives:
+
+| On the site | File | Field |
+|---|---|---|
+| Object name, accession number, material, details | `_data/shelves/<shelf>.yml` | `metaDescription` |
+| What a screen reader says for a photo | `_data/shelves/<shelf>.yml` | `altText` under `images` |
+| Caption under a photo | `_data/shelves/<shelf>.yml` | `caption` under `images` |
+| Audio description text (key T) | `_data/shelves/<shelf>.yml` | `transcript` under `audioDescription` |
+| Shelf introduction and header photo | `_data/shelves/<shelf>.yml` | `description`, `image` at the top |
+| Home page display photo | `pages/index.md` | `display_image` at the top |
+| Curator portrait | `_data/bio_pic.yml` | `altText`, `caption` |
+
+1. **Get the wording right first.** Exhibition text comes from the curator. Check it
+   matches `docs/HannasMasterDoc.md`, or update that file in the same pull request
+   (step 7).
+2. **Open the file.** On the repository page, press <kbd>T</kbd> (or click
+   **Go to file**) and type the file name, for example `middle.yml`.
+3. **Find the object.** Press <kbd>Ctrl</kbd>+<kbd>F</kbd> (<kbd>Cmd</kbd>+<kbd>F</kbd>
+   on a Mac) and search for its accession number, for example `MU3735`.
+4. **Edit.** Click the pencil icon (**Edit this file**) at the top right of the file.
+   Change only the text after the field name, for example:
+
+   ```yaml
+       images:
+         - url: assets/images/objects/middle/seated-statuette/5 Seated Statuette_MU3735_front_Image1.jpg
+           altText: Object 5. A small ceramic figure seated on a black base.
+           caption: 5. Seated statuette, MU3735, front view © Gale History Museum
+   ```
+
+   Keep these YAML rules or the check in step 8 will fail:
+   - Keep the spaces at the start of the line exactly as they are (spaces, never tabs).
+   - If the text contains a colon followed by a space (`: `), or starts with a quote,
+     `#`, `[` or `{`, wrap the whole text in double quotes:
+     `details: "Greek: c. 5th century BCE"`. Inside double quotes, write a double quote
+     as `\"`.
+   - Text that is only a number, a date or a word like `yes`/`no` also needs quotes:
+     `accNo: "1985053"`.
+   - Never leave a field empty. If the text isn't written yet, put `TBC`.
+5. **Check your change.** Click the **Preview** tab to see the lines you changed in
+   green and red.
+6. **Save to a new branch.** Click **Commit changes…**, write a short message such as
+   `Fix alt text for seated statuette`, choose **Create a new branch for this commit
+   and start a pull request**, and click **Propose changes**, then
+   **Create pull request**.
+7. **More files in the same change (optional).** At the top of the repository, switch
+   the branch menu from `main` to your new branch, open the next file, edit it, and
+   choose **Commit directly to the** your-branch **branch**. It joins the same
+   pull request.
+8. **Wait for the checks.** At the bottom of the pull request:
+   - **Validate data** checks the YAML. If it fails, click **Details**: the error names
+     the field, for example `$.artifacts[3].images[0].altText: '' should be non-empty`.
+     Fix it with the pencil on your branch (step 7).
+   - **Lighthouse** posts a comment with accessibility and performance results. Text
+     edits rarely change these.
+   - **Rebase check** fails if `main` moved on since you started. Click the arrow next
+     to **Update branch** and choose **Update with rebase**.
+9. **Ask for a review.** Add a teammate under **Reviewers**. Merging to `main`
+   publishes the site.
+10. **Check the live site.** About 2–3 minutes after merging, the change is on
+    <https://rr-593.github.io/group33/>. Refresh the page (hard refresh if it looks
+    old: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>, or
+    <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> on a Mac).
+
+Adding or replacing a photo or audio file works the same way: open its folder under
+`assets/`, click **Add file** → **Upload files**, then add or update its entry in the
+shelf file. Record who owns it and how it may be used in the caption first (see
+[Workflows](#workflows)).
 
 ## Master doc layout
 
@@ -109,16 +265,12 @@ permitted use + required credit recorded: credit in caption, terms in
 ### Add object photo
 
 1. Drop `.jpg` in `assets/images/objects/<shelf>/<object>/`. Stand-in photo → `assets/images/placeholders/`.
-2. Add `{ url, altText, caption }` to object `images` in shelf JSON. `altText` = what photo shows, for its purpose here. Caption carries © credit, e.g. `© Gale History Museum`.
-3. Run `bundle exec rake images` (or restart `rake serve`). Else photo 404 local.
+2. Add `{ url, altText, caption }` to object `images` in the shelf YAML. `altText` = what photo shows, for its purpose here. Caption carries © credit, e.g. `© Gale History Museum`.
+3. Run `bundle exec rake images` (or restart `rake serve`) to make its resized copies. Without them it shows full size locally.
 
-`rake images` covers both folders. Makes 400, 800, 1600px copies (`image_sizes` in `_config.yml`)
-in `assets/resized/` + blur placeholder in `_data/lqip.json`; up-to-date copies
-skipped. Both gitignored, rebuilt on deploy, never commit. Replace photo =
-overwrite same file name; newer original → copies remade. Old copy still
-showing (copied file kept old date) → delete its files in `assets/resized/`,
-run again. Rename or move photo → update `url` in shelf JSON (home photo: `display_image`
-in `pages/index.md`) too, else broken image.
+Replace photo = overwrite same file name. Rename or move photo → update `url` in shelf
+YAML (home photo: `display_image` in `pages/index.md`) too, else broken image. More on
+the copies: [Photo resizing](#photo-resizing).
 
 `docs/` never published. Keep drafts + raw docs there, not repo root: root
 files without front matter get copied to live site as-is.
@@ -151,21 +303,11 @@ Add `obj3D: { url: <nira link>, altText: <object name> }` to object. Button appe
 
 Automated checks miss much; do PR template's manual checks too.
 
-## Test local
+## Full local check
 
-Need: Ruby 4.0.6 (pinned in `.ruby-version`), Bundler, ImageMagick. Python 3
-only for schema check below. Same on macOS, Linux, Windows; no Git Bash needed.
-
-```text
-rbenv install 4.0.6          # once. rbenv auto-picks in repo
-brew install imagemagick     # macOS. Windows: winget install ImageMagick.ImageMagick. Linux: apt install imagemagick
-bundle install               # once + after Gemfile.lock change
-bundle exec rake serve       # makes photo sizes, then live reload
-```
-
-Open <http://127.0.0.1:4000/group33/>. Slash at end matters. Page, style, data
-edits show on refresh. `_config.yml` edits need restart: Ctrl+C, run again.
-`bundle exec rake -T` lists all tasks.
+Setup as in [Run it on your computer](#run-it-on-your-computer), plus ImageMagick
+(see [Photo resizing](#photo-resizing)) and Python 3 for the schema checks. Same on
+macOS, Linux and Windows. `bundle exec rake -T` lists all tasks.
 
 Before push:
 
@@ -173,6 +315,7 @@ Before push:
 bundle exec rake build
 pipx run --spec check-jsonschema==0.38.2 check-jsonschema --schemafile _data/schemas/shelf.schema.yml _data/shelves/*.yml
 pipx run --spec check-jsonschema==0.38.2 check-jsonschema --schemafile _data/schemas/license.schema.yml _data/licenses/*.yml
+pipx run --spec check-jsonschema==0.38.2 check-jsonschema --schemafile _data/schemas/bio_pic.schema.yml _data/bio_pic.yml
 ```
 
 Read output. Build error or schema fail → fix first.
