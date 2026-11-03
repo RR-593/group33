@@ -32,9 +32,9 @@ section h2) and the image alt text.
         disability studies.</p>
         <p>Her recent books include <cite>Disability in Ancient Egypt and Egyptology</cite>
         (Routledge, 2024) and <cite>Disability Activism in and Out of the Academy</cite> (2026).
-        She has been recognised an emerging research leader of the inaugural National
+        She has been recognised as an emerging research leader of the inaugural National
         Disability Leadership Program by the National Disability Research Partnership.</p>
-        <p>Check out her <a href="https://researchers.mq.edu.au/en/persons/hannah-vogel/">Macquaire
+        <p>Check out her <a href="https://researchers.mq.edu.au/en/persons/hannah-vogel/">Macquarie
         University Profile</a> or <a href="https://hvogel.org/">Website (hvogel.org)</a> for
         more information about her projects, research, outreach and advocacy.</p>
       </div>
