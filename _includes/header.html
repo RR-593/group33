@@ -39,7 +39,7 @@
   {%- comment -%}
     Page zoom beside the pill: scales the whole page (CSS zoom), remembered across pages in
     localStorage and applied early in head.html. Icons: Lucide zoom-out and zoom-in (see NOTICE.md).
-    Keys - and + zoom from anywhere on the page, except while typing in a text field.
+    Keys - and + zoom only while focus is in the nav pill or the zoom buttons (WCAG 2.1.4).
   {%- endcomment %}
   <div class="zoom" role="group" aria-label="Page zoom">
     <button class="zoom-btn" type="button" data-step="-1" aria-label="Zoom out" aria-keyshortcuts="-">{% include icon.html name="zoom-out" size=2 %}</button>
