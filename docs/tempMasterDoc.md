@@ -107,9 +107,9 @@ Curator
 
 Hannah Vogel is an archaeologist, teaching academic, and PhD candidate researcher in the School of Humanities, Macquarie University (Sydney, Australia). As a leading researcher on ableism and disability, she combines archaeological scholarship with advocacy and experience in museums, public outreach, accessibility, and inclusive pedagogies. Her work has helped shape the emerging field of archaeological disability studies. 
 
-Her recent books include Disability in Ancient Egypt and Egyptology (Routledge, 2024) and Disability Activism in and Out of the Academy (2026). She has been recognised an emerging research leader of the inaugural National Disability Leadership Program by the National Disability Research Partnership.  
+Her recent books include Disability in Ancient Egypt and Egyptology (Routledge, 2024) and Disability Activism in and Out of the Academy (2026). She has been recognised as an emerging research leader of the inaugural National Disability Leadership Program by the National Disability Research Partnership.  
 
-Check out her Macquaire University Profile or Website (hvogel.org) for more information about her projects, research, outreach and advocacy.  
+Check out her Macquarie University Profile or Website (hvogel.org) for more information about her projects, research, outreach and advocacy.  
 
 MQ Profile link https://researchers.mq.edu.au/en/persons/hannah-vogel/  
 
@@ -149,7 +149,7 @@ Thanks to the Gale History Museum, Macquarie University for providing access to 
 
  
 
-I acknowledge [disability] community consultation, was provided by the National Disability Research Partnership staff (especially, Catherine Raffaele and Jess Rosenthal), and the Disability Research Leaders Community of Practise members (especially, Matthew Jackson and Samantha Lilly). Acknowledgments for feedback and consultation also from Dr Alexandra F. Morris, Amy Cripps, Cecily Bateman, Chaya Kasif, Damian Gilbert, Dr David Chapman, Dr Ewan Coopey, Gessika Crowe, Hannah Newman, Jackie Tang, Dr Julia Hamilton, Dr Katie Shead, Louise Pryke, Marianne Strauss, Narges Safari, Nicole Leong, Penelope Blake, Prof Ronika Power, Sarah Massingham, Taylah Evans and many other community members who have elected to remain anonymous. 
+I acknowledge [disability] community consultation, was provided by the National Disability Research Partnership staff (especially, Catherine Raffaele and Jess Rosenthal), and the Disability Research Leaders Community of Practice members (especially, Matthew Jackson and Samantha Lilly). Acknowledgments for feedback and consultation also from Dr Alexandra F. Morris, Amy Cripps, Cecily Bateman, Chaya Kasif, Damian Gilbert, Dr David Chapman, Dr Ewan Coopey, Gessika Crowe, Hannah Newman, Jackie Tang, Dr Julia Hamilton, Dr Katie Shead, Louise Pryke, Marianne Strauss, Narges Safari, Nicole Leong, Penelope Blake, Prof Ronika Power, Sarah Massingham, Taylah Evans and many other community members who have elected to remain anonymous. 
 
  
 
@@ -157,7 +157,7 @@ Special thanks to Hannah Newman and Dr Brian Ballsun-Stanton for their work supp
 
  
 
-In most instances, I have chosen to use identity-first disability language as a personal preference. acknowledge that preferences vary amongst the diverse disability community and respect the choices of each person to express their experiences and embodiments. 
+In most instances, I have chosen to use identity-first disability language as a personal preference. I acknowledge that preferences vary amongst the diverse disability community and respect the choices of each person to express their experiences and embodiments. 
 
  
 
