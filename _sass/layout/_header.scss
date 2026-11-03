@@ -67,6 +67,7 @@
   line-height: 1.75rem;
   white-space: nowrap;
   text-align: center;
+  text-transform: capitalize;  // nav labels: capitalise each word, e.g. "Top Shelf"
   border-radius: $pill;
   text-decoration: none;
 
