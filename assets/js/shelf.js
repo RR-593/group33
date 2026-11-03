@@ -8,7 +8,8 @@ const frame = dialog.querySelector('iframe');
 const loading = dialog.querySelector('.model-dialog-loading');
 // Nira is another site, so `load` means its page is up, not that the model has
 // finished streaming; Nira shows its own progress from there
-frame.addEventListener('load', () => loading.textContent = '');
+let slowTimer;  // the "taking a long time" message, cancelled if the model loads
+frame.addEventListener('load', () => { clearTimeout(slowTimer); loading.textContent = ''; });
 document.querySelectorAll('.artifact-3d').forEach(button => button.addEventListener('click', () => {
   dialog.querySelector('h2').textContent = button.dataset.title;
   frame.title = button.dataset.title;
@@ -17,6 +18,10 @@ document.querySelectorAll('.artifact-3d').forEach(button => button.addEventListe
   if (frame.src !== button.dataset.src) {
     loading.textContent = 'Loading 3D model…';
     frame.src = button.dataset.src;
+    clearTimeout(slowTimer);
+    slowTimer = setTimeout(() => {
+      loading.textContent = 'The 3D model is taking a long time to load. You can close this and read the description instead.';
+    }, 15000);
   }
   dialog.showModal();
 }));
@@ -203,6 +208,14 @@ viewer.querySelectorAll('[data-zoom]').forEach(b => b.addEventListener('click', 
 
 viewer.addEventListener('keydown', e => {
   if (e.ctrlKey || e.metaKey || e.altKey) return;  // keep the browser's own zoom
+    // zoomed in: arrows pan the photo (the Previous/Next buttons still change photo)
+  if (zoom > 1 && e.key.startsWith('Arrow')) {
+    x += e.key === 'ArrowLeft' ? 80 : e.key === 'ArrowRight' ? -80 : 0;
+    y += e.key === 'ArrowUp' ? 80 : e.key === 'ArrowDown' ? -80 : 0;
+    draw();
+    e.preventDefault();
+    return;
+  }
   const act = { ArrowLeft: () => step(-1), ArrowRight: () => step(1), '+': () => zoomTo(zoom * 1.5), '=': () => zoomTo(zoom * 1.5), '-': () => zoomTo(zoom / 1.5), '0': () => zoomTo(1) }[e.key];
   if (!act) return;
   act();

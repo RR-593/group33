@@ -88,10 +88,11 @@ zoom.addEventListener('click', e => {
   if (b) step(Number(b.dataset.step));
 });
 
-// = is + without Shift. Anywhere on the page, but not while typing
+// = is + without Shift. Only while keyboard focus is in the nav pill or the zoom buttons,
+// so a single-character key never acts on its own anywhere else (WCAG 2.1.4)
 document.addEventListener('keydown', e => {
   if (e.ctrlKey || e.metaKey || e.altKey) return;  // keep the browser's own Ctrl/Cmd zoom
-  if (e.target.closest('input:not([type="range"]), textarea, select, [contenteditable], dialog')) return;  // the photo viewer zooms the photo instead
+  if (!e.target.closest('.site-nav, .zoom')) return;  // 2.1.4: only while focus is in the nav pill or zoom buttons
   const n = { '-': -1, '+': 1, '=': 1 }[e.key];
   if (!n) return;
   step(n);
@@ -183,4 +184,5 @@ if (sections.length > 1) {
   stepBar.addEventListener('pointerleave', unhint);
   stepBar.addEventListener('focusout', () => requestAnimationFrame(unhint));
   addEventListener('scroll', () => { if (stepLabel.textContent) stepLabel.textContent = ''; }, { passive: true });
+  addEventListener('keydown', e => { if (e.key === 'Escape') stepLabel.textContent = ''; });
 }
