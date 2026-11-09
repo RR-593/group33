@@ -218,6 +218,20 @@ code is `assets/js/kiosk.js`.
 Touches inside the 3D model viewer happen in Nira's own frame, which the site can't
 see, so someone turning a model for 2 minutes gets the warning; one tap keeps the page.
 
+### Setting up the iPad
+
+- Use a normal Safari tab, not a Private tab: a Private tab forgets the setting when it
+  is closed.
+- Turn the mode on in the same browser visitors will use. An icon added with **Add to
+  Home Screen** keeps its own separate settings, so use Safari itself.
+- **Settings > Display & Brightness > Auto-Lock > Never**, and keep the iPad on charge,
+  so the screen doesn't lock between visitors.
+- **Settings > Accessibility > Guided Access**: turn it on, open the site in Safari, then
+  triple-click the top (or Home) button and tap **Start**. Visitors then can't leave
+  Safari. Triple-click and enter the passcode to stop it.
+- Safari can clear a site's saved settings after about a week without use. After a long
+  closure, open `?kiosk=on` again to be safe (if it's already on, nothing is asked).
+
 ## Master doc layout
 
 `docs/HannasMasterDoc.md`. Exhibition text copied word for word from curator. `TBC` = curator not supplied yet.
