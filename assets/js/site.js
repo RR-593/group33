@@ -41,7 +41,7 @@ nav.addEventListener('keydown', e => {
   const i = links.indexOf(e.target), n = links.length;
   // left/right along the pill; up/down along the phone menu's list
   const to = i < 0 ? undefined : { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: n - 1 }[e.key];
-  const jump = nav.querySelector(`a[aria-keyshortcuts="${e.key}"]`);
+  const jump = nav.querySelector(`a[data-key="${e.key}"]`);
   if (to !== undefined) {
     const a = links[(to + n) % n];  // wraps around at either end
     rove(a);

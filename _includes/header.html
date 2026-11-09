@@ -20,13 +20,13 @@
       {%- for path in site.header_pages %}
       {%- assign my_page = site.pages | where: "path", path | first %}
       {%- assign label = my_page.nav_title | default: my_page.title | escape %}
-      <li><a href="{{ my_page.url | relative_url }}" data-label="{{ label }}" aria-describedby="nav-hint"{% if forloop.index < 10 %} aria-keyshortcuts="{{ forloop.index }}"{% endif %}{% if my_page.url == page.url %} aria-current="page"{% endif %}>
+      <li><a href="{{ my_page.url | relative_url }}" data-label="{{ label }}"{% if forloop.index < 10 %} data-key="{{ forloop.index }}"{% endif %}{% if my_page.url == page.url %} aria-current="page"{% endif %}>
         {%- if forloop.index < 10 %}<kbd class="nav-key" aria-hidden="true">{{ forloop.index }}</kbd>{% endif -%}
         {{ label }}</a></li>
       {%- endfor %}
     </ul>
-    {%- comment -%} shown under the pill while it has keyboard focus; screen readers get it via aria-describedby {%- endcomment %}
-    <p class="nav-hint" id="nav-hint">
+    {%- comment -%} shown under the pill while it has keyboard focus; hidden from screen readers, whose own keys these would clash with {%- endcomment %}
+    <p class="nav-hint" aria-hidden="true">
       <span><kbd>←</kbd><kbd>→</kbd> Move</span>
       <span><kbd>Enter</kbd> Open</span>
       <span><kbd>1</kbd>–<kbd>{{ key_count }}</kbd> Jump to page</span>

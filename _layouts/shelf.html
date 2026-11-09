@@ -42,7 +42,7 @@ layout: default
   zoom, drag to look around, swipe or arrows for the other photos. Wired up in
   assets/js/shelf.js. Icons: Lucide x, zoom-in, zoom-out, chevron-left/right (NOTICE.md).
 {%- endcomment %}
-<dialog class="photo-viewer" aria-labelledby="photo-viewer-title" aria-describedby="photo-viewer-keys">
+<dialog class="photo-viewer" aria-labelledby="photo-viewer-title">
   <div class="photo-viewer__bar">
     <h2 class="photo-viewer__title" id="photo-viewer-title"></h2>
     <p class="photo-viewer__count" aria-live="polite"></p>
@@ -63,7 +63,7 @@ layout: default
   </div>
   <div class="photo-viewer__foot">
     <p class="photo-viewer__caption"></p>
-    <p class="photo-viewer__keys" id="photo-viewer-keys">
+    <p class="photo-viewer__keys" aria-hidden="true">
       <span><kbd>←</kbd><kbd>→</kbd> Photos (pan when zoomed)</span>
       <span><kbd>+</kbd><kbd>−</kbd> Zoom</span>
       <span><kbd>0</kbd> Fit</span>
