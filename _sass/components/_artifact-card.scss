@@ -18,7 +18,7 @@
   .artifact__accession { margin: 0; @include section-index; }
 
   // shortcut keys sit under the description, shown only while the card has keyboard focus;
-  // screen readers get them via aria-describedby
+  // hidden from screen readers (aria-hidden)
   .artifact-keys {
     display: none;
     flex-wrap: wrap;

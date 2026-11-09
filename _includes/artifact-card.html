@@ -17,7 +17,7 @@
 {%- endcomment %}
 
 <article class="artifact" id="art-{{ slug }}" tabindex="0"
-         aria-labelledby="name-{{ slug }}" aria-describedby="keys-{{ slug }}{% if has_audio %} audio-keys-{{ slug }}{% endif %}">
+         aria-labelledby="name-{{ slug }}">
   <div class="artifact-media">
   <div class="artifact-images swiper" role="group" aria-roledescription="carousel"
        aria-label="Images of {{ meta.name | escape }}">
@@ -43,9 +43,9 @@
   </div>
   {%- comment -%}
     Shortcut keys, shown under the photo while the card has keyboard focus.
-    Screen readers hear it through the card's aria-describedby.
+    Hidden from screen readers: they read the controls themselves, and these keys clash with theirs.
   {%- endcomment %}
-  <ul class="artifact-keys" id="keys-{{ slug }}">
+  <ul class="artifact-keys" aria-hidden="true">
     <li><kbd>←</kbd><kbd>→</kbd> Images</li>
     <li><kbd>Shift</kbd><kbd>↑</kbd> Back to top</li>
     {%- if has_audio %}
@@ -59,7 +59,7 @@
   </ul>
   {%- if has_audio %}
   {%- comment -%} player keys, under the photo while the player is open {%- endcomment %}
-  <ul class="artifact-keys artifact-audio-keys" id="audio-keys-{{ slug }}" hidden>
+  <ul class="artifact-keys artifact-audio-keys" aria-hidden="true" hidden>
     <li><kbd>Enter</kbd> Play / pause</li>
     <li><kbd>↑</kbd><kbd>↓</kbd> Volume</li>
     <li><kbd>J</kbd><kbd>L</kbd> Back / forward 10s</li>
