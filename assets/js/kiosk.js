@@ -28,7 +28,9 @@ if (asked) {
   if (asked === 'off') {
     store.set(false);
     alert('Gallery tablet mode is off on this device.');
-  } else if (asked === 'on' && !store.get() && confirm(
+  } else if (asked === 'on' && store.get()) {
+    alert(`Gallery tablet mode is already on on this device. To turn it off, open the site with ?kiosk=off.`);
+  } else if (asked === 'on' && confirm(
     `Turn on gallery tablet mode on this device?\n\nAfter ${wait} with nobody using it, `
     + 'the site will go back to the home page. To turn it off, open the site with ?kiosk=off.')) {
     store.set(true);
