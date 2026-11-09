@@ -64,6 +64,7 @@
     <li><kbd>↑</kbd><kbd>↓</kbd> Volume</li>
     <li><kbd>J</kbd><kbd>L</kbd> Back / forward 10s</li>
     <li><kbd>M</kbd> Mute</li>
+    <li><kbd>S</kbd> Speed</li>
     <li><kbd>Esc</kbd> Close player</li>
   </ul>
   {%- endif %}
@@ -79,7 +80,7 @@
       The audio control and text toggle start hidden and the text and native player visible,
       so without JavaScript nobody loses them; the script swaps them on start.
       The "Audio description" button grows into the player bar in place: its play icon
-      becomes the bar's play/pause, then seek, time and mute follow.
+      becomes the bar's play/pause, then seek, time, mute and speed follow.
       Icons: Lucide play, pause, volume-2, volume-x, captions, x (ISC, see NOTICE.md).
     {%- endcomment %}
     <div class="artifact-actions">
@@ -105,6 +106,8 @@
             <input class="player-volume-slider" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume" tabindex="-1">
           </span>
         </span>
+        {%- comment -%} playback speed: each press steps through 1×, 1.25×, 1.5×, 2×, 0.5×, 0.75× (key S) {%- endcomment %}
+        <button type="button" class="player-speed" aria-label="Playback speed 1×" tabindex="-1">1×</button>
         {%- comment -%} captions: swaps the details list for the description text (key T) {%- endcomment %}
         <button type="button" class="artifact-transcript-toggle player-captions" aria-label="Captions" aria-pressed="false"
                 aria-controls="meta-{{ slug }} transcript-{{ slug }}" tabindex="-1" hidden>

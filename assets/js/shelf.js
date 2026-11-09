@@ -45,6 +45,7 @@ const audioPlayer = card => {
   const volumePop = bar.querySelector('.player-volume-pop');
   const volume = bar.querySelector('.player-volume-slider');
   const time = bar.querySelector('.player-time');
+  const speed = bar.querySelector('.player-speed');
   audio.controls = false;
   audio.hidden = true;
   bar.hidden = false;
@@ -81,6 +82,8 @@ const audioPlayer = card => {
     audio.volume = Math.min(Math.max(v, 0), 1);
     audio.muted = false;
   };
+  const RATES = [1, 1.25, 1.5, 2, 0.5, 0.75];
+  const nextSpeed = () => audio.playbackRate = RATES[(RATES.indexOf(audio.playbackRate) + 1) % RATES.length];
   const louder = v => setVolume(Math.round(((audio.muted ? 0 : audio.volume) + v) * 10) / 10);
 
   const showTime = () => {
@@ -106,16 +109,21 @@ const audioPlayer = card => {
     volumeBtn.classList.toggle('is-muted', level === 0);
     volumeBtn.setAttribute('aria-label', `Volume ${level === 0 ? 'muted' : `${Math.round(level * 100)}%`}`);
   });
+  audio.addEventListener('ratechange', () => {
+    speed.textContent = `${audio.playbackRate}×`;
+    speed.setAttribute('aria-label', `Playback speed ${audio.playbackRate}×`);
+  });
   seek.addEventListener('input', () => audio.currentTime = seek.value);
   volume.addEventListener('input', () => setVolume(Number(volume.value)));
   play.addEventListener('click', playPause);
   volumeBtn.addEventListener('click', () => showVolume(volumePop.hidden));
+  speed.addEventListener('click', nextSpeed);
   bar.querySelector('.player-close').addEventListener('click', () => open(false));
   document.addEventListener('click', e => volumePop.hidden || volumeBtn.parentElement.contains(e.target) || showVolume(false));
 
   return {
     playPause, isOpen,
-    keys: { arrowup: () => louder(0.1), arrowdown: () => louder(-0.1), j: () => skip(-10), l: () => skip(10), m: () => audio.muted = !audio.muted, escape: () => open(false) },
+    keys: { arrowup: () => louder(0.1), arrowdown: () => louder(-0.1), j: () => skip(-10), l: () => skip(10), m: () => audio.muted = !audio.muted, s: nextSpeed, escape: () => open(false) },
   };
 };
 
