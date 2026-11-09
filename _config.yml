@@ -22,6 +22,7 @@ header_pages:
   - pages/shelves/middle.md
   - pages/shelves/bottom.md
   - pages/curation.md
+  - pages/accessibility.md
 
 # Shelf order on the home page and /shelves/; each key matches _data/shelves/<key>.yml
 shelves: [top, middle, bottom]

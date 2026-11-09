@@ -57,7 +57,8 @@
     }
     .artifact-play:hover .artifact-play-icon { transform: scale(1.06); }
 
-    .player-seek, .player-time, .player-volume, .player-captions, .player-close { display: none; }
+    .player-seek, .player-time, .player-volume, .player-speed, .player-captions, .player-close { display: none; }
+    .player-speed { min-width: 3.25rem; font-size: 0.85rem; font-variant-numeric: tabular-nums; }  // fits "1.25×"
     .icon-pause, .icon-muted { display: none; }
     .player-volume-btn svg, .player-captions svg, .player-close svg { width: 1.25rem; height: 1.25rem; }
     // captions on: icon flips to the accent on a white disc, so "on" isn't shown by colour alone
@@ -137,7 +138,7 @@
     .artifact-play-label { display: none; }
     .player-time { display: block; }
     .player-seek { display: block; }
-    .player-volume, .player-captions, .player-close { display: inline-flex; }
+    .player-volume, .player-speed, .player-captions, .player-close { display: inline-flex; }
   }
   .artifact-play.is-playing .icon-play, .player-volume-btn.is-muted .icon-volume { display: none; }
   .artifact-play.is-playing .icon-pause, .player-volume-btn.is-muted .icon-muted { display: block; }
