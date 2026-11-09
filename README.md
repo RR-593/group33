@@ -230,7 +230,7 @@ see, so someone turning a model for 2 minutes gets the warning; one tap keeps th
   triple-click the top (or Home) button and tap **Start**. Visitors then can't leave
   Safari. Triple-click and enter the passcode to stop it.
 - Safari can clear a site's saved settings after about a week without use. After a long
-  closure, open `?kiosk=on` again to be safe (if it's already on, nothing is asked).
+  closure, open `?kiosk=on` again: it either asks to turn it on, or says it's already on.
 
 ## Master doc layout
 
