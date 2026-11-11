@@ -131,9 +131,12 @@
   kbd + kbd { margin-left: 0.2rem; }
 }
 
-.site-nav:has(:focus-visible) {
-  .nav-key { display: block; }
-  .nav-hint { display: flex; }
+// key hints only where there is a mouse or trackpad (so most likely a keyboard), not on touch screens
+@media (hover: hover) and (pointer: fine) {
+  .site-nav:has(:focus-visible) {
+    .nav-key { display: block; }
+    .nav-hint { display: flex; }
+  }
 }
 
 // page zoom pill beside the nav, same look
