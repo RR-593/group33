@@ -200,7 +200,21 @@ const openViewer = (card, index) => {
   viewer.classList.toggle('has-one', photos.length < 2);
   showPhoto(index);
   viewer.showModal();
+  fitToScreen();
 };
+
+// Phones: the viewer covers exactly the part of the page on screen. At a big page zoom the
+// page can be wider than the phone, and a 100vw viewer would put Close past the edge. It
+// cancels the page zoom (it has its own photo zoom), so these lengths are real screen pixels
+const phone = matchMedia('(max-width: 700px), (max-height: 500px)');
+const fitToScreen = () => {
+  const s = viewer.style;
+  if (!viewer.open || !phone.matches) { s.cssText = ''; return; }
+  const z = Number(document.documentElement.style.zoom) || 1;
+  const v = visualViewport;
+  s.cssText = `zoom: ${1 / z}; inset: auto; left: ${v.offsetLeft}px; top: ${v.offsetTop}px; width: ${v.width}px; height: ${v.height}px`;
+};
+visualViewport.addEventListener('resize', fitToScreen);
 
 viewer.addEventListener('close', () => {
   openedFrom?.querySelector('.swiper')?.swiper?.slideTo(current, 0);
@@ -281,7 +295,7 @@ const lift = e => {
 };
 stage.addEventListener('pointerup', lift);
 stage.addEventListener('pointercancel', lift);
-addEventListener('resize', () => { if (viewer.open) draw(); });
+addEventListener('resize', () => { if (viewer.open) { fitToScreen(); draw(); } });
 
 document.querySelectorAll('.artifact').forEach(card => {
   const el = card.querySelector('.artifact-images.swiper');

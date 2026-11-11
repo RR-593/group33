@@ -129,12 +129,15 @@
   }
   .artifact-transcript h3 { font-size: $font-size * 1.125; }
 
-  // accession, material and details as a two-column table
+  // accession, material and details as a two-column table. Both columns may shrink and
+  // long words wrap, so at a big page zoom on a phone the list never pushes the page wider
+  // than the screen
   dl {
     display: grid;
-    grid-template-columns: max-content 1fr;
+    grid-template-columns: fit-content(40%) minmax(0, 1fr);
     gap: 0.25rem 1rem;
   }
+  dt, dd { overflow-wrap: anywhere; }
   dt {
     @include label;
     align-self: baseline;
