@@ -17,8 +17,9 @@
   h2 { margin-top: 0; font-size: clamp(1.625rem, 1.25rem + 1.2vw, 2.125rem); }
   .artifact__accession { margin: 0; @include section-index; }
 
-  // shortcut keys sit under the description, shown only while the card has keyboard focus;
-  // hidden from screen readers (aria-hidden)
+  // shortcut keys sit under the description, shown only while the card has keyboard focus,
+  // and only where there is a mouse or trackpad (so most likely a keyboard): phones and
+  // tablets never show them. Hidden from screen readers (aria-hidden)
   .artifact-keys {
     display: none;
     flex-wrap: wrap;
@@ -30,9 +31,11 @@
     font-size: $small-font-size;
     color: $muted-text;
   }
-  &:focus-visible .artifact-keys { display: flex; }
-  // player keys under the photo: shown whenever the player is open, not only on focus
-  .artifact-audio-keys:not([hidden]) { display: flex; margin-top: 0.5rem; }
+  @media (hover: hover) and (pointer: fine) {
+    &:focus-visible .artifact-keys { display: flex; }
+    // player keys under the photo: shown whenever the player is open, not only on focus
+    .artifact-audio-keys:not([hidden]) { display: flex; margin-top: 0.5rem; }
+  }
   .artifact-keys li { margin: 0; }
   .artifact-keys kbd + kbd { margin-left: 0.2rem; }
 
