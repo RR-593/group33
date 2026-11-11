@@ -19,7 +19,8 @@ $viewer-muted: #c9bfb2;  // (10:1)
   border: 0;
   border-radius: $radius;
 
-  &[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+  // minmax(0, 1fr): the column is the viewer's width, never wider, so Close stays on screen
+  &[open] { display: grid; grid-template: auto minmax(0, 1fr) auto / minmax(0, 1fr); }
   &::backdrop { background: rgba(10, 8, 6, 0.85); }
 
   // phones and small tablets: the whole screen
