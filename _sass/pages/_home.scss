@@ -87,9 +87,8 @@ body:has(.home) {
 }
 
 .about__text {
+  // every paragraph the same size, the opening one included
   p { max-width: 62ch; margin-bottom: 1.1rem; font-size: 1.0625rem; line-height: 1.65; }
-  // the opening line reads as a standfirst
-  p:first-child { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); line-height: 1.4; }
 }
 
 .auslan {
