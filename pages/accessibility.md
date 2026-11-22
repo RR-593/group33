@@ -7,10 +7,10 @@ description: How accessibility was incorporated into the website.
 ---
 
 {%- comment -%}
-Accessibility page, built from the Figma design. The website section is copied word
-for word from docs/HannasMasterDoc.md (About page > Visitor information); change it there first.
+Accessibility page, built from the Figma design. The Website and On-Campus sections are
+copied word for word from docs/HannasMasterDoc.md (About page > Visitor information and
+accessibility); change them there first.
 Styles live in _sass/pages/_accessibility.scss, scoped to .accessibility.
-The on-campus visitor details (location, hours) are marked to be confirmed.
 {%- endcomment -%}
 
 <div class="accessibility">
@@ -102,17 +102,22 @@ The on-campus visitor details (location, hours) are marked to be confirmed.
 
   <section class="accessibility__section" aria-labelledby="campus-heading">
     <h2 id="campus-heading" class="accessibility__heading">Accessibility &ndash; On-Campus</h2>
-    <p>The exhibition is also on display in person at the <a href="https://www.mq.edu.au/faculty-of-arts/about/gale-history-museum">Gale History Museum</a>,
-    Macquarie University, and the physical display has been designed with access
-    in mind. Alongside the objects in the case there are tactile models that can
-    be touched, together with large-print and braille guides produced with Vision
-    Australia, and a panel carrying the overview text, a tablet showing this
-    website and a QR code that links to it.</p>
+    <p>This exhibition is displayed at the <a href="https://www.mq.edu.au/faculty-of-arts/about/gale-history-museum">Gale History Museum</a> from 10th November 2026 until
+    the 1st of March 2027. The Museum is open 10am to 4pm, Monday to Friday (closed on
+    public holidays) and is located on Macquarie University's Wallumattagal Campus, North
+    Ryde, on the ground floor of the Arts Precinct at 25C Wally's Walk. Please refer to
+    P-12 on the Campus Map. Parking and public transport information can be accessed via
+    Museum&rsquo;s Visit page on the Macquarie University Website.</p>
 
-    <p>Visitor information for the on-campus display &mdash; its location, opening
-    hours and how to get there &mdash; will be added here closer to the exhibition.
-    If you have specific access requirements for an in-person visit, please get in
-    touch in advance so we can make arrangements.</p>
+    <p>Accessibility features for the on-campus display include:</p>
+    <ul>
+      <li>Tactile 3D printed models of the objects</li>
+      <li>Tactile 3D printed fabrication of the scene depicted on Object 1, Pelike (MU4759)</li>
+      <li>Braille and Large-print guide</li>
+      <li>An interactive touchscreen and QR codes to access this website including an Auslan
+      (Australian Sign Language) interpretation video and high-quality photographs with
+      audio-visual descriptions.</li>
+    </ul>
   </section>
 
 </div>

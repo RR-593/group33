@@ -76,7 +76,7 @@ main:focus { outline: none; }
     }
   }
 
-  p { max-width: 68ch; }
+  p, ul, ol { max-width: 68ch; }  // lists keep the same line length as the paragraphs around them
 }
 
 // a link on its own in a list item, like the /shelves/ list: at least 24px tall, so it

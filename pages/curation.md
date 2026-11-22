@@ -10,8 +10,8 @@ description: Who curated the exhibition, funded and developed it along with soft
 {%- comment -%}
 Curation & Acknowledgements page (first draft).
 Styles live in _sass/pages/_curation.scss, scoped to .curation.
-Bio and funding text are copied word for word from docs/HannasMasterDoc.md
-(About page > Curator, Funding); change them there first. Curator
+Bio, funding and acknowledgements text are copied word for word from docs/HannasMasterDoc.md
+(About page > Curator, Funding, Acknowledgements); change them there first. Curator
 portrait: _data/bio_pic.yml. Licence tables: one file per row in _data/licenses/ (rules in
 _data/schemas/license.schema.yml); add one when the site gains a font, library,
 icon set or tool. NOTICE.md holds the full terms for what ships. Keep the heading order (page h1 ->
@@ -83,6 +83,39 @@ section h2) and the image alt text.
         <dd>Fardiz Khan</dd>
       </div>
     </dl>
+  </section>
+
+  <section class="curation__section" aria-labelledby="thanks-heading">
+    <h2 id="thanks-heading" class="curation__heading">Acknowledgements</h2>
+    <p>This research was undertaken on the lands of the Wallumattagal clan of the Dharug
+    Nation, whose cultures and customs have nurtured and continue to nurture this land,
+    since the Dreaming. Their sovereignty was never ceded.</p>
+    <p>Thanks to the <a href="https://www.mq.edu.au/faculty-of-arts/about/gale-history-museum">Gale History Museum</a>, Macquarie University for providing access to the materials for
+    this exhibition, with special thanks to Leila Wallace, Dr Yvonne Inall and Sarah Judd.
+    Thanks also to:</p>
+    <ul>
+      <li>Dr Brian Ballsun-Stanton (website accessibility, development and support)</li>
+      <li>Mike Baber (3D models and prints)</li>
+      <li>Dave Frame (Signage and installation)</li>
+      <li>Vision Australia (Tactile fabrication, large-print and braille guides)</li>
+      <li>Marcus Arruzza (Video production and digital scans)</li>
+    </ul>
+    <p>I acknowledge [disability] community consultation, was provided by the National
+    Disability Research Partnership staff (especially, Catherine Raffaele and Jess
+    Rosenthal), and the Disability Research Leaders Community of Practice members
+    (especially, Matthew Jackson and Samantha Lilly). Acknowledgments for feedback and
+    consultation also from Dr Alexandra F. Morris, Amy Cripps, Cecily Bateman, Chaya Kasif,
+    Damian Gilbert, Dr David Chapman, Dr Ewan Coopey, Gessika Crowe, Hannah Newman, Jackie
+    Tang, Dr Julia Hamilton, Dr Katie Shead, Dr Louise Pryke, Marianne Strauss, Dr Narges
+    Safari, Nicole Leong, Penelope Blake, Prof Ronika Power, Sarah Massingham, Taylah Evans
+    and many other community members who have elected to remain anonymous.</p>
+    <p>Special thanks to Hannah Newman and Dr Brian Ballsun-Stanton for their work
+    supporting the administrative and technical development of this exhibition and
+    associated website.</p>
+    <p>In most instances, I have chosen to use identity-first disability language as a
+    personal preference. I acknowledge that preferences vary amongst the diverse disability
+    community and respect the choices of each person to express their experiences and
+    embodiments.</p>
   </section>
 
   <section class="curation__section" aria-labelledby="licenses-heading">
