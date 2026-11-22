@@ -60,7 +60,7 @@ layout: default
           </div>
           <details class="auslan__transcript">
             <summary>Transcript</summary>
-            <p>{{ video.transcript }}</p>
+            {{ video.transcript | markdownify }}
           </details>
         </aside>
       </div>
