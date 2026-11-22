@@ -7,9 +7,9 @@ permalink: /
 subtitle: ""
 # display photo beside the title; wording from docs/HannasMasterDoc.md, Home page > Display image
 display_image:
-  url: "assets/images/placeholders/Placeholder1_HomePageFullDisplay.jpeg"
-  altText: "A photograph of the Disability Heritage: Archaeology with Difference display. There is a tall glass cabinet with three shelves and a panel to the left. The panel features the overview text, an iPad with this website, a QR code to this website and several tactile models of the objects in the glass case."
-  caption: "Photograph (Placeholder) of the display at the Gale History Museum © Hannah Vogel and Gale History Museum"
+  url: "assets/images/display/overall-display.jpg"
+  altText: "Photograph of a museum display case. There are three shelves in the display. The objects on the shelf are described throughout this website. To the left of the display case, there is a panel. The panel includes the exhibition text, an iPad with a video on it, alongside 3D models, which are tactile prints of objects in the display case, as well as a tactile display of the scene on the Paliki."
+  caption: "© Gale History Museum"
 video:
   src: ""
   poster: ""
