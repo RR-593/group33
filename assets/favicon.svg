@@ -1,4 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#005ea8"/>
-  <text x="32" y="41" fill="#fff" font-family="sans-serif" font-size="27" font-weight="700" text-anchor="middle">33</text>
+  <!-- Potsherd with a mended crack: repair is part of the object's history. -->
+  <style>
+    .shard { fill: #9a3412; stroke: #9a3412; }
+    .crack { stroke: #f7f2ea; }
+    @media (prefers-color-scheme: dark) {
+      .shard { fill: #c05621; stroke: #c05621; }
+      .crack { stroke: #1f1a17; }
+    }
+  </style>
+  <path class="shard" stroke-width="6" stroke-linejoin="round"
+        d="M10 18 L30 6 L54 14 L58 40 L40 58 L12 50 L6 32 Z"/>
+  <path class="crack" fill="none" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"
+        d="M24 9 L30 24 L23 32 L36 42 L32 56"/>
 </svg>
