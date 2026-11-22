@@ -9,7 +9,7 @@ subtitle: ""
 display_image:
   url: "assets/images/display/overall-display.jpg"
   altText: "Photograph of a museum display case. There are three shelves in the display. The objects on the shelf are described throughout this website. To the left of the display case, there is a panel. The panel includes the exhibition text, an iPad with a video on it, alongside 3D models, which are tactile prints of objects in the display case, as well as a tactile display of the scene on the Paliki."
-  caption: "© Gale History Museum"
+  caption: "photograph of the display at the Gale History Museum © Hannah Vogel and Gale History Museum"
 # curator's introduction video: compressed from "H Vogel Disability Heritage V1.mp4" (1080p,
 # captions burned into the picture; audio raised from -46 to -16 LUFS). Poster is a frame from 0:20.
 video:
