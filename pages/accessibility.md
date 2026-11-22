@@ -101,13 +101,13 @@ Styles live in _sass/pages/_accessibility.scss, scoped to .accessibility.
   </section>
 
   <section class="accessibility__section" aria-labelledby="campus-heading">
-    <h2 id="campus-heading" class="accessibility__heading">Accessibility &ndash; On-Campus</h2>
+    <h2 id="campus-heading" class="accessibility__heading">Accessibility - On-Campus</h2>
     <p>This exhibition is displayed at the <a href="https://www.mq.edu.au/faculty-of-arts/about/gale-history-museum">Gale History Museum</a> from 10th November 2026 until
     the 1st of March 2027. The Museum is open 10am to 4pm, Monday to Friday (closed on
     public holidays) and is located on Macquarie University's Wallumattagal Campus, North
     Ryde, on the ground floor of the Arts Precinct at 25C Wally's Walk. Please refer to
-    P-12 on the Campus Map. Parking and public transport information can be accessed via
-    Museum&rsquo;s Visit page on the Macquarie University Website.</p>
+    P-12 on the <a href="https://www.mq.edu.au/__data/assets/pdf_file/0016/108142/Campus-Map.pdf">Campus Map</a>. Parking and public transport information can be accessed via
+    Museum&rsquo;s <a href="https://www.mq.edu.au/faculty-of-arts/about/gale-history-museum/visit">Visit page</a> on the Macquarie University Website.</p>
 
     <p>Accessibility features for the on-campus display include:</p>
     <ul>
