@@ -102,7 +102,7 @@ The on-campus visitor details (location, hours) are marked to be confirmed.
 
   <section class="accessibility__section" aria-labelledby="campus-heading">
     <h2 id="campus-heading" class="accessibility__heading">Accessibility &ndash; On-Campus</h2>
-    <p>The exhibition is also on display in person at the Gale History Museum,
+    <p>The exhibition is also on display in person at the <a href="https://www.mq.edu.au/faculty-of-arts/about/gale-history-museum">Gale History Museum</a>,
     Macquarie University, and the physical display has been designed with access
     in mind. Alongside the objects in the case there are tactile models that can
     be touched, together with large-print and braille guides produced with Vision
