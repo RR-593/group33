@@ -4,7 +4,8 @@
   Used by _layouts/shelf.html once per object in the shelf's JSON; assets/js/shelf.js
   wires up the carousel, player and keys.
 
-  Usage, inside a loop over shelf.artifacts: include artifact-card.html artifact=artifact first=forloop.first
+  Usage, inside a loop over shelf.artifacts: include artifact-card.html artifact=artifact first=forloop.first number=number
+  (number: the object's place in the whole exhibition, shown before its name)
 {%- endcomment -%}
 {%- assign artifact = include.artifact %}
 {%- assign meta = artifact.metaDescription %}
@@ -73,7 +74,7 @@
   <div class="description">
     {%- comment -%} the accession number as a wall-label line above the name; already in the details below, so hidden from screen readers {%- endcomment %}
     <p class="artifact__accession" aria-hidden="true">{{ meta.accNo | escape }}</p>
-    <h2 id="name-{{ slug }}">{{ meta.name | escape }}</h2>
+    <h2 id="name-{{ slug }}">{% if include.number %}{{ include.number }}. {% endif %}{{ meta.name | escape }}</h2>
 
     {%- comment -%}
       Buttons skip Tab like everything inside the card (Enter, T and D are the keyboard route).

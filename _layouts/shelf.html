@@ -7,7 +7,15 @@ layout: default
   "TBC" marks content still to be written; it is hidden, not shown.
 {%- endcomment -%}
 {%- assign shelf = site.data.shelves[page.shelf] -%}
-{%- for key in site.shelves %}{% if key == page.shelf %}{% assign shelf_number = forloop.index %}{% assign shelf_total = forloop.length %}{% endif %}{% endfor %}
+{%- comment -%}
+  Object numbers run on across the shelves in site.shelves order (top shelf 1, then the
+  middle shelf, ...), as in the photo captions: `before` counts the objects on earlier shelves
+{%- endcomment -%}
+{%- assign before = 0 %}{% assign counting = true %}
+{%- for key in site.shelves %}
+  {%- if key == page.shelf %}{% assign shelf_number = forloop.index %}{% assign shelf_total = forloop.length %}{% assign counting = false %}{% endif %}
+  {%- if counting %}{% assign before = before | plus: site.data.shelves[key].artifacts.size %}{% endif %}
+{%- endfor %}
 {%- comment -%} laid out like the home page hero: label, title and introduction beside the photo {%- endcomment %}
 <header class="shelf-intro">
   <div class="shelf-intro__text">
@@ -26,7 +34,8 @@ layout: default
 
 <div class="artifacts-box">
   {%- for artifact in shelf.artifacts %}
-  {%- include artifact-card.html artifact=artifact first=forloop.first %}
+  {%- assign number = forloop.index | plus: before %}
+  {%- include artifact-card.html artifact=artifact first=forloop.first number=number %}
   {%- endfor %}
 </div>
 
