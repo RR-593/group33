@@ -24,7 +24,7 @@ This file reorganises the curator's master document ("G33 Website text master do
 | Home | Final display photo (currently a placeholder) |
 | About | Website team (students to fill in) |
 | Middle shelf | Hero image: file, caption and alt text |
-| Top, middle, bottom shelf | Final shelf photos. The website shows placeholder photos of another exhibition's display case ([assets/images/placeholders/](../assets/images/placeholders/)) |
+| Top, middle shelf | Hero images. The website shows placeholder photos of another exhibition's display case ([assets/images/placeholders/](../assets/images/placeholders/)). The bottom shelf uses the hero image given in the source. |
 | Objects 2–11 | Object overview text |
 | Objects 1, 2, 3 | 3D model (none yet) |
 
@@ -372,7 +372,13 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 
 **Overview text:** These feeding vessels, despite differences in design over time, were made to support the needs of people. They represent difference, creating change in [material] culture.
 
-**Hero image:** Object 11, Image 1 (Feeding vessel, hero shot).
+**Hero image:** Object 11, Image 1 (Feeding vessel, hero shot). On the website beside the bottom shelf title.
+
+| Field | Value |
+|---|---|
+| File | [11 Feeding Vessel_MU3368_hero shot_Image1.jpg](../assets/images/objects/bottom/feeding-vessel/11%20Feeding%20Vessel_MU3368_hero%20shot_Image1.jpg) |
+| Caption | 11. Feeding vessel, MU3368, front angled view © Gale History Museum |
+| Alt text | Object 11. Feeding vessel. A small, black ceramic vessel with an enclosed top featuring several incised holes, a narrow handle, a thin pouring spout and a flat base |
 
 ### 9. Feeding cup
 
