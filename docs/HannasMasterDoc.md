@@ -27,7 +27,6 @@ This file reorganises the curator's master document ("G33 Website text master do
 | Top, middle, bottom shelf | Final shelf photos. The website shows placeholder photos of another exhibition's display case ([assets/images/placeholders/](../assets/images/placeholders/)) |
 | Objects 2–11 | Object overview text |
 | Objects 1, 2, 3 | 3D model (none yet) |
-| Objects 4, 5 | 3D link (labelled "View in 3D" but no URL given) |
 
 ## Things to check
 
@@ -156,8 +155,8 @@ TBC (students to fill in).
 | 1 | Top | [Pelike](#1-pelike) | MU4759 | Ceramic | Painter of Bari 8010, Southern Italy, 350-340 B.C.E. Purchase, 2013 | 3 | None yet |
 | 2 | Middle | [Reclining Figure](#2-reclining-figure) | MU4249 | Ceramic | Possibly Rhodian, c.500-400 B.C.E. Bequest of Graham Joyner, 2008. | 3 | None yet |
 | 3 | Middle | [Bronze dancer (replica)](#3-bronze-dancer-replica) | MU0101 | Bronze | Boston, c.1997. Purchased in 1997. Copy of Etruscan bronze, c.525-500 BCE, 01.7482, from the Museum of Fine Arts, Boston | 6 | None yet |
-| 4 | Middle | [Figure of a musician](#4-figure-of-a-musician) | MU0086 | Ceramic | Greece, 7th-6th century B.C.E. Purchased in 1997. | 8 | TBC ("View in 3D", no URL) |
-| 5 | Middle | [Seated statuette](#5-seated-statuette) | MU3735 | Ceramic | Seated statuette Greek, c. 5th century BCE or Mesopotamia, c.3000 B.C.E. MU3735 Purchase, 2003 | 5 | TBC ("View in 3D", no URL) |
+| 4 | Middle | [Figure of a musician](#4-figure-of-a-musician) | MU0086 | Ceramic | Greece, 7th-6th century B.C.E. Purchased in 1997. | 8 | [View](https://macquarie.nira.app/a/e5SWZw6_RRyxpX5EgJtf9g/1) |
+| 5 | Middle | [Seated statuette](#5-seated-statuette) | MU3735 | Ceramic | Seated statuette Greek, c. 5th century BCE or Mesopotamia, c.3000 B.C.E. MU3735 Purchase, 2003 | 5 | [View](https://macquarie.nira.app/a/aoM52vPBQNmANQuVJHCZ1w/1) |
 | 6 | Middle | [Bronze figure of Priapus](#6-bronze-figure-of-priapus) | MU4697 | Bronze | Roman, c.1st-4th century C.E. Purchased in 2012. | 9 | [View](https://macquarie.nira.app/a/hpbtWsRWSQaHaJPHElDtJQ/1) |
 | 7 | Middle | [Terracotta figurine](#7-terracotta-figurine) | MU2676 | Terracotta | Cyprus, c.7th century B.C.E. Purchased in 1986. | 8 | n/a |
 | 8 | Middle | [Amulet of Pataikos](#8-amulet-of-pataikos) | MU0523 | Green Faience | Egypt, Third Intermediate Period or Ptolemaic period, c. 1069 - 664 / 332 - 30 B.C.E. Donation, Prof. Naguib Kanawati, 1980. | 6 | [View](https://macquarie.nira.app/a/S89lZLMKRfCoB5qdh4sjRQ/1) |
@@ -250,7 +249,7 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 | Material | Ceramic |
 | Dimensions | H: 82mm W: 30mm D: 38mm |
 | Details | Greece, 7th-6th century B.C.E. Purchased in 1997. |
-| 3D model | TBC ("View in 3D", no URL) |
+| 3D model | https://macquarie.nira.app/a/e5SWZw6_RRyxpX5EgJtf9g/1 |
 | Audio file | [4. Figure of a musician MU0086.m4a](../assets/audio/4.%20Figure%20of%20a%20musician%20MU0086.m4a) |
 
 **Overview text:** TBC
@@ -276,7 +275,7 @@ The top shelf has a single object, the Pelike. Its overview text is in the objec
 | Material | Ceramic |
 | Dimensions | H: 200mm W: 95mm D: 47mm |
 | Details | Seated statuette Greek, c. 5th century BCE or Mesopotamia, c.3000 B.C.E. MU3735 Purchase, 2003 |
-| 3D model | TBC ("View in 3D", no URL) |
+| 3D model | https://macquarie.nira.app/a/aoM52vPBQNmANQuVJHCZ1w/1 |
 | Audio file | [5. Seated Statuette MU3735.m4a](../assets/audio/5.%20Seated%20Statuette%20MU3735.m4a) |
 
 **Overview text:** TBC

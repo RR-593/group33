@@ -36,6 +36,9 @@ artifacts:
       - url: assets/images/objects/bottom/feeding-cup/9 Feeding Cup_AHM1985053_bottom_image7.jpg
         altText: 9. Feeding cup, a white porcelain cup, with a long pouring spout and small handle. The top of the cup is half enclosed on the spout side to enable the vessel to be tilted. There is an outlining gold decoration applied around the edges of the top of the vessel, and a strip of gold on each side of the pouring spout. The photograph shows the base of the cup, including the museum label, ‘AH85053.’ Another gold line is visible from this angle on the underside of the pouring spout.
         caption: Feeding cup, AHM/1985/053, bottom view © Gale History Museum
+    obj3D:
+      url: https://macquarie.nira.app/a/f0YPLBCJSFiHXUOjfuQ0_w/1
+      altText: Interactive 3D model of Feeding cup, AHM/1985/053.
     audioDescription:
       url: assets/audio/9. Feeding cup AHM1985053.m4a
       transcript: A white porcelain cup, with a long pouring spout and small handle. The top of the cup is half- enclosed on the spout side to enable the vessel to be tilted. There is a gold decorative line applied to the top of the vessel, outlining the rim. A gold line also runs down the side of the spout to the point at which it meets the cup wall, and a gold line is also observed on the vessel’s handle. The faded nature of this line may indicate frequent use of this object.
