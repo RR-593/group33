@@ -2,7 +2,7 @@
 
 **Disability Heritage: Archaeology with Difference**, curated by Hannah Vogel
 
-This file reorganises the curator's master document (raw copy in [tempMasterDoc.md](tempMasterDoc.md)). Exhibition text is copied word for word. `TBC` means the source document has not supplied it yet.
+This file reorganises the curator's master document ("G33 Website text master doc", last compared on 22 November 2026). Exhibition text is copied word for word. `TBC` means the source document has not supplied it yet.
 
 ## Contents
 
@@ -31,19 +31,19 @@ This file reorganises the curator's master document (raw copy in [tempMasterDoc.
 
 ## Things to check
 
-These are inconsistencies spotted in the source document. They have **not** been changed here.
+These are inconsistencies spotted in the source document. They have **not** been changed here, except items 3, 4 and 11, whose typos are fixed here and on the website.
 
 1. **Middle shelf hero image is blank.** The source now gives no file name, the caption is "XX" and the alt text is ".". Object 4, Image 2 (musician hero shot) was the earlier choice.
 2. **Land acknowledgement wording differs.** The home page says "Wallumatta of the Dharug Nation". The About page says "Wallumattagal clan of the Dharug Nation… Their sovereignty was never ceded."
-3. **About page, last paragraph:** "acknowledge that preferences vary" is missing "I".
-4. **"Community of Practise"** should probably be "Practice".
+3. **About page, last paragraph:** "acknowledge that preferences vary" is missing "I". Fixed here; still missing in the source document (22 November 2026).
+4. **"Community of Practise"** should probably be "Practice". Fixed here; still "Practise" in the source document (22 November 2026).
 5. **Caption numbering is inconsistent.** Objects 1–3 and 6–9 drop the "N." prefix that the other objects use.
 6. **Object 3 is a replica made c.1997.** Check that this is how it should be presented next to the ancient objects.
 7. **Object 5 details** were revised to give two attributions: "Greek, c. 5th century BCE or Mesopotamia, c.3000 B.C.E." The line now mixes "BCE" and "B.C.E.", and repeats the accession number.
 8. **Object 8, Image 6 alt text** quotes the museum number as "MU523". The accession number is MU0523. This may be what is literally written on the object.
 9. **Object 9, Image 7 alt text** quotes the label as "AH85053". The accession number is AHM/1985/053.
 10. **Image file names** in the source document have no extension. The actual files are `.jpg`, except the placeholder, which is `.jpeg`.
-11. **Curator bio typos:** "Macquaire" should be "Macquarie", and "has been recognised an emerging research leader" is missing "as".
+11. **Curator bio typos:** "Macquaire" should be "Macquarie", and "has been recognised an emerging research leader" is missing "as". Fixed here and on the Curation page; both typos are still in the source document (22 November 2026).
 12. **Objects 1, 9, 10 and 11 dimensions** give only height and width (no depth).
 13. **Website accessibility text** says the site "will also respect your device’s reduced-motion and high-contrast settings". Reduced motion is handled. High-contrast (forced colours) styles were added in November 2026 and checked in a browser emulation, not yet on a real Windows high-contrast setup.
 14. **Curator photo alt text** says "a caved false door". Probably "carved"; screen readers will read it as written.
@@ -139,7 +139,7 @@ Thanks to the Gale History Museum, Macquarie University for providing access to 
 | Vision Australia | Tactile fabrication, large-print and braille guides |
 | Marcus Arruzza | Video production and digital scans |
 
-I acknowledge [disability] community consultation, was provided by the National Disability Research Partnership staff (especially, Catherine Raffaele and Jess Rosenthal), and the Disability Research Leaders Community of Practice members (especially, Matthew Jackson and Samantha Lilly). Acknowledgments for feedback and consultation also from Dr Alexandra F. Morris, Amy Cripps, Cecily Bateman, Chaya Kasif, Damian Gilbert, Dr David Chapman, Dr Ewan Coopey, Gessika Crowe, Hannah Newman, Jackie Tang, Dr Julia Hamilton, Dr Katie Shead, Louise Pryke, Marianne Strauss, Narges Safari, Nicole Leong, Penelope Blake, Prof Ronika Power, Sarah Massingham, Taylah Evans and many other community members who have elected to remain anonymous.
+I acknowledge [disability] community consultation, was provided by the National Disability Research Partnership staff (especially, Catherine Raffaele and Jess Rosenthal), and the Disability Research Leaders Community of Practice members (especially, Matthew Jackson and Samantha Lilly). Acknowledgments for feedback and consultation also from Dr Alexandra F. Morris, Amy Cripps, Cecily Bateman, Chaya Kasif, Damian Gilbert, Dr David Chapman, Dr Ewan Coopey, Gessika Crowe, Hannah Newman, Jackie Tang, Dr Julia Hamilton, Dr Katie Shead, Dr Louise Pryke, Marianne Strauss, Dr Narges Safari, Nicole Leong, Penelope Blake, Prof Ronika Power, Sarah Massingham, Taylah Evans and many other community members who have elected to remain anonymous.
 
 Special thanks to Hannah Newman and Dr Brian Ballsun-Stanton for their work supporting the administrative and technical development of this exhibition and associated website.
 
