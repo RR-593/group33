@@ -1,7 +1,10 @@
-# Audits every built page on desktop and mobile: Lighthouse scores against pass marks
+# Audits built pages on desktop and mobile: Lighthouse scores against pass marks
 # (_scripts/lighthouse-report.mjs) plus an axe-core WCAG 2.2 A/AA check
 # (_scripts/axe-report.mjs). Both say which page and what failed, in the job summary and
 # one pull request comment; full reports are saved as run artifacts. Never blocks merging.
+# On a pull request only pages whose built HTML changed are audited, so a change that
+# leaves every page the same (a new favicon, say) skips the audit. A change to the
+# stylesheet, scripts, fonts, _scripts/ or .github/ audits every page.
 name: Lighthouse
 
 on:
@@ -15,13 +18,25 @@ permissions:
 
 jobs:
   # Builds the site once, as pages.yml does, so the audit sees what visitors get. Both
-  # device audits below use this copy; they need Node but not Ruby or ImageMagick
+  # device audits below use this copy; they need Node but not Ruby or ImageMagick.
+  # On a pull request it also builds main as it stands (base), to find changed pages
   build:
+    name: build (${{ matrix.side }})
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      matrix:
+        side: ${{ github.event_name == 'pull_request' && fromJSON('["head","base"]') || fromJSON('["head"]') }}
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 2  # the pull request's merge commit and main before it
+
+      # the merge commit's first parent is main as this pull request would land on it
+      - name: Switch to main before the pull request
+        if: ${{ matrix.side == 'base' }}
+        run: git checkout --quiet HEAD^1
 
       - name: Prepare site
         uses: ./.github/actions/prepare-site
@@ -34,13 +49,66 @@ jobs:
       - name: Save built site
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: site
+          name: site-${{ matrix.side }}
           path: ${{ runner.temp }}/site
           retention-days: 1  # only needed by the audits in this run
 
+  # Which pages to audit: every page, or on a pull request only pages whose HTML differs
+  # from main's (ignoring favicon links). Empty when nothing visible changed
+  pages:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      paths: ${{ steps.pages.outputs.paths }}
+    steps:
+      - name: Check out repository  # to list the files the pull request changed
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 2
+
+      - name: Get built sites
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: site-*
+          path: ${{ runner.temp }}
+
+      - name: List pages
+        id: pages
+        working-directory: ${{ runner.temp }}/site-head
+        run: |
+          all=$(find group33 -name index.html | sed 's|index\.html$||' | sort)
+          base="$RUNNER_TEMP/site-base"
+          strip() { grep -vE 'rel="(icon|apple-touch-icon|manifest)"' "$1" 2>/dev/null; }
+          shared_changed() {
+            for dir in assets/css assets/js assets/fonts; do
+              diff -rq "group33/$dir" "$base/group33/$dir" > /dev/null 2>&1 || return 0
+            done
+            return 1
+          }
+
+          if [ "$GITHUB_EVENT_NAME" != pull_request ]; then
+            paths=$all; why="not a pull request, so every page"
+          elif git -C "$GITHUB_WORKSPACE" diff --name-only HEAD^1 HEAD | grep -qE '^(_scripts|\.github)/'; then
+            paths=$all; why="audit tools or workflows changed, so every page"
+          elif shared_changed; then
+            paths=$all; why="stylesheet, scripts or fonts changed, so every page"
+          else
+            paths=""; why="pages whose HTML changed"
+            for page in $all; do
+              cmp -s <(strip "$page/index.html") <(strip "$base/$page/index.html") || paths="$paths $page"
+            done
+          fi
+
+          paths=$(echo $paths)
+          echo "Auditing $why: ${paths:-none}"
+          echo "**Pages to audit** ($why): ${paths:-none}" >> "$GITHUB_STEP_SUMMARY"
+          echo "paths=$paths" >> "$GITHUB_OUTPUT"
+
   audit-device:
     name: audit (${{ matrix.device }})
-    needs: build
+    needs: pages
+    if: ${{ needs.pages.outputs.paths != '' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
@@ -62,7 +130,7 @@ jobs:
       - name: Get built site
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
-          name: site
+          name: site-head
           path: ${{ runner.temp }}/site
 
       - name: Set up Node
@@ -82,20 +150,11 @@ jobs:
           node _scripts/serve.mjs "$RUNNER_TEMP/site" 4173 &
           curl --fail --silent --show-error --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:4173/group33/ > /dev/null
 
-      # every built page, so new pages are audited without editing this file
-      - name: List pages
-        id: pages
-        working-directory: ${{ runner.temp }}/site
-        run: |
-          paths=$(find group33 -name index.html | sed 's|index\.html$||' | sort)
-          echo "Auditing:" $paths
-          echo "paths=$(echo $paths)" >> "$GITHUB_OUTPUT"
-
       - name: Check WCAG 2.2 A/AA (axe-core)
         id: axe
         env:
           AXE_OUT: ${{ runner.temp }}/reports
-        run: CHROME="$(command -v google-chrome)" node _scripts/axe-report.mjs http://127.0.0.1:4173 ${{ matrix.device }} ${{ steps.pages.outputs.paths }}
+        run: CHROME="$(command -v google-chrome)" node _scripts/axe-report.mjs http://127.0.0.1:4173 ${{ matrix.device }} ${{ needs.pages.outputs.paths }}
 
       # one HTML report (to read) and one JSON report (for the summary) per page. A page
       # Lighthouse itself crashes on is skipped with a warning, so the others still report
@@ -105,7 +164,7 @@ jobs:
           CHROME_PATH: /usr/bin/google-chrome
           PRESET: ${{ matrix.device == 'desktop' && '--preset=desktop' || '' }}
         run: |
-          for page in ${{ steps.pages.outputs.paths }}; do
+          for page in ${{ needs.pages.outputs.paths }}; do
             name=$(echo "$page" | tr '/' '-' | sed 's/-$//')
             _scripts/node_modules/.bin/lighthouse "http://127.0.0.1:4173/$page" $PRESET --quiet \
               --chrome-flags="--headless=new --no-sandbox" \
@@ -152,7 +211,7 @@ jobs:
 
   # One comment per pull request with both devices' Lighthouse and WCAG tables, updated on each run
   comment:
-    needs: audit-device
+    needs: [pages, audit-device]
     if: ${{ !cancelled() && github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     permissions:
@@ -165,7 +224,13 @@ jobs:
           GH_REPO: ${{ github.repository }}
           PR: ${{ github.event.pull_request.number }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          PATHS: ${{ needs.pages.outputs.paths }}
         run: |
+          if [ -z "$PATHS" ]; then
+            printf '## Lighthouse and WCAG checks\n\nNo page changed, so nothing was audited. See [this run](%s).\n' "$RUN_URL" > comment.md
+            gh pr comment "$PR" --body-file comment.md --edit-last --create-if-none
+            exit 0
+          fi
           gh run download "$GITHUB_RUN_ID" --pattern 'lighthouse-reports-*' --dir reports || true
           for device in desktop mobile; do
             for check in lighthouse wcag; do
